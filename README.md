@@ -1,17 +1,3 @@
-Building Sen2Three Distribution Package
-----------------------------------------
-
-	cd SEN2THREE/sources
-  	python setup.py sdist --formats=gztar,zip
-  creates the distribution packages under sources/dist
-
-Building Sen2Three HTML Help
-----------------------------
-
-	cd SEN2THREE/documentation
-  	make html
-  creates HTML pages under build/html
-  
 Unpack the Online Documentation
 -------------------------------
 
@@ -25,3 +11,18 @@ Install Sen2Three Runtime
 
   open index.html and read Section 1.3 Installation and Setup
   of the Software Installation and Users Manual
+
+Building Sen2Three Distribution Package
+----------------------------------------
+
+	cd SEN2THREE/sources
+  	python setup.py sdist --formats=gztar,zip
+  creates the distribution packages under sources/dist
+
+Building Sen2Three HTML Help
+----------------------------
+
+	cd SEN2THREE/documentation
+  	make html
+  creates HTML pages under build/html
+
