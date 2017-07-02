@@ -9,8 +9,7 @@ Unpack the Online Documentation
 Install Sen2Three Runtime
 -------------------------
 
-  open index.html and read Section 1.3 Installation and Setup
-  of the Software Installation and Users Manual
+  read the file installation.md 
 
 Building Sen2Three Distribution Package
 ----------------------------------------
