@@ -35,6 +35,7 @@ this bug. Details are described here:
 https://bugzilla.gnome.org/show_bug.cgi?id=766834
 
 If you are confronted with an error like:
+
 	Syntax error in metadata, see report file for details.
 	Parsing error:
 	Schema file: L3_GIPP.xsd
