@@ -1,4 +1,4 @@
-Building Sen2Three distribution package
+Building Sen2Three Distribution Package
 ----------------------------------------
 
 	cd SEN2THREE/sources
@@ -20,7 +20,7 @@ Unpack the Online Documentation
   	cd sen2three-1.0.0.htmldoc/html
   open index.html with a web browser
     
-Install Sen2Three runtime
+Install Sen2Three Runtime
 -------------------------
 
   open index.html and read Section 1.3 Installation and Setup
