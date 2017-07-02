@@ -1,4 +1,4 @@
-Building Sen2Three disctribution package
+Building Sen2Three distribution package
 ----------------------------------------
 
 	cd SEN2THREE/sources
