@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   Sentinel-SAFE - Sentinel Format
+   Copyright (C) 2011 European Space Agency (ESA)
+   Copyright (C) 2011 Consultant
+   GNU Lesser General Public License (LGPL)
+   
+   This file is part of Sentinel-SAFE
+   
+   Sentinel-SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   Sentinel-SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+   
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<xs:schema xmlns:xs ="http://www.w3.org/2001/XMLSchema"
+           xmlns    ="namespaceN"
+            
+           targetNamespace="namespaceN">
+  
+  <xs:element name="house" type="houseType">
+  </xs:element>
+
+  <xs:complexType name="houseType">
+    <xs:sequence>
+
+      <xs:element name="livingRoom" type="livingRoomType"
+                  minOccurs="1" maxOccurs="1"/>
+
+      <xs:element name="chimney" type="chimneyType"
+                  minOccurs="0" maxOccurs="1"/>
+
+      <xs:element name="room" type="roomType"
+                  minOccurs="1" maxOccurs="unbounded"/>
+
+    </xs:sequence>
+    <xs:attribute name="color" type="colorType"
+                  use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="livingRoomType">
+    <xs:attribute name="TV" type="TVType"/>
+  </xs:complexType>
+
+  <xs:complexType name="chimneyType">
+    <xs:sequence>
+      <xs:element name="toto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="roomType">
+    <xs:sequence>
+      <xs:element name="toto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="colorType">
+     <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="TVType">
+     <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,698 @@
+<!--Conforms to w3c http://www.w3.org/2001/XMLSchema-->
+<xsd:schema targetNamespace="urn:ccsds:schema:xfdu:1" 
+			xmlns:xfdu="urn:ccsds:schema:xfdu:1" 
+			xmlns:xsd = "http://www.w3.org/2001/XMLSchema"
+	 		elementFormDefault = "unqualified"
+			attributeFormDefault = "unqualified">
+
+	<xsd:simpleType name="locatorTypeType">
+		<xsd:restriction base = "xsd:string">
+			<xsd:enumeration value="URL"/>
+			<xsd:enumeration value="OTHER"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="otherLocatorTypeType">
+		<xsd:restriction base = "xsd:string"/>
+	</xsd:simpleType>
+	<xsd:attributeGroup name = "LOCATION">
+		<xsd:annotation>
+			<xsd:documentation>
+				This attribute group aggregates attributes that can be used for specifying type of location
+				This group includes following attributes:
+				locatorType specifies location type (URL or OTHER)
+				otherLocatorType specifies location type in case locatorType has value of OTHER
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name = "locatorType" use = "required" type="xfdu:locatorTypeType">
+		</xsd:attribute>
+		<xsd:attribute name = "otherLocatorType" type = "xfdu:otherLocatorTypeType"/>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name = "registrationGroup">
+		<xsd:annotation>
+			<xsd:documentation>
+				This attribute group aggregates attributes that can be used for specifying 
+				registration information.
+				This group includes following attributes:
+				registrationAuthority - the authority that issued the registration
+				registeredID - the id for the registration			
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name = "registrationAuthority" type = "xsd:string" use = "optional"/>
+		<xsd:attribute name = "registeredID" type = "xsd:string" use="optional"/>
+	</xsd:attributeGroup>
+	<xsd:simpleType name="vocabularyNameType">
+		<xsd:restriction base = "xsd:string"/>
+	</xsd:simpleType>	
+	<xsd:simpleType name="versionType">
+		<xsd:annotation>
+			<xsd:documentation>
+				Entity of this type is used to indicated version of XFDU XML schema
+			</xsd:documentation>
+		</xsd:annotation>		
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>	
+	<xsd:simpleType name = "mimeTypeType">
+		<xsd:restriction base = "xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name = "checksumNameType">
+		<xsd:restriction base = "xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="combinationMethodType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="concat"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attribute name = "namespace" type = "xsd:string"/>
+	<xsd:complexType name="sequenceInformationType">
+		<xsd:annotation>
+			<xsd:documentation>
+				An element of this type encapsulates information about the  position of the encapsulating XFDU 
+				package In a sequence of physical XFDU packages that form the identified logical XFDU unit. 
+				The sequencePosition element is a string that acts as an identifier for the logical XFDU .
+				SequenceInformationType has two mandatory attributes:
+				1. sequencePosition - the position of this XFDU package in the sequence; if 0 is specified
+				and sequenceSize is unknown it means that it is last in the sequence
+				2. sequenceSize - the total number of packages in the sequence; if its value is 0 this means
+				size is unknown
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base = "xsd:string">
+				<xsd:attribute name = "sequencePosition" type = "xsd:nonNegativeInteger" use="required"/>
+				<xsd:attribute name = "sequenceSize" type = "xsd:nonNegativeInteger" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name = "referenceType">
+		<xsd:annotation>
+			<xsd:documentation>
+				locator attribute allows finer granularity withing location specified in href
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name = "ID" type = "xsd:ID"/>
+		<xsd:attribute name = "textInfo" type = "xsd:string"/>
+		<xsd:attributeGroup ref = "xfdu:LOCATION"/>
+		<xsd:attribute name = "href" type="xsd:string"/>
+		<xsd:attribute name="locator" type="xsd:string" use="optional" default="/"/>		
+	</xsd:complexType>
+	<xsd:complexType name = "checksumInformationType">
+		<xsd:annotation>
+			<xsd:documentation>
+				An element of this type would convey checksum information: checksum value and type of checksum
+				(algorithm) used to compute the value 
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base = "xsd:string">
+				<xsd:attribute name = "checksumName" type = "xfdu:checksumNameType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name = "metadataObjectType">
+		<xsd:annotation>
+			<xsd:documentation>metadataObjectType Complex Type A generic
+			framework for pointing to/including metadata within a XFDU
+			document, a la Warwick Framework. An mdSec element may have the
+			following attributes: 
+			1. ID: an XML ID for this element. 
+			2. classification - concrete type of metadata represented by this element of metadataObjectType
+			3. category - type of metadata class to which this metadata belongs (e.g. DMD.REP, etc.)
+			4. otherClass - type of metadata in case classification contains value of "OTHER"
+			5. otherCategory - type of metadata class in case category contains value of "OTHER"
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "metadataReference" type = "xfdu:metadataReferenceType" minOccurs = "0"/>
+			<xsd:element name = "metadataWrap" type = "xfdu:metadataWrapType" minOccurs = "0"/>
+			<xsd:element name = "dataObjectPointer" type = "xfdu:dataObjectPointerType" minOccurs = "0"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" use = "required" type = "xsd:ID"/>
+		<xsd:attribute name = "classification">
+			<xsd:simpleType>
+				<xsd:restriction base = "xsd:string">
+					<xsd:enumeration value = "DED"/>
+					<xsd:enumeration value = "SYNTAX"/>
+					<xsd:enumeration value = "FIXITY"/>
+					<xsd:enumeration value = "PROVENANCE"/>
+					<xsd:enumeration value = "CONTEXT"/>
+					<xsd:enumeration value = "REFERENCE"/>
+					<xsd:enumeration value = "DESCRIPTION"/>
+					<xsd:enumeration value = "OTHER"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name = "category">
+			<xsd:simpleType>
+				<xsd:restriction base = "xsd:string">
+					<xsd:enumeration value = "REP"/>
+					<xsd:enumeration value = "PDI"/>
+					<xsd:enumeration value = "DMD"/>
+					<xsd:enumeration value = "OTHER"/>
+					<xsd:enumeration value = "ANY"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name = "otherClass" type = "xsd:string"/>
+		<xsd:attribute name = "otherCategory" type = "xsd:string"/>
+	</xsd:complexType>
+	<xsd:simpleType name="specificationVersionType">
+		<xsd:annotation>
+			<xsd:documentation>
+				Entity of this type is used to indicated CCSDS-bound version of XFDU specification
+			</xsd:documentation>
+		</xsd:annotation>		
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>	
+	<xsd:complexType name="environmentInfoType">
+		<xsd:annotation>
+			<xsd:documentation>
+				Environment info provides meta information related to environment where where the XFDU was created.
+				Since environment information maybe specific to concrete XFDU producer, environment information can have
+				only two optional elements:
+				-xmlData - can hold application specific information.
+				-wild card that serves as extension point for other applications
+			</xsd:documentation>
+		</xsd:annotation>
+			<xsd:sequence>
+				<xsd:element name = "xmlData" type = "xfdu:xmlDataType" minOccurs = "0" maxOccurs = "unbounded"/>
+				<xsd:element name="extension" type="xfdu:extensionType" minOccurs="0"/>						
+			</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="volumeInfoType">
+		<xsd:annotation>
+			<xsd:documentation>
+				Contains XFDU volume information. 
+				It can have one mandatory element - specificationVersion, which specifies
+				specification information of XFDU under which this manifest was created.
+				Additionally it has optional sequenceInformation that holds information about 
+				sequence of XFDUs and position of the current one in it.				
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="specificationVersion" type="xfdu:specificationVersionType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="sequenceInformation" type="xfdu:sequenceInformationType" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name = "packageHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>packageHeaderType: Complex Type for metadata about the
+			mapping of the logical packages to the physical structures. The
+			package header type has two elements:
+			- volumeInfo - holds XFDU volume related info( XFDU specification version and sequence information).
+			- environmentInfo (specification of the hardware and software
+			platform which created this package as well as other application specific enformation). packageHeaderType has a single
+			attribute, ID: an XML ID.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "volumeInfo" type="xfdu:volumeInfoType"/>			
+			<xsd:element name = "environmentInfo" type="xfdu:environmentInfoType" minOccurs = "0" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" type = "xsd:ID" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name = "metadataReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>metadataReferenceType: metadata reference. An element of metadataReferenceType is a
+			generic element used throughout the XFDU schema to provide a
+			pointer to metadata which resides outside the XFDU document. metadataReferenceType
+			has the following attributes: 1. ID: an XML ID; 2. locatorType: the
+			type of locator contained in the body of the element; 3.
+			otherLocatorType: a string indicating an alternative type of locator when
+			the locatorType attribute value is set to "OTHER."; 4. href: actual location (e.g. URL)
+			5. mimeType: the MIME type for the metadata
+			being pointed at; 6. vocabularyName: the type of metadata being pointed
+			at (e.g., MARC, EAD, etc.); 7. textInfo: a label to display to the viewer of the
+			XFDU document identifying the metadata; and NB: metadataReference is an empty element. The location of the
+			metadata must be recorded in the href attribute.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base = "xfdu:referenceType">
+				<xsd:attribute name="vocabularyName" type="xfdu:vocabularyNameType"/>
+				<xsd:attribute name = "mimeType" type = "xfdu:mimeTypeType"/>				
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name = "xmlDataType">
+		<xsd:annotation>
+			<xsd:documentation>A wrapper to contain arbitrary XML content.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:any namespace="##any" processContents = "lax" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name = "fileContentType">
+		<xsd:annotation>
+			<xsd:documentation>
+				fileContentType encapsulates and aggregates a type that can have a choice of either
+				binary or xml data
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice>
+			<xsd:element name = "binaryData" type = "xsd:base64Binary" minOccurs = "0">
+				<xsd:annotation>
+					<xsd:documentation>A wrapper to contain Base64 encoded metadata.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name = "xmlData" type = "xfdu:xmlDataType" minOccurs = "0"/>
+		</xsd:choice>
+		<xsd:attribute name = "ID" type = "xsd:ID"/>
+	</xsd:complexType>
+	<xsd:complexType name = "metadataWrapType">
+		<xsd:annotation>
+			<xsd:documentation>metadataWrapType: metadata wrapper. An element of metadataWrapType is a
+			generic element used throughout the XFDU schema to allow the
+			encoder to place arbitrary metadata conforming to other
+			standards/schema within a XFDU document.  The metadataWrapType
+			can have the following attributes: 1. ID: an XML ID for
+			this element; 2. mimeType: the MIME type for the metadata
+			contained in the element; 3. vocabularyName: the type of metadata
+			contained (e.g., MARC, EAD, etc.); 4. textInfo: a label to display to the viewer
+			of the XFDU document identifying the metadata.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base = "xfdu:fileContentType">
+				<xsd:attribute name = "mimeType" type = "xfdu:mimeTypeType"/>
+				<xsd:attribute name = "textInfo" type = "xsd:string"/>
+				<xsd:attribute name="vocabularyName" type="xfdu:vocabularyNameType"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name = "dataObjectPointerType">
+		<xsd:annotation>
+			<xsd:documentation>
+				The dataObjectPointerType is a type that can be used to reference dataObjects by dataObjectID.
+				The dataObjectPointerType has two attributes: 
+				1. ID: an XML ID for this element; and 
+				2. dataObjectID: an IDREF to a dataObject element
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name = "ID" type = "xsd:ID"/>
+		<xsd:attribute name = "dataObjectID" use = "required" type = "xsd:IDREF"/>
+	</xsd:complexType>
+	<xsd:complexType name = "keyDerivationType">
+		<xsd:annotation>
+			<xsd:documentation>key derivation type contains the information
+			that was used to derive the encryption key for this dataObject. 
+			Key derivation type contains: 
+			 name - name of algorithm used
+			salt - 16-byte random seed used for that algorithm initialization
+			iterationCount - number of iterations used by the algorithm to derive the key
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name = "name" use = "required" type = "xsd:string"/>
+		<xsd:attribute name = "salt" use = "required">
+			<xsd:simpleType>
+				<xsd:restriction base = "xsd:string">
+					<xsd:length value = "16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name = "iterationCount" use = "required" type = "xsd:long"/>
+	</xsd:complexType>
+	<xsd:element name = "abstractKeyDerivation" type = "xfdu:keyDerivationType" abstract = "true">
+		<xsd:annotation>
+			<xsd:documentation>
+			abstractKeyDerivation is declared abstract 
+			so that it can be used for element substitution in cases when default key derivation is not
+			sufficient. In order for creating more specific key derivation constructs, one would have to 
+			extend from keyDerivationType to a concrete type, and then create an element of that new type. Finally,
+			in an instance of XML governed by this schema, the reference to key derivation in an instance of 
+			transformObject element would point not to instance of keyDerivation element, but rather instance of the 
+			custom element. In other words, keyDerivation would be SUBSTITUTED with a concrete key derivation element.
+			In cases where default functionality is sufficient, the provided defaultKeyDerivation element can be used for the
+			substitution.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name = "keyDerivation" type = "xfdu:keyDerivationType" substitutionGroup = "xfdu:abstractKeyDerivation">
+		<xsd:annotation>
+			<xsd:documentation>
+				Default implementation of key derivation type.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name = "transformObjectType">
+		<xsd:annotation>
+			<xsd:documentation>transformObjectType: transformation information An element
+			of transformObjectType contains all of the information required to reverse the
+			transformations applied to the original contents of the dataObject. It
+			has two possible subsidiary elements: The algorithm element
+			contains information about the algorithm used to encrypt the
+			data. The key-derivation element contains the information that
+			was used to derive the encryption key for this dataObject It has three
+			attributes: 1. ID: an XML ID 2. transformType: one of n predefined
+			transformations types. Current valid types are compression,
+			encryption, authentication. 3. order: If there are more than one
+			transformation elements in an dataObject this integer indicates
+			the order in which the reversal transformations should be applied.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "algorithm" type = "xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>algorithm element contains information
+						about the algorithm used to encrypt the data. 
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref = "xfdu:abstractKeyDerivation" minOccurs = "0" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" type = "xsd:ID"/>
+		<xsd:attribute name = "order" type = "xsd:string"/>
+		<xsd:attribute name = "transformType" use = "required">
+			<xsd:simpleType>
+				<xsd:restriction base = "xsd:string">
+					<xsd:enumeration value = "COMPRESSION"/>
+					<xsd:enumeration value = "AUTHENTICATION"/>
+					<xsd:enumeration value = "ENCRYPTION"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name = "byteStreamType">
+		<xsd:annotation>
+			<xsd:documentation>byteStreamType: An element of  byteStreamType
+			provides access to the current content of dataObjects for a XFDU
+			document. The byteStreamType: has the following four attributes: ID (an XML ID);
+			mimeType: the MIME type for the dataObject; size: the size of the dataObject
+			in bytes.
+			Checksum information provided via option checksum element.
+			The data contained in these attributes is relevant to final state of data object after all possible transformations of the original data.		
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "fileLocation" type = "xfdu:referenceType" minOccurs = "0" maxOccurs = "unbounded"/>
+			<xsd:element name = "fileContent" type = "xfdu:fileContentType" minOccurs = "0"/>
+			<xsd:element name="checksum" type="xfdu:checksumInformationType" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" use = "optional" type = "xsd:ID"/>
+		<xsd:attribute name = "mimeType" type = "xfdu:mimeTypeType"/>
+		<xsd:attribute name = "size" type = "xsd:long"/>
+	</xsd:complexType>
+	<xsd:complexType name = "dataObjectType">
+		<xsd:annotation>
+			<xsd:documentation>dataObjectType : An element of dataObjectType
+			contains current byteStream content and any required data to restore
+			them to the form intended for the original designated community.
+			It has two possible subsidiary elements: The byteStream element
+			provides access to the current content dataObjects for an XFDU
+			document. An element of dataObjectType must contain 1 or many byteStream element
+			that may contain an fileLocation element, which provides a pointer to
+			a content byteStream, and/or an fileContent element, which wraps an
+			encoded version of the dataObject. An element of dataObjectType may contain one or
+			more transformation elements that contain all of the
+			information required to reverse each transformation applied to
+			the dataObject and return the original binary data object. 
+			The dataObjectType has the following attributes: 1. ID: an XML ID
+			2, mimeType: the MIME type for the dataObject 3. size: the size of the dataObject
+			in bytes 4. checksum: a checksum for dataObject. Checksum information provided via optional checksum element.
+			repID list of representation metadata IDREFs. The size, checksum, and 
+			mime type are related to the original data before any transformations occured.	
+			5. combinationName - specifies if multiple byteStream objects are meant to be concatenated
+			6. registrationGroup attribute group that provides registration information
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "byteStream" type = "xfdu:byteStreamType" minOccurs="1" maxOccurs="unbounded"/>
+			<xsd:element name="checksum" type="xfdu:checksumInformationType" minOccurs="0" maxOccurs="1"/>			
+			<xsd:sequence>
+				<xsd:element name = "transformObject" type = "xfdu:transformObjectType" minOccurs = "0" maxOccurs = "unbounded"/>
+			</xsd:sequence>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" type = "xsd:ID" use="required"/>
+		<xsd:attribute name = "repID" type = "xsd:IDREFS"/>
+		<xsd:attribute name = "mimeType" type = "xfdu:mimeTypeType"/>
+		<xsd:attribute name = "size" type = "xsd:long"/>
+		<xsd:attribute name="combinationName" type="xfdu:combinationMethodType" use="optional"/>				
+		<xsd:attributeGroup ref = "xfdu:registrationGroup"/>		
+	</xsd:complexType>
+	<xsd:complexType name = "dataObjectSectionType">
+		<xsd:annotation>
+			<xsd:documentation>dataObjectSectionType : a container for one or more elements of dataObjectType
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "dataObject" type = "xfdu:dataObjectType" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="extensionType">
+		<xsd:sequence>
+			<xsd:any namespace="##other" processContents="lax"></xsd:any>
+		</xsd:sequence>
+		<xsd:anyAttribute namespace="##other" processContents="lax"/>
+	</xsd:complexType>	
+	
+	
+	<xsd:complexType name = "contentUnitType">
+		<xsd:annotation>
+			<xsd:documentation>ContentUnit Complex Type The XFDU standard
+			represents a data package structurally as a series of nested
+			content units, that is, as a hierarchy (e.g., a data product,
+			which is composed of datasets, which are composed of time
+			series, which are composed of records). Every content node in
+			the structural map hierarchy may be connected (via subsidiary
+			XFDUPointer or dataObjectPointer elements) to information objects which
+			represent that unit as a portion of the whole package. The content
+			units element has the following attributes: 
+			1.ID (an XML ID);
+			2.order: an numeric string (e.g., 1.1, 1.2.1, 3,) representation
+			of this unit's order among its siblings (e.g., its sequence); order attribute is not meant to be used
+			for processing purposes. It is here only for visualization purposes of the potential reader of XML instance.
+			It is not guaranteed that any software will take value of order attribute into account. contentUnit nesting is
+			the primary means for determining order and level of the content information. 
+			3.textInfo: a string label to describe this contentUnit to an end
+			user viewing the document, as per a table of contents entry
+			4.repID: a set of IDREFs to representation information sections
+			within this XFDU document applicable to this contentUnit.
+			5.dmdID: a set of IDREFS to descriptive information sections
+			within this XFDU document applicable to this contentUnit.
+			6.pdiID: a set of IDREFS to preservation description information
+			sections within this XFDU document applicable to this
+			contentUnit 
+			7.anyMdID: a set of IDREFS to any other metadata sections that do not fit
+			rep,dmd or pdi metdata related to this  contentUnit
+			8.unitType: a type of content unit (e.g., Application
+			Data Unit, Data Description Unit, Software Installation Unit, etc.).
+			contentUnitType is declared as a base type for concrete implementations of contentUnit;
+			9. behaviorID-an XML ID reference pointing to associate behavior.
+			10. anyAttribute - wild-carded attribute extension point
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="extension" type="xfdu:extensionType" minOccurs="0"/>			
+			<xsd:element name = "XFDUPointer" type = "xfdu:referenceType" minOccurs = "0" maxOccurs = "unbounded">
+				<xsd:annotation>
+					<xsd:documentation>XFDUPointer:XFDU Pointer. The XFDUPointer element allows a
+					content unit to be associated with a separate XFDU containing
+					the content corresponding with that contentUnit, rather than
+					pointing to one or more internal dataObjects. A typical instance of
+					this would be the case of a thematic data product that collects
+					data products from several instruments observe an event of
+					interest. The content units for each instrument datasets might
+					point to separate XFDUs, rather than having dataObjects and dataObject
+					groups for every dataset encoded in one package. The XFDUPointer
+					element may have the following attributes: ID: an XML ID for
+					this element locatorType: the type of location contained in the
+					href attribute; otherLocatorType: a string to indicate an
+					alternative locator type if the locatorType attribute itself has a value
+					of "OTHER." NOTE: XFDUPointer
+					is an empty element. The location of the resource pointed to
+					MUST be stored in the href attribute.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name = "dataObjectPointer" type = "xfdu:dataObjectPointerType" minOccurs = "0" maxOccurs = "unbounded"/>
+			<xsd:element ref = "xfdu:abstractContentUnit" minOccurs = "0" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" type = "xsd:ID" use="optional"/>
+		<xsd:attribute name = "order" type = "xsd:string"/>
+		<xsd:attribute name = "unitType" type = "xsd:string"/>
+		<xsd:attribute name = "textInfo" type = "xsd:string"/>
+		<xsd:attribute name = "repID" type = "xsd:IDREFS"/>
+		<xsd:attribute name = "dmdID" type = "xsd:IDREFS"/>
+		<xsd:attribute name = "pdiID" type = "xsd:IDREFS"/>
+		<xsd:attribute name = "anyMdID" type = "xsd:IDREFS"/>
+		<xsd:attribute name = "behaviorID" type = "xsd:IDREF"/>
+		<xsd:anyAttribute namespace="##other" processContents="lax" /> 				
+	</xsd:complexType>
+	<xsd:element name = "abstractContentUnit" type = "xfdu:contentUnitType" abstract = "true">
+		<xsd:annotation>
+			<xsd:documentation>abstractContentUnit is abstract implementation of
+			contentUnitType. It cannot be instantiated in the instance
+			document. Instead, concrete implementations would have to be
+			used which are declared part of contentUnit substitutionGroup
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name = "contentUnit" type = "xfdu:contentUnitType" substitutionGroup = "xfdu:abstractContentUnit">
+		<xsd:annotation>
+			<xsd:documentation>contentUnit is a basic concrete
+				implementation of an abstract contentUnit. Its instance can be used
+				in the instance document in the place where contentUnit declared
+				to be present.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name = "informationPackageMapType">
+		<xsd:annotation>
+			<xsd:documentation>informationPackageMapType Complex Type The Information Package Map
+				outlines a hierarchical structure for the
+				original object being encoded, using a series of nested
+				contentUnit elements. An element of informationPackageMapType has the following
+				attributes: ID: an XML ID for the element; packageType: a type for the object, e.g., 
+				book, journal, stereograph, etc., anyAttribute - wild-carded attribute extension point.
+				Typical values for packageType attribute will be"AIP" for a
+				map which describes a complete AIP obeying all constraints and
+				cardinalities in the OAIS reference model "SIP" for a map which
+				describes a Submission Information Package textInfo: a string to
+				describe the informationPackageMap to users. 
+				Concrete implementation of abstractContentUnit (contentUnit etc) have to be used in the instance document.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref = "xfdu:abstractContentUnit" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" type = "xsd:ID" use="optional"/>
+		<xsd:attribute name = "packageType" type = "xsd:string"/>
+		<xsd:attribute name = "textInfo" type = "xsd:string"/>
+		<xsd:anyAttribute namespace="##other" processContents="lax"/>
+	</xsd:complexType>
+	<xsd:complexType name = "interfaceDefinitionType">
+		<xsd:annotation>
+			<xsd:documentation>interfaceDefinitionType: interface definition object. The
+				interface definition type contains a pointer to an abstract
+				definition of a set of related behaviors. These abstract
+				behaviors can be associated with the content of a XFDU object.
+				The interface definition element will be a pointer to another
+				object (an interface definition object). An interface definition
+				object could be another XFDU object, or some other entity (e.g.,
+				a WSDL source). Ideally, an interface definition object should
+				contain metadata that describes a set of behaviors or methods.
+				It may also contain files that describe the intended usage of
+				the behaviors, and possibly files that represent different
+				expressions of the interface definition. 
+				interfaceDefinition extends from referenceType and adds ability of specifying inputParameter 
+				that can be either just a string value or pointer to the content in this package
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base = "xfdu:referenceType">
+				<xsd:sequence>
+					<xsd:element name = "inputParameter" minOccurs = "0" maxOccurs = "unbounded">
+						<xsd:complexType mixed = "true">
+							<xsd:sequence>
+								<xsd:element name = "dataObjectPointer" type = "xfdu:dataObjectPointerType" minOccurs = "0"/>
+							</xsd:sequence>
+							<xsd:attribute name = "name" use = "required" type = "xsd:string"/>
+							<xsd:attribute name = "value" type = "xsd:string"/>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name = "behaviorObjectType">
+		<xsd:annotation>
+			<xsd:documentation>behaviorObjectType: Complex Type for Behaviors. A
+				behavior object can be used to associate executable behaviors
+				with content in the XFDU object. A behavior object has an
+				interface definition element that represents an abstract
+				definition of the set of behaviors represented by a particular
+				behavior object. An behavior object may have the following
+				attributes: 1. ID: an XML ID for the element 2. structID: IDREFS
+				to information package map sections or divs within a information package map in the XFDU
+				document.
+				3. behaviorType: a behavior type
+				identifier for a given set of related behaviors. 4. created:
+				date this behavior object of the XFDU object was created. 5.
+				textInfo: a description of the type of behaviors this object
+				represents. 6. groupID: an identifier that establishes a
+				correspondence between this behavior object and other behavior
+				objects. Typically, this will be used to facilitate versioning
+				of behavior objects.  Behavior  object may also include another behavior object for 
+				chaining of behaviors.Concrete implementation of mechanism have to be used in the instance document.								
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "interfaceDefinition" type = "xfdu:interfaceDefinitionType"/>
+			<xsd:element ref = "xfdu:abstractMechanism" minOccurs="0" maxOccurs="unbounded"/>			
+			<xsd:element name = "behaviorObject" type = "xfdu:behaviorObjectType" minOccurs = "0" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" use = "required" type = "xsd:ID"/>
+		<xsd:attribute name = "contentUnitID" use = "required" type = "xsd:IDREFS"/>
+		<xsd:attribute name = "behaviorType" type = "xsd:string"/>
+		<xsd:attribute name = "created" type = "xsd:dateTime"/>
+		<xsd:attribute name = "textInfo" type = "xsd:string"/>
+		<xsd:attribute name = "groupID" type = "xsd:string"/>
+	</xsd:complexType>
+	<xsd:element name = "abstractMechanism" type = "xfdu:mechanismType" abstract = "true">
+		<xsd:annotation>
+			<xsd:documentation>abstractMechanism is abstract implementation of
+				mechanismType. It cannot be instantiated in the instance
+				document. Instead, concrete implementations would have to be
+				used which are declared part of mechanism substitutionGroup				
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name = "mechanismType">
+		<xsd:annotation>
+			<xsd:documentation>mechanismType: executable mechanism. An element of  mechanismType
+				contains a pointer to an executable code module that
+				implements a set of behaviors defined by an interface
+				definition. The mechanism element will be a pointer to another
+				object (a mechanism object). A mechanism object could be another
+				XFDU object, or some other entity (e.g., a WSDL source). A
+				mechanism object should contain executable code, pointers to
+				executable code, or specifications for binding to network
+				services (e.g., web services).
+				mechanismType is declared as base type for concrete implementations of mechanism								
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base = "xfdu:referenceType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name = "metadataSectionType">
+		<xsd:sequence>
+			<xsd:element name = "metadataObject" type = "xfdu:metadataObjectType" minOccurs = "0" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name = "behaviorSectionType">
+		<xsd:sequence>
+			<xsd:element name = "behaviorObject" type = "xfdu:behaviorObjectType" minOccurs = "0" maxOccurs = "unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name = "XFDUType">
+		<xsd:annotation>
+			<xsd:documentation>
+			XFDUType Complex Type.
+			A XFDU document consists of five possible subsidiary sections:
+			packageHeader (XFDU document header), informationPackageMap (content unit section),
+			metadataSection (container for metadata objects),
+			dataObjectSection (data object section),behaviorSection (behavior section).
+			It also has possible attributes:
+			1. ID (an XML ID);
+			2. objID: a primary identifier assigned to the original source	document;
+			3. textInfo: a title/text string identifying the document for	users;
+			5. version: version to which this XFDU document conforms
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name = "packageHeader" type = "xfdu:packageHeaderType" minOccurs = "0"/>
+			<xsd:element name = "informationPackageMap" type = "xfdu:informationPackageMapType"/>			
+			<xsd:element name = "metadataSection" type = "xfdu:metadataSectionType" minOccurs = "0"/>
+			<xsd:element name = "dataObjectSection" type = "xfdu:dataObjectSectionType" minOccurs = "0"/>
+			<xsd:element name = "behaviorSection" type = "xfdu:behaviorSectionType" minOccurs = "0"/>
+		</xsd:sequence>
+		<xsd:attribute name = "ID" type = "xsd:ID"/>
+		<xsd:attribute name = "objID" type = "xsd:string"/>
+		<xsd:attribute name = "textInfo" type = "xsd:string"/>
+		<xsd:attribute name = "version" type = "xfdu:versionType"/>
+	</xsd:complexType>
+	<xsd:element name = "XFDU" type = "xfdu:XFDUType"/>
+</xsd:schema>

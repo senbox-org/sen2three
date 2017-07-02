@@ -1,0 +1,3227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   Sentinel-SAFE - Sentinel Format
+   Copyright (C) 2011,2012 European Space Agency (ESA)
+   Copyright (C) 2011,2012 Gael Systems
+   GNU Lesser General Public License (LGPL)
+
+   This file is part of Sentinel-SAFE
+
+   Sentinel-SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Sentinel-SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<!-- Sentinel-SAFE XML Schema document.
+   SAFE or Standard earth observation Format for Europe has been
+   developped by the European Space Agency (http://www.esa.int). -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:sentinel-safe="http://www.esa.int/safe/sentinel/1.1"
+           xmlns:gml="http://www.opengis.net/gml"
+           targetNamespace="http://www.esa.int/safe/sentinel/1.1"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+   <xs:annotation>
+      <xs:documentation>
+         Sentinel-SAFE Reference Types. This file contains all Sentinel-SAFE
+         complex and simple types. Elements are declared and will be referenced
+         in xfdu.xsd schema.
+      </xs:documentation>
+   </xs:annotation>
+
+   <xs:import namespace="http://www.opengis.net/gml"
+              schemaLocation="gml-wrapper.xsd" />
+
+   <xs:element name="processing"
+               type="sentinel-safe:processingType" />
+   <xs:element name="platform"
+               type="sentinel-safe:platformType" />
+   <xs:element name="acquisitionPeriod"
+               type="sentinel-safe:acquisitionPeriodType" />
+   <xs:element name="orbitReference"
+               type="sentinel-safe:orbitReferenceType" />
+   <xs:element name="qualityInformation"
+               type="sentinel-safe:qualityInformationType" />
+   <xs:element name="frameSet"
+               type="sentinel-safe:frameSetType" />
+   <xs:element name="gridReference"
+               type="sentinel-safe:gridReferenceType" />
+
+   <!-- Acquisition Period -->
+
+   <xs:complexType name="acquisitionPeriodType">
+      <xs:annotation>
+         <xs:documentation>
+            The acquisition period metadata provides the time extents of the
+            data included in the present Sentinel-SAFE product.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="startTime"
+                     type="sentinel-safe:startTimeType" />
+         <xs:element name="stopTime"
+                     type="sentinel-safe:stopTimeType"
+                     minOccurs="0" />
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:acquisitionPeriodExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- Acquisition Period sub-elements -->
+
+   <xs:simpleType name="startTimeType">
+      <xs:annotation>
+         <xs:documentation>
+            Time of the oldest data within the current Sentinel-SAFE product.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime" />
+   </xs:simpleType>
+
+   <xs:simpleType name="stopTimeType">
+      <xs:annotation>
+         <xs:documentation>
+            Time of the most recent data within the current Sentinel-SAFE
+            product.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime" />
+   </xs:simpleType>
+
+   <xs:complexType name="acquisitionPeriodExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- Platform Identification -->
+
+   <xs:complexType name="platformType">
+      <xs:annotation>
+         <xs:documentation>
+            The platform identifies the system (satellite/aircraft) that
+            acquired the data included in the Sentinel-SAFE product. This
+            element contains sub-elements that unequivocally identify the
+            platform as well as those identifying the sensor that acquired the
+            data.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="nssdcIdentifier"
+                     type="sentinel-safe:nssdcIdentifierType" />
+         <xs:element name="familyName"
+                     type="sentinel-safe:platformFamilyNameType"
+                     minOccurs="0" />
+         <xs:element name="number"
+                     type="sentinel-safe:platformNumberType"
+                     minOccurs="0" />
+         <xs:element name="instrument"
+                     type="sentinel-safe:instrumentType"
+                     minOccurs="0" />
+         <xs:element name="timeReference"
+                     type="sentinel-safe:timeType"
+                     minOccurs="0"
+                     maxOccurs="unbounded" />
+         <xs:element name="leapSecond"
+                     type="sentinel-safe:leapSecondType"
+                     minOccurs="0"
+                     maxOccurs="unbounded" />
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:platformExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- Platform sub-elements -->
+
+   <xs:simpleType name="nssdcIdentifierType">
+      <xs:annotation>
+         <xs:documentation>
+            Univocally identifies the platform. The exact syntax and lexical
+            space of this identifier is defined by the World Data Center for
+            Satellite Information (WDC-SI), which depends on the NASA's National
+            Space Science Data Center. For each platform, the exact identifier
+            is available from the mission name at the address:
+            http://nssdc.gsfc.nasa.gov/nmc/sc-query.html.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+         <xs:pattern value="[0-9]{4}-[0-9]{3}[A-Z]" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="platformFamilyNameType">
+      <xs:annotation>
+         <xs:documentation>
+            The mission name of the platform. This name is not a perfect
+            identifier because it is usually not the expanded name of the
+            mission. Therefore this element is only for printout purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string" />
+   </xs:simpleType>
+
+   <xs:simpleType name="platformNumberType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               The number is the sequence number of the platform among the
+               mission. This number may follow different rules. It may start
+               from 0 or 1, be Roman or alphabetical numbers (e.g. 1, 2, A, IX,
+               etc.).
+            </para>
+            <para>
+               Should the occasion arise, the default numbering is a
+               non-left-zeroed number starting from 1 with a step of 1 and
+               should be wrapped around for each platform.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:NMTOKEN" />
+   </xs:simpleType>
+
+   <xs:complexType name="leapSecondType">
+      <xs:annotation>
+         <xs:documentation>
+            Leap second information.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+
+            <xs:attribute name="occurrenceUTC"
+                          type="xs:dateTime">
+               <xs:annotation>
+                  <xs:documentation>
+                     UTC Time of the occurrence of the leap second.
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:complexType name="platformExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- Instrument Identification -->
+
+   <xs:complexType name="instrumentType">
+      <xs:annotation>
+         <xs:documentation>
+            Reference to an instrument belonging to an acquiring platform.
+            Conversely to the platform element, there is no absolute standard
+            identifying or referencing the instrument. Therefore, only the usual
+            instrument family name is used to identify the instrument related to
+            the product data. Both instrument sub-elements (i.e. familyName and
+            number) are to be considered as the key to perfectly identify the
+            sensor.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="familyName"
+                     type="sentinel-safe:instrumentFamilyNameType" />
+         <xs:element name="number"
+                     type="sentinel-safe:instrumentNumberType"
+                     minOccurs="0" />
+         <xs:element name="mode"
+                     type="sentinel-safe:instrumentModeType"
+                     minOccurs="0" />
+         <xs:element name="sideLookingAngle"
+                     type="sentinel-safe:sideLookingAngleType"
+                     minOccurs="0" />
+         <xs:element name="fieldOfView"
+                     type="sentinel-safe:fieldOfViewType"
+                     minOccurs="0" />
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:instrumentExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- Instrument sub-elements -->
+
+   <xs:complexType name="instrumentFamilyNameType">
+      <xs:annotation>
+         <xs:documentation>
+            The instrument name used for acquiring the product data.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:extension base="sentinel-safe:completeInstrumentFamilyNameType">
+            <xs:attribute name="abbreviation"
+                          type="sentinel-safe:abbreviationType"
+                          use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:simpleType name="completeInstrumentFamilyNameType">
+      <xs:annotation>
+         <xs:documentation>
+            The complete name of the instrument.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:token" />
+   </xs:simpleType>
+
+   <xs:simpleType name="abbreviationType">
+      <xs:annotation>
+         <xs:documentation>
+            The abbreviation of the instrument name.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string" />
+   </xs:simpleType>
+
+   <xs:simpleType name="instrumentNumberType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               The number is the sequence number of the instrument among the
+               instrument family. This number is defined by the instrument owner
+               and may follow different rules. It may start from 0 or 1, be
+               Roman or alphabetical numbers (e.g. 1, 2, A, IX, etc.).
+            </para>
+            <para>
+               Should the occasion arise, the default numbering is a
+               non-left-zeroed number starting from 1 with a step of 1 and
+               should be wrapped around for each platform.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:NMTOKEN" />
+   </xs:simpleType>
+
+   <xs:complexType name="instrumentModeType">
+      <xs:annotation>
+         <xs:documentation>
+            The mode of the instrument.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:extension base="sentinel-safe:instrumentModeDescriptionType">
+            <xs:attribute name="identifier"
+                          type="sentinel-safe:instrumentModeIdentifierType"
+                          use="required"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:simpleType name="instrumentModeDescriptionType">
+      <xs:annotation>
+         <xs:documentation>
+            The description of the instrument mode.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="instrumentModeIdentifierType">
+      <xs:annotation>
+         <xs:documentation>
+            Identifier of the instrument mode.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:token"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="sideLookingAngleType">
+      <xs:annotation>
+         <xs:documentation>
+            Angle of the instrument line of sight with respect to the nadir.
+            This angle is expressed in radians with positive values on the right
+            side considering the platform flying direction. This element applies
+            for active and passive sensors but should not be used in case of
+            ambiguity regarding the current definition. Ambiguity may actually
+            occur if the instrument has several simultaneous but independant
+            views.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="fieldOfViewType">
+      <xs:annotation>
+         <xs:documentation>
+            Instantaneous Angle between the most opposite viewing direction of
+            the instrument. This angle is to be expressed in radians and should
+            be considered orthogonal to the flight direction of the owning
+            platform. This element applies for active and passive sensors but
+            should not be used in case of ambiguity regarding the current
+            definition. Ambiguity may actually occur if the instrument has a
+            field of view mainly oriented along the flight path of the owning
+            platform.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:complexType name="instrumentExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- Time Informations -->
+
+   <xs:complexType name="timeType">
+      <xs:annotation>
+         <xs:documentation>On-board Time informations.</xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="utc"
+                     type="xs:dateTime"
+                     minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+               <xs:documentation>
+                  UTC time corresponding to the clock (following element).
+                  (currently defined to be given at the time of the ascending
+                  node state vector).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="clock"
+                     type="xs:long"
+                     minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+               <xs:documentation>
+                  Satellite reference binary time.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="clockStep"
+                     type="xs:long"
+                     minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+               <xs:documentation>
+                  Step length of clock (in picoseconds).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="leapSecond"
+                     type="sentinel-safe:leapSecondType"
+                     minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>
+                  Leap second information
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:timeExtensionType"
+                     minOccurs="0" />
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="timeExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- =================================================================== -->
+   <!-- qualityInformation                                                  -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="qualityInformationType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               All the informations about data quality of a component. Every
+               detected missing and corrupted unit should be listed. Correct
+               and present units checked may also be listed.
+            </para>
+            <para>
+               The <classname>extension</classname> wild card allows any other
+               information about the product quality.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="missingElements"
+                        type="sentinel-safe:missingElementsType">
+               <xs:annotation>
+                  <xs:documentation>
+                     Indicates whether element(s) is (are) missing in a
+                     component.
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:element>
+            <xs:element name="corruptedElements"
+                        type="sentinel-safe:corruptedElementsType">
+               <xs:annotation>
+                  <xs:documentation>
+                     Indicates whether element(s) is (are) corrupted or
+                     suspicious in a component.
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:element>
+         </xs:choice>
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:qualityInformationExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="qualityInformationExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"/>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict"/>
+   </xs:complexType>
+
+   <!-- =================================================================== -->
+   <!-- missingElements                                                     -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="missingElementsType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Indicates whether element(s) is (are) missing in a component.
+               The <classname>location</classname> sub-element provides the
+               type of element that is missing as well as one or two occurrence
+               number(s) (using <classname>following</classname> and/or
+               <classname>preceding</classname> attributes) which should locate
+               the missing unit(s), or one or two occurrence number(s) (using
+               <classname>after</classname> and/or
+               <classname>before</classname> attributes) which should roughly
+               locate the missing unit(s).
+            </para>
+            <para>
+               The mandatory <classname>count</classname> element provides the
+               number of missing element(s) (possibly zero).
+            </para>
+            <para>
+               The <classname>cause</classname> element may provide a cause for
+               the missing.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="location"
+                     type="sentinel-safe:locationType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  The location of the missing element(s).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="count"
+                     type="sentinel-safe:countType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Information about missing element(s) count.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="cause"
+                     type="sentinel-safe:missingCauseType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  If known, the cause for the element missing.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- =================================================================== -->
+   <!-- corruptedElements                                                   -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="corruptedElementsType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Indicates whether element(s) is (are) corrupted or suspicious in
+               a component. The <classname>location</classname> sub-element
+               provides the type of element that is corrupted and its (their)
+               location. The location may also be indicated using
+               <classname>following</classname> and/or
+               <classname>preceding</classname> attributes. The location may
+               also be roughly indicated using <classname>after</classname>
+               and/or <classname>before</classname> attributes.
+            </para>
+            <para>
+               The <classname>count</classname> element may provide information
+               about corrupted element(s) number.
+            </para>
+            <para>
+               The <classname>evidence</classname> element may provide a cause
+               for the corruption.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="location"
+                     type="sentinel-safe:locationType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  The location of the corrupted element(s).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="count"
+                     type="sentinel-safe:countType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Information about corrupted element(s) count.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="evidence"
+                     type="sentinel-safe:corruptedElementEvidenceType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  If known, the cause and the severity of the corruption.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- =================================================================== -->
+   <!-- location                                                            -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="locationType">
+      <xs:annotation>
+         <xs:documentation>
+            The location of the missing or corrupted element(s). The location
+            may be indicated using time information, or using representation
+            information (XML schema) of the component.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:choice minOccurs="1" maxOccurs="2">
+         <xs:element name="time"
+                     type="sentinel-safe:timeLocationType">
+            <xs:annotation>
+               <xs:documentation>
+                  Provides the time extents of the corrupted or missing data
+                  within the corrupted or missing element block.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="path"
+                     type="sentinel-safe:pathLocationType">
+            <xs:annotation>
+               <xs:documentation>
+                  The location of the missing or corrupted element(s) using
+                  representatation information (XML schema) of the component.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+      </xs:choice>
+   </xs:complexType>
+
+   <xs:complexType name="timeLocationType">
+      <xs:annotation>
+         <xs:documentation>
+            Provides the time extents of the corrupted or missing data within
+            the corrupted or missing element block.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="start"
+                     type="sentinel-safe:startTimeLocationType">
+            <xs:annotation>
+               <xs:documentation>
+                  Time of the oldest corrupted or missing data within the
+                  corrupted or missing element block.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="stop"
+                     type="sentinel-safe:stopTimeLocationType">
+            <xs:annotation>
+               <xs:documentation>
+                  Time of the most recent corrupted or missing data within the
+                  corrupted or missing element block.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="startTimeLocationType">
+      <xs:annotation>
+         <xs:documentation>
+            Time of the oldest corrupted or missing data within the corrupted
+            or missing element block.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="stopTimeLocationType">
+      <xs:annotation>
+         <xs:documentation>
+            Time of the most recent corrupted or missing data within the
+            corrupted or missing element block.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime"/>
+   </xs:simpleType>
+
+   <xs:complexType name="pathLocationType" mixed="true">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               The location of the missing or corrupted element(s) using
+               representation information (XML schema) of the component. The
+               location should be a relative XPath 2.0 expression that is to be
+               evaluated with the referenced component as context item. The
+               expression should result to a sequence or a singleton (i.e. a
+               sequence of one item).
+            </para>
+            <para>
+               Attributes <classname>following</classname> and
+               <classname>preceding</classname>, <classname>after</classname>
+               and <classname>before</classname> may indicate occurrences
+               permitting a more accurate location in the sequence returned by
+               the XPath. <classname>following</classname> and
+               <classname>preceding</classname> may be associated;
+               <classname>after</classname> and <classname>before</classname>
+               may be associated; any other attributes association is not
+               allowed.
+            </para>
+            <para>
+              User should be aware that use of CDATA sections may be mandatory
+              for the value of this element (Definition: CDATA sections may
+              occur anywhere character data may occur; they are used to escape
+              blocks of text containing characters which would otherwise be
+              recognized as markup. CDATA sections begin with the string &quot;
+              &lt;![CDATA[ &quot; and end with the string &quot; ]]&gt;
+              &quot;:] - source http://www.w3.org/TR/REC-xml/).
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:attribute name="preceding"
+                    type="sentinel-safe:precedingType">
+         <xs:annotation>
+            <xs:documentation>
+               Indicates the first non-missing or non-corrupted occurrence
+               after a single or a list of missing or corrupted element.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="following"
+                    type="sentinel-safe:followingType">
+         <xs:annotation>
+            <xs:documentation>
+               Indicates the occurrence immediatly preceding a single or a
+               list of missing or corrupted element (missing or corrupted
+               element(s) <emphasis>just follow</emphasis> this occurrence).
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="before"
+                    type="sentinel-safe:beforeType">
+         <xs:annotation>
+            <xs:documentation>
+               Indicates the missing or corrupted element(s) is (are) located
+               in a sequence <emphasis>before</emphasis> the attribute value
+               occurrence.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="after"
+                    type="sentinel-safe:afterType">
+         <xs:annotation>
+            <xs:documentation>
+               Indicates the missing or corrupted element(s) is (are) located
+               in a sequence <emphasis>after</emphasis> the attribute value
+               occurrence.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:complexType>
+
+   <xs:simpleType name="precedingType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Indicates the first non-missing or non-corrupted occurrence
+               after a single or a list of missing or corrupted element. This
+               attribute may be used with the
+               <classname>count</classname>
+               element of a
+               <classname>missingElements</classname>
+               element or
+               <classname>corruptedElements</classname>
+               element.
+            </para>
+            <para>Example:</para>
+            <para>
+               &lt;sentinel-safe:corruptedElements>
+                  &lt;sentinel-safe:location preceding="4">
+                     &lt;sentinel-safe:path>measurements/record&lt;/sentinel-safe:path>
+                  &lt;/sentinel-safe:location>
+                  &lt;sentinel-safe:count value="3"/>
+               &lt;/sentinel-safe:corruptedElements>
+            </para>
+            <para>
+               indicates that there are 3 missing records
+               <emphasis>just before</emphasis> the record #4.
+            </para>
+            <para>
+               The value is always <emphasis>exclusive</emphasis>.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="followingType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Indicates the occurrence immediately preceding a single or a
+               list of missing or corrupted element (missing or corrupted
+               element(s) <emphasis>just follow</emphasis> this occurrence).
+               This attribute may be used with the <classname>count</classname>
+               element of a <classname>missingElements</classname> element or
+               <classname>corruptedElements</classname> element.
+            </para>
+            <para>Example:</para>
+            <para>
+               &lt;sentinel-safe:corruptedElements>
+                  &lt;sentinel-safe:location following="4">
+                     &lt;sentinel-safe:path>measurements/record&lt;/sentinel-safe:path>
+                  &lt;/sentinel-safe:location>
+                  &lt;sentinel-safe:count value="3"/>
+               &lt;/sentinel-safe:corruptedElements>
+            </para>
+            <para>
+               indicates that records #5, #6, #7 are corrupted.
+            </para>
+            <para>
+               The value is always <emphasis>exclusive</emphasis>.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="beforeType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Indicates the missing or corrupted element(s) is (are) located
+               in a sequence <emphasis>before</emphasis> the attribute value
+               occurrence. This attribute may be used with the
+               <classname>count</classname> element of a
+               <classname>missingElements</classname> element or
+               <classname>corruptedElements</classname> element.
+            </para>
+            <para>Example:</para>
+            <para>
+               &lt;sentinel-safe:corruptedElements>
+                  &lt;sentinel-safe:location before="100">
+                     &lt;sentinel-safe:path>measurements/record&lt;/sentinel-safe:path>
+                  &lt;/sentinel-safe:location>
+                  &lt;sentinel-safe:count value="10"/>
+               &lt;/sentinel-safe:corruptedElements>
+            </para>
+            <para>
+               indicates that 10 of the records #1 to #99 are corrupted.
+            </para>
+            <para>
+               The value is always <emphasis>exclusive</emphasis>.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="afterType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Indicates the missing or corrupted element(s) is (are) located
+               in a sequence <emphasis>after</emphasis> the attribute value
+               occurrence. This attribute may be used with the
+               <classname>count</classname> element of a
+               <classname>missingElements</classname> element or
+               <classname>corruptedElements</classname> element.
+            </para>
+            <para>
+               &lt;sentinel-safe:corruptedElements>
+                  &lt;sentinel-safe:location after="100">
+                     &lt;sentinel-safe:path>measurements/record&lt;/sentinel-safe:path>
+                  &lt;/sentinel-safe:location>
+                  &lt;sentinel-safe:count value="10"/>
+               &lt;/sentinel-safe:corruptedElements>
+            </para>
+            <para>
+               indicates that 10 of the records #101 to the end of the record
+               sequence are corrupted.
+            </para>
+            <para>
+               The value is always <emphasis>exclusive</emphasis>.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger"/>
+   </xs:simpleType>
+
+   <!-- =================================================================== -->
+   <!-- count                                                               -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="countType">
+      <xs:annotation>
+         <xs:documentation>
+            Information about corrupted or missing element(s) count.
+            The <classname>value</classname> attribute indicates the number of
+            corrupted or missing element(s) (possibly zero). The
+            <classname>over</classname> attribute specifies the total number of
+            elements over which the corrupted or missing element(s) are counted
+            (the element sequence count).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence/>
+      <xs:attribute name="value"
+                    type="sentinel-safe:valueType" use="required">
+         <xs:annotation>
+            <xs:documentation>
+               The <classname>value</classname> attribute indicates the number
+               of corrupted or missing element(s) (possibly zero).
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="over"
+                    type="sentinel-safe:overType">
+         <xs:annotation>
+            <xs:documentation>
+               The <classname>over</classname> attribute specifies the total
+               number of elements over which the corrupted or missing
+               element(s) are counted (the element sequence count).
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:complexType>
+
+   <xs:simpleType name="valueType">
+      <xs:annotation>
+         <xs:documentation>
+            The <classname>value</classname> attribute indicates the number
+            of corrupted or missing element(s) (possibly zero).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:nonNegativeInteger"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="overType">
+      <xs:annotation>
+         <xs:documentation>
+            The <classname>over</classname> attribute specifies the total
+            number of elements over which the corrupted or missing
+            element(s) are counted (the element sequence count).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:nonNegativeInteger"/>
+   </xs:simpleType>
+
+   <!-- =================================================================== -->
+   <!-- cause                                                               -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="missingCauseType">
+      <xs:annotation>
+         <xs:documentation>
+            If known, the cause for the element missing.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:attribute name="type"
+                    type="sentinel-safe:missingCauseTypeType"
+                    use="required"/>
+   </xs:complexType>
+
+   <xs:simpleType name="missingCauseTypeType">
+      <xs:annotation>
+         <xs:documentation>
+            The <classname>missingCauseTypeType</classname> attribute intends
+            to be restricted by the specialisations of Sentinel-SAFE.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:NMTOKEN"/>
+   </xs:simpleType>
+
+   <!-- =================================================================== -->
+   <!-- evidence                                                            -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="corruptedElementEvidenceType">
+      <xs:annotation>
+         <xs:documentation>
+            If known, the cause and the severity of the corruption.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence/>
+      <xs:attribute name="type"
+                    type="sentinel-safe:corruptedElementEvidenceTypeType"/>
+      <xs:attribute name="otherType"
+                    type="sentinel-safe:corruptedElementEvidenceOtherTypeType"/>
+      <xs:attribute name="severity"
+                    type="sentinel-safe:severityType"/>
+   </xs:complexType>
+
+   <xs:simpleType name="corruptedElementEvidenceTypeType">
+      <xs:annotation>
+         <xs:documentation>
+            If known, the cause of the corruption.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="REED-SOLOMON-FAILURE"/>
+         <xs:enumeration value="CRC-ERROR"/>
+         <xs:enumeration value="TIME-SPIKE"/>
+         <xs:enumeration value="PADDED-BYTES"/>
+         <xs:enumeration value="PADDED-BYTES-FOR-MISSING-UNITS"/>
+         <xs:enumeration value="OTHER"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="corruptedElementEvidenceOtherTypeType">
+      <xs:annotation>
+         <xs:documentation>
+            If known, the cause of the corruption.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="severityType">
+      <xs:annotation>
+         <xs:documentation>
+            If known, the severity classification of failure.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger"/>
+   </xs:simpleType>
+
+   <!-- =================================================================== -->
+   <!-- orbitReference                                                  -->
+   <!-- =================================================================== -->
+
+   <xs:complexType name="orbitReferenceType">
+      <xs:annotation>
+         <xs:documentation>
+            Locates a data object according to a specific orbit.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="orbitNumber"
+                     type="sentinel-safe:orbitNumberType"
+                     minOccurs="0"
+                     maxOccurs="2" />
+         <xs:element name="relativeOrbitNumber"
+                     type="sentinel-safe:relativeOrbitNumberType"
+                     minOccurs="0"
+                     maxOccurs="2" />
+         <xs:element name="passNumber"
+                     type="sentinel-safe:passNumberType"
+                     minOccurs="0"
+                     maxOccurs="2" />
+         <xs:element name="relativePassNumber"
+                     type="sentinel-safe:relativePassNumberType"
+                     minOccurs="0"
+                     maxOccurs="2" />
+         <xs:element name="cycleNumber"
+                     type="sentinel-safe:cycleNumberType"
+                     minOccurs="0" />
+         <xs:element name="phaseIdentifier"
+                     type="sentinel-safe:phaseIdentifierType"
+                     minOccurs="0" />
+         <xs:element name="elementSet"
+                     type="sentinel-safe:elementSetType"
+                     minOccurs="0"
+                     maxOccurs="1" />
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:orbitReferenceExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+
+   <!-- Orbit reference sub-elements -->
+
+   <xs:complexType name="orbitNumberType">
+      <xs:simpleContent>
+         <xs:extension base="xs:positiveInteger">
+            <xs:annotation>
+               <xs:documentation>
+                  Absolute orbit number to which the oldest, most recent or an
+                  unknown data unit of the data object refers. If the oldest and
+                  the most recent data unit share the same absolute orbit
+                  number, the occurrence of the orbitNumber element shall be 1.
+               </xs:documentation>
+            </xs:annotation>
+
+            <xs:attribute name="type">
+               <xs:annotation>
+                  <xs:documentation>
+                     The value start indicates the absolute orbit number refers
+                     to the oldest data object. The value stop indicates the
+                     absolute orbit number refers to the most recent data unit.
+                     The value unknown indicates the absolute orbit number
+                     refers to a data unit of the product (we don't know
+                     precisely which one).
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="start" />
+                     <xs:enumeration value="stop" />
+                     <xs:enumeration value="unknown" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+            <xs:attribute name="groundTrackDirection"
+                          type="sentinel-safe:groundTrackDirectionType">
+               <xs:annotation>
+                  <xs:documentation>
+                     <para>
+                     The ground track (also called ground trace) of an orbiting
+                     platform is the trace of its path across the surface of
+                     the Earth. The path on the surface of the Earth is the
+                     trace of the platfom's nadir.
+                     </para>
+                     <para>
+                     The value <quote>ascending</quote> indicates that the
+                     platform is going from south to north (or southeast to
+                     northwest, or southwest to northeast) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>descending</quote> indicates that the
+                     platform is going from north to south (or northwest to
+                     southeast, or northeast to southwest) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>paralleling</quote> indicates that the
+                     platform is going from east to west or from west to east
+                     at the time specified by the <classname>@type</classname>
+                     attribute.
+                     </para>
+                     <para>
+                     The value <quote>unknown</quote> indicates that the ground
+                     track direction is not known for the time specified by the
+                     <classname>@type</classname> attribute.
+                     </para>
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:complexType name="relativeOrbitNumberType">
+      <xs:simpleContent>
+         <xs:extension base="xs:positiveInteger">
+            <xs:annotation>
+               <xs:documentation>
+                  Relative orbit number to which the oldest, most recent or an
+                  unknown data unit of the data object refers. If the oldest and
+                  the most recent data unit share the same relative orbit
+                  number, the occurrence of the orbitNumber element shall be 1.
+               </xs:documentation>
+            </xs:annotation>
+
+            <xs:attribute name="type">
+               <xs:annotation>
+                  <xs:documentation>
+                     The value start indicates the relative orbit number refers
+                     to the oldest data object. The value stop indicates the
+                     relative orbit number refers to the most recent data unit.
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="start" />
+                     <xs:enumeration value="stop" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+            <xs:attribute name="groundTrackDirection"
+                          type="sentinel-safe:groundTrackDirectionType">
+               <xs:annotation>
+                  <xs:documentation>
+                     <para>
+                     The ground track (also called ground trace) of an orbiting
+                     platform is the trace of its path across the surface of
+                     the Earth. The path on the surface of the Earth is the
+                     trace of the platfom's nadir.
+                     </para>
+                     <para>
+                     The value <quote>ascending</quote> indicates that the
+                     platform is going from south to north (or southeast to
+                     northwest, or southwest to northeast) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>descending</quote> indicates that the
+                     platform is going from north to south (or northwest to
+                     southeast, or northeast to southwest) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>paralleling</quote> indicates that the
+                     platform is going from east to west or from west to east
+                     at the time specified by the <classname>@type</classname>
+                     attribute.
+                     </para>
+                     <para>
+                     The value <quote>unknown</quote> indicates that the ground
+                     track direction is not known for the time specified by the
+                     <classname>@type</classname> attribute.
+                     </para>
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+
+   <xs:complexType name="passNumberType">
+      <xs:simpleContent>
+         <xs:extension base="xs:positiveInteger">
+            <xs:annotation>
+               <xs:documentation>
+                  Absolute pass number from pole to pole to which the oldest,
+                  most recent or an unknown data unit of the data object
+                  refers. If the oldest and the most recent data unit share the
+                  same absolute pass number, the occurrence of the passNumber
+                  element shall be 1.
+               </xs:documentation>
+            </xs:annotation>
+
+            <xs:attribute name="type">
+               <xs:annotation>
+                  <xs:documentation>
+                     The value start indicates the absolute pass number refers
+                     to the oldest data object. The value stop indicates the
+                     absolute pass number refers to the most recent data unit.
+                     The value unknown indicates the absolute pass number
+                     refers to a data unit of the product (we don't know
+                     precisely which one).
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="start" />
+                     <xs:enumeration value="stop" />
+                     <xs:enumeration value="unknown" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+            <xs:attribute name="groundTrackDirection"
+                          type="sentinel-safe:groundTrackDirectionType">
+               <xs:annotation>
+                  <xs:documentation>
+                     <para>
+                     The ground track (also called ground trace) of an orbiting
+                     platform is the trace of its path across the surface of
+                     the Earth. The path on the surface of the Earth is the
+                     trace of the platfom's nadir.
+                     </para>
+                     <para>
+                     The value <quote>ascending</quote> indicates that the
+                     platform is going from south to north (or southeast to
+                     northwest, or southwest to northeast) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>descending</quote> indicates that the
+                     platform is going from north to south (or northwest to
+                     southeast, or northeast to southwest) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>paralleling</quote> indicates that the
+                     platform is going from east to west or from west to east
+                     at the time specified by the <classname>@type</classname>
+                     attribute.
+                     </para>
+                     <para>
+                     The value <quote>unknown</quote> indicates that the ground
+                     track direction is not known for the time specified by the
+                     <classname>@type</classname> attribute.
+                     </para>
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:complexType name="relativePassNumberType">
+      <xs:simpleContent>
+         <xs:extension base="xs:positiveInteger">
+            <xs:annotation>
+               <xs:documentation>
+                  Relative pass number from pole to pole to which the oldest,
+                  most recent or an unknown data unit of the data object
+                  refers. If the oldest and the most recent data unit share the
+                  same relative relative pass number, the occurrence of the
+                  relativePassNumber element shall be 1.
+               </xs:documentation>
+            </xs:annotation>
+
+            <xs:attribute name="type">
+               <xs:annotation>
+                  <xs:documentation>
+                     The value start indicates the relative pass number refers
+                     to the oldest data object. The value stop indicates the
+                     relative pass number refers to the most recent data unit.
+                     The value unknown indicates the relative pass number
+                     refers to a data unit of the product (we don't know
+                     precisely which one).
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="start" />
+                     <xs:enumeration value="stop" />
+                     <xs:enumeration value="unknown" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+            <xs:attribute name="groundTrackDirection"
+                          type="sentinel-safe:groundTrackDirectionType">
+               <xs:annotation>
+                  <xs:documentation>
+                     <para>
+                     The ground track (also called ground trace) of an orbiting
+                     platform is the trace of its path across the surface of
+                     the Earth. The path on the surface of the Earth is the
+                     trace of the platfom's nadir.
+                     </para>
+                     <para>
+                     The value <quote>ascending</quote> indicates that the
+                     platform is going from south to north (or southeast to
+                     northwest, or southwest to northeast) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>descending</quote> indicates that the
+                     platform is going from north to south (or northwest to
+                     southeast, or northeast to southwest) at the time
+                     specified by the <classname>@type</classname> attribute.
+                     </para>
+                     <para>
+                     The value <quote>paralleling</quote> indicates that the
+                     platform is going from east to west or from west to east
+                     at the time specified by the <classname>@type</classname>
+                     attribute.
+                     </para>
+                     <para>
+                     The value <quote>unknown</quote> indicates that the ground
+                     track direction is not known for the time specified by the
+                     <classname>@type</classname> attribute.
+                     </para>
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:simpleType name="groundTrackDirectionType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+            The ground track (also called ground trace) of an orbiting
+            platform is the trace of its path across the surface of
+            the Earth. The path on the surface of the Earth is the
+            trace of the platfom's nadir.
+            </para>
+            <para>
+            The value <quote>ascending</quote> indicates that the
+            platform is going from south to north (or southeast to
+            northwest, or southwest to northeast) at the time
+            specified by the <classname>@type</classname> attribute.
+            </para>
+            <para>
+            The value <quote>descending</quote> indicates that the
+            platform is going from north to south (or northwest to
+            southeast, or northeast to southwest) at the time
+            specified by the <classname>@type</classname> attribute.
+            </para>
+            <para>
+            The value <quote>paralleling</quote> indicates that the
+            platform is going from east to west or from west to east
+            at the time specified by the <classname>@type</classname>
+            attribute.
+            </para>
+            <para>
+            The value <quote>unknown</quote> indicates that the ground
+            track direction is not known for the time specified by the
+            <classname>@type</classname> attribute.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="ascending" />
+         <xs:enumeration value="descending" />
+         <xs:enumeration value="paralleling" />
+         <xs:enumeration value="unknown" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="cycleNumberType">
+      <xs:annotation>
+         <xs:documentation>
+            Cycle number to which the oldest data unit of the data object
+            refers.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="phaseIdentifierType">
+      <xs:annotation>
+         <xs:documentation>
+            Orbit phase identifier to which the oldest data unit of the data
+            object refers.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:NMTOKEN" />
+   </xs:simpleType>
+
+   <xs:simpleType name="startTrackType">
+      <xs:annotation>
+         <xs:documentation>
+            Track number to which the oldest data unit of the data object
+            refers. The track number specifications depends on the World
+            Reference System defined by the platform owner or the main
+            organization responsible of its operation.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:integer" />
+   </xs:simpleType>
+
+   <xs:simpleType name="stopTrackType">
+      <xs:annotation>
+         <xs:documentation>
+            Track number to which the most recent data unit of the data object
+            refers. The track number specifications depends on the World
+            Reference System defined by the platform owner or the main
+            organization responsible of its operation.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:integer" />
+   </xs:simpleType>
+
+   <!-- Extension point -->
+
+   <xs:complexType name="orbitReferenceExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- BEGINNING OF : Not used in the Sentinel-SAFE Core but created for
+   further specialisations -->
+   <xs:complexType name="attitudeSetType">
+      <xs:annotation>
+         <xs:documentation>
+            An element of attitudeSetType is a receptacle for the attitude
+            angles describing the platform position or movements around its
+            center of gravity. Attitudes may have been produced or filtered in
+            several ways (onboard, at ground station, at mission center, etc.).
+            Therefore the attitude_set provides a mechanism to identify the
+            origin of the attitudes
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="producer"
+                     type="sentinel-safe:facilityType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  The producer identifies the system (including the platform
+                  itself) or organism that provided the attitudes. Identifying
+                  the precise facility that has generated these attitudes
+                  provides an assessment of the quality of the measurements. A
+                  precise definition of the facility type is provided in the
+                  following sections. In particular, this type enables
+                  identification of the involved systems (i.e. an organisation,
+                  a location, as well as the software, hardware or firmware).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="attitude"
+                     type="sentinel-safe:attitudeType"
+                     maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>
+                  The attitude element provides information about the rotation
+                  of the platform around its centre of gravity at a precise time
+                  instant or time interval. Two types of attitudes can be
+                  provided: attitudes with absolute angles or attitudes with
+                  differential angles (i.e. angular velocity).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+      <xs:attribute name="type">
+         <xs:annotation>
+            <xs:documentation>
+               Determines the type of the attitude measurements provided. All
+               attitudes shall be of a homogeneous type in the overall attitude
+               set.
+            </xs:documentation>
+         </xs:annotation>
+         <xs:simpleType>
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Angular velocity" />
+               <xs:enumeration value="Absolute rotation" />
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:attribute>
+   </xs:complexType>
+
+   <xs:complexType name="attitudeType">
+      <xs:annotation>
+         <xs:documentation>
+            The attitude element provides information about the rotation of the
+            platform around its centre of gravity at a precise time instant or
+            time interval. Two types of attitudes can be provided: attitudes
+            with absolute angles or attitudes with differential angles (i.e.
+            angular velocity). A precise definition of attitude type is provided
+            below.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="epoch"
+                     type="sentinel-safe:epochType">
+            <xs:annotation>
+               <xs:documentation>
+                  The epoch defines the precise instant related to the attitude
+                  provided by the current ephemeris. The time reference system
+                  is of the dateTime simple type (i.e. UTC). The time accuracy
+                  to be expected depends on the ephemeris producer.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="yaw"
+                     type="sentinel-safe:yawType">
+            <xs:annotation>
+               <xs:documentation>
+                  Absolute rotation or angular velocity around Yaw axis. Yaw
+                  axis is the one specific to the attitude reference system of
+                  the platform.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="roll"
+                     type="sentinel-safe:rollType">
+            <xs:annotation>
+               <xs:documentation>
+                  Absolute rotation or angular velocity around Roll axis. Roll
+                  axis is the one specific to the attitude reference system of
+                  the platform.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="pitch"
+                     type="sentinel-safe:pitchType">
+            <xs:annotation>
+               <xs:documentation>
+                  Absolute rotation or angular velocity around Pitch axis. Pitch
+                  axis is the one specific to the attitude reference system of
+                  the platform.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="yawType">
+      <xs:annotation>
+         <xs:documentation>
+            Absolute rotation or angular velocity around Yaw axis. Yaw axis is
+            the one specific to the attitude reference system of the platform.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="rollType">
+      <xs:annotation>
+         <xs:documentation>
+            Absolute rotation or angular velocity around Roll axis. Roll axis is
+            the one specific to the attitude reference system of the platform.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pitchType">
+      <xs:annotation>
+         <xs:documentation>
+            Absolute rotation or angular velocity around Pitch axis. Pitch axis
+            is the one specific to the attitude reference system of the
+            platform.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:complexType name="elementSetType">
+      <xs:annotation>
+         <xs:documentation>
+            Provides dynamic information (i.e. position and velocity) regarding
+            the center of gravity of the described platform. The set is composed
+            of a series of instantaneous ephemeris that provide dynamic figures
+            of the platform at a specific epoch.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="producer"
+                     type="sentinel-safe:facilityType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  This facility or system that generated the set of ephemeris.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="ephemeris"
+                     type="sentinel-safe:ephemerisType"
+                     maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>The set of ephemeris.</xs:documentation>
+            </xs:annotation>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="ephemerisType">
+      <xs:annotation>
+         <xs:documentation>
+            Provides dynamic information (i.e. position and velocity) regarding
+            the center of gravity of the described platform at a precise time
+            instant.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="epoch"
+                     type="sentinel-safe:epochType"
+                     maxOccurs="unbounded"/>
+         <xs:element name="position"
+                     type="sentinel-safe:positionType" />
+         <xs:element name="velocity"
+                     type="sentinel-safe:velocityType" />
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:ephemerisExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="epochType">
+      <xs:simpleContent>
+         <xs:extension base="xs:dateTime">
+            <xs:annotation>
+               <xs:documentation>
+                  The epoch defines the precise instant related to the attitude
+                  provided by the current ephemeris. The time reference system
+                  is provided by the type attribute (i.e. UTC, UT1...). The
+                  time accuracy to be expected depends on the ephemeris
+                  producer.
+               </xs:documentation>
+            </xs:annotation>
+
+            <xs:attribute name="type">
+               <xs:annotation>
+                  <xs:documentation>
+                     Type of the time reference system.
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="UTC"/>
+                     <xs:enumeration value="UT1"/>
+                     <xs:enumeration value="J2000"/>
+                     <xs:enumeration value="ICRF"/>
+                     <xs:enumeration value="Inertial"/>
+                     <xs:enumeration value="TrueOfDate"/>
+                     <xs:enumeration value="GPS"/>
+                     <xs:enumeration value="TAI"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <xs:complexType name="positionType">
+      <xs:annotation>
+         <xs:documentation>
+            X, Y and Z components of the satellite position.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="x"
+                     type="sentinel-safe:xPositionType" />
+         <xs:element name="y"
+                     type="sentinel-safe:yPositionType" />
+         <xs:element name="z"
+                     type="sentinel-safe:zPositionType"
+                     minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="xPositionType">
+      <xs:annotation>
+         <xs:documentation>
+            X component of the satellite position.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="yPositionType">
+      <xs:annotation>
+         <xs:documentation>
+            Y component of the satellite position.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="zPositionType">
+      <xs:annotation>
+         <xs:documentation>
+            Z component of the satellite position.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:complexType name="velocityType">
+      <xs:annotation>
+         <xs:documentation>
+            Vx, Vy and Vz components of the satellite velocity.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="x"
+                     type="sentinel-safe:xVelocityType" />
+         <xs:element name="y"
+                     type="sentinel-safe:yVelocityType" />
+         <xs:element name="z"
+                     type="sentinel-safe:zVelocityType" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="xVelocityType">
+      <xs:annotation>
+         <xs:documentation>
+            Vx component of the satellite velocity.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="yVelocityType">
+      <xs:annotation>
+         <xs:documentation>
+            Vy component of the satellite velocity.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="zVelocityType">
+      <xs:annotation>
+         <xs:documentation>
+            Vz component of the satellite velocity.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <!-- Extension point -->
+
+   <xs:complexType name="ephemerisExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- END OF : Not used in the Sentinel-SAFE Core but created for further
+      specialisations -->
+
+   <!-- Frame sets -->
+
+   <xs:complexType name="frameSetType">
+      <xs:annotation>
+         <xs:documentation>
+            Describes the set of frames that may be relative to a data object.
+            Each frame described in this section is a logical collection of data
+            units identified by a node in the platform World Reference
+            System(WRS). The collection as well as the frame WRS coordinates
+            differs from a platform to another: they are defined by the platform
+            owner or the main organization responsible of its operation. This
+            concept of frame has no relationship with telemetry frames.
+            If the frameSet cointains only one frame, then the footPrint of the
+            frameSet shall be used instead of the footPrint of the frame (if no
+            other data is available - orbit, track, etc.) the frame shall be
+            removed.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="footPrint"
+                     type="gml:LinearRingType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Boundaries of the frameSet.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="cloudVoteNotationSystem"
+                     type="sentinel-safe:cloudVoteNotationSystemType"
+                     minOccurs="0" />
+
+         <xs:element name="frame"
+                     type="sentinel-safe:frameType"
+                     minOccurs="0" maxOccurs="unbounded" />
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- Frame sets sub-elements -->
+
+   <xs:complexType name="cloudVoteNotationSystemType">
+      <xs:annotation>
+         <xs:documentation>
+            Provides the floor and ceiling notation figures of the notation
+            system. If not provided, the floor is defaulted to 0.0 and the
+            ceiling value to 10.0.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:attribute name="floor"
+                    type="xs:double" default="0.0" />
+      <xs:attribute name="ceil"
+                    type="xs:double" default="10.0" />
+   </xs:complexType>
+
+   <xs:complexType name="frameType">
+      <xs:annotation>
+         <xs:documentation>
+            A frame of platform World Reference System (WRS).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="orbit"
+                     type="sentinel-safe:frameOrbitType"
+                     minOccurs="0" />
+         <xs:element name="track"
+                     type="sentinel-safe:frameTrackType"
+                     minOccurs="0" />
+         <xs:element name="number"
+                     type="sentinel-safe:frameNumberType"
+                     minOccurs="0" />
+         <xs:element name="center"
+                     type="gml:PointType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Frame ground location with regard to the platform World
+                  Reference System (WRS).
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="footPrint"
+                     type="gml:LinearRingType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Boundaries of the frame. In addition to the constraints
+                  imposed by the GML type for linear rings, the coordinates of
+                  the "footPrint" element should be declared in a
+                  counter-clockwise order.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="time"
+                     type="sentinel-safe:frameTimeType"
+                     minOccurs="0" />
+         <xs:element name="tile"
+                     type="sentinel-safe:frameTileType"
+                     minOccurs="0"
+                     maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- Frame Type sub-elements -->
+
+   <xs:simpleType name="frameOrbitType">
+      <xs:annotation>
+         <xs:documentation>
+            Orbit number to which the frame belongs.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="frameTrackType">
+      <xs:annotation>
+         <xs:documentation>
+            Track number to which the frame belongs.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="frameNumberType">
+      <xs:annotation>
+         <xs:documentation>
+            Frame number with regard to the platform World Reference System
+            (WRS).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="frameTimeType">
+      <xs:annotation>
+         <xs:documentation>
+            Approximative time at which the platform flown the frame center of
+            more accurately, the time at which the instrument measured the frame
+            center.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime" />
+   </xs:simpleType>
+
+   <xs:complexType name="frameTileType">
+      <xs:annotation>
+         <xs:documentation>
+            Tile composing the frame. Frames may be broken down in sub-regions
+            called tiles that are organized in rows and columns. The tiles are
+            "frame oriented" and therefore, the rows or columns of tiles may not
+            fit the map projection map coordinate axis. The rows and columns are
+            numbered in the same order as the platform World Reference System
+            (WRS). Both values start from 1. The objective of the tiles is to
+            assign information to a specific part of the frame.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="cloudVote"
+                     type="sentinel-safe:cloudVoteType"
+                     minOccurs="0" />
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:frameTileExtensionType"
+                     minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="row" use="required">
+         <xs:annotation>
+            <xs:documentation>
+               The row index of the tile. This index is numbered in the same
+               order as the platform World Reference System (WRS), starting from
+               1.
+            </xs:documentation>
+         </xs:annotation>
+         <xs:simpleType>
+            <xs:restriction base="xs:integer">
+               <xs:minInclusive value="1" />
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="column" use="required">
+         <xs:annotation>
+            <xs:documentation>
+               The column index of the tile. This index is numbered in the same
+               order as the platform World Reference System (WRS), starting from
+               1.
+            </xs:documentation>
+         </xs:annotation>
+         <xs:simpleType>
+            <xs:restriction base="xs:integer">
+               <xs:minInclusive value="1" />
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:attribute>
+   </xs:complexType>
+
+   <!-- Frame Tile Type sub-element -->
+
+   <xs:simpleType name="cloudVoteType">
+      <xs:annotation>
+         <xs:documentation>
+            Numeric notation qualifying the cloud coverage. The cloud vote is a
+            real number laying from the cloudVoteNotation/@floor to the
+            cloudVoteNotation/@ceil values included. The
+            cloudVoteNotation/@floor indicates a cloud free tile, whether a
+            cloudVoteNotation/@ceil indicates a full and opaque cloud coverage.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+
+   <!-- Extension point -->
+
+   <xs:complexType name="frameTileExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <!-- GridReference -->
+
+   <xs:complexType name="gridReferenceType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Gridded <emphasis>tie points</emphasis> for annotating data. The
+               grid reference is typically used for conveying geographical
+               information attached to data objects. It may, however, be useful
+               in various other cases including the provision of wind vector
+               fields, of temperatures or sun elevation.
+            </para>
+            <para>
+               Generally the amount of information conveyed by the grid
+               reference is smaller than the referenced data so the grid points
+               form a subsample of the entire data. This property implies that
+               grid reference information is <emphasis>applicable only for
+               gridded data</emphasis> i.e. requiring the data to be organised
+               in lines and columns of at least one sample. The grid reference
+               information is, therefore, suitable for raster images and
+               matrices. The line/column organisation is supposed to be at the
+               top level of the data structure but does not constrain the
+               atomic or structure type of the cells, whether changing from one
+               to another.
+            </para>
+            <para>
+               If the data has two dimensions, the first is considered as the
+               <emphasis>line dimension</emphasis> and the second as the
+               <emphasis>column dimension</emphasis>.
+            </para>
+            <para>
+               If the data has only one dimension, the first sample is supposed
+               to initiate an alternate series of sequences of lines and
+               columns. Sizes of the sequences may vary but the first sample of
+               each shall have a line or column index of 1. The exact size of
+               each sequence is to be provided by metadata objects or supposed
+               well known by the reader.
+            </para>
+            <para>
+               The axis of the grid reference system is supposed to be collinear
+               to those of the data and have the same orientations. They may be
+               shifted or rescaled c.f. <type>origin</type> and
+               <type>scale</type> sub-elements.
+            </para>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="origin"
+                     type="sentinel-safe:originType">
+            <xs:annotation>
+               <xs:documentation>
+                  The origin of the grid. The <type>origin</type> consists in
+                  the couple of coordinates i.e. line/column indexes, defining
+                  the origin which sights the point (1,1) of the grid.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="scale"
+                     type="sentinel-safe:scaleType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  The subsampling factors of the grid regarding the data. The
+                  scale specifies how many data samples to skip between two
+                  points of the grid i.e. in lines and columns. If the scale is
+                  not provided, the default couple (1, 1) is considered meaning
+                  that one grid point is to be expected for one data sample.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:gridReferenceExtensionType"
+                     minOccurs="0" maxOccurs="unbounded" />
+
+         <xs:element name="line"
+                     type="sentinel-safe:lineType"
+                     maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>
+                  The lines of the grid. The lines are holding a series of
+                  points corresponding to each columns of the grid but also
+                  metadata information e.g. time or convenient data applicable
+                  to the entire line.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="originType">
+      <xs:annotation>
+         <xs:documentation>
+            A point of origin. This consists in the couple of coordinates i.e.
+            line/column indexes, defining the origin where sights the point
+            (1,1) of a system with respect to a referenced system. Coordinates
+            in both systems are supposed to start from 1.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="line"
+                     type="sentinel-safe:originLineType">
+            <xs:annotation>
+               <xs:documentation>
+                  The coordinate of the first line of the system in the
+                  referenced system. Coordinates in both systems are supposed to
+                  start from 1.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="column"
+                     type="sentinel-safe:originColumnType">
+            <xs:annotation>
+               <xs:documentation>
+                  The coordinate of the first column of the system in the
+                  referenced system. Coordinates in both systems are supposed to
+                  start from 1.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="scaleType">
+      <xs:annotation>
+         <xs:documentation>
+            Sampling factor between two system. The scale corresponds to the
+            factor to be applied to the coordinates of a referential to be
+            converted to another referenced system.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="lineSpacing"
+                     type="sentinel-safe:scaleLineSpacingType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  The scale factor among lines. The scale factor is an integer
+                  value to prevent non discrete samplings that may require
+                  interpolation or approximation.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="columnSpacing"
+                     type="sentinel-safe:scaleColumnSpacingType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  The scale factor among columns. The scale factor is an integer
+                  value to prevent non discrete samplings that may require
+                  interpolation or approximation.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="lineType">
+      <xs:annotation>
+         <xs:documentation>
+            A line of a grid reference. Each line may be shifted from the grid
+            origin thanks to the <type>offset</type> sub-element that may vary
+            among lines of the grid. In the same manner, the points belonging
+            to the current line may be separated by a number of columns
+            specific to the current line c.f. <type>columnSpacing</type>.
+            Finally, the line may be annotated with information applicable to
+            the overall points it contains c.f. <type>time</type> or wildcard
+            for convenient metadata.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="offset"
+                     type="sentinel-safe:lineOffsetType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Offset from the previous line or from the first line of the
+                  grid, should the occasion arise. This offset is, actually,
+                  related to the grid system and not to the referenced data.
+                  From the coordinates of a data sample, it is, therefore,
+                  necessary to apply first the shift to the <type>origin</type>
+                  of the grid before using the present <type>offset</type>.
+                  This element is suitable when lines are not equally spaced
+                  within the grid. If not provided, an offset of 1 is
+                  considered when current line is not the first among the grid
+                  and 0 otherwise.  Typical grids define no <type>offset</type>
+                  at all.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="columnSpacing"
+                     type="sentinel-safe:lineColumnSpacingType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Number of grid columns separating two points of the line.
+                  This element is required when at least one of the grid lines
+                  has a column spacing different from the others. Regular grids
+                  define no <type>columnSpacing</type> at all for any line.
+                  This element cannot be used if this line contains at least
+                  one point with an <type>offset</type>.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="time"
+                     type="sentinel-safe:gridReferenceTimeType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Epoch of the line. If the points contained in the present line
+                  have several corresponding epochs, the <emphasis>mean
+                  epoch</emphasis> is considered. The exact semantic between
+                  the present element and the referenced data is undefined but
+                  should be attached to the information conveyed by the points
+                  more than to the referenced data.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- Extension point for lines -->
+         <xs:element name="extension"
+                     type="sentinel-safe:lineExtensionType"
+                     minOccurs="0" />
+
+         <!-- Points of the current line -->
+         <xs:element name="point"
+                     type="sentinel-safe:gridReferencePointType"
+                     maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>Points of the current line.</xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- Extension point -->
+
+   <xs:complexType name="lineExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <xs:complexType name="gridReferencePointType">
+      <xs:annotation>
+         <xs:documentation>
+            A point of a grid reference. The point holds the information sighted
+            by the grid reference. It may regard the <type>location</type>
+            of the referenced data sample, the corresponding Sun
+            elevation/azimuth or any other convenient or specialized
+            information.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="offset"
+                     type="sentinel-safe:pointOffsetType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Offset from the previous point of the line or from first
+                  column of the grid, should the occasion arise. This offset
+                  is, actually, related to the grid system and not to the
+                  referenced data. From the coordinates of a data sample, it
+                  is, therefore, necessary to apply first the shift to the
+                  <type>origin</type> of the grid before using the present
+                  <type>offset</type>. This element is suitable when columns
+                  are not equally spaced within the grid. If not provided, an
+                  offset of 1 is considered when current point is not the first
+                  among the line and 0 otherwise. Typical grids define no
+                  <type>offset</type> at all.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="time"
+                     type="sentinel-safe:pointTimeType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Epoch of the point. If the point content have several
+                  corresponding epochs e.g. point with complex structure
+                  embedding various engineering data, the
+                  <emphasis>mean epoch</emphasis>
+                  is considered. The exact semantic between the present element
+                  and the referenced data is undefined but should be attached to
+                  the information conveyed by the point more than to the
+                  referenced data.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- TODO: should become a gml:pointType -->
+         <xs:element name="location"
+                     type="sentinel-safe:pointLocationType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Geographical location of the current point. The coordinates
+                  may be expressed according to a Geodetic coordinates or any
+                  other map projection system.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="sun"
+                     type="sentinel-safe:pointSunType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Sun's position in the sky at the point <type>location</type>
+                  and at the given <type>time</type>.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="incidence"
+                     type="sentinel-safe:pointIncidenceType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+                  Observation or measurement incidence angle. The considered
+                  beam can be formed by any wave (optical, acoustical,
+                  microwave, X-ray etc.) depending on the acquiring
+                  technologies, but, should originate from the instrument that
+                  sampled the data and should intercept the Earth surface at the
+                  point <type>location</type> and at the given
+                  <type>time</type>. The Earth surface defines the collector's
+                  surface of the angle of incidence.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="platform"
+                     type="sentinel-safe:pointPlatformType"
+                     minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>Platform informations (TBD).</xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- Extension point -->
+         <xs:element name="extension"
+                     type="sentinel-safe:gridReferencePointExtensionType"
+                     minOccurs="0" />
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <!-- TODO: should become a gml:pointType -->
+   <xs:complexType name="pointLocationType">
+      <xs:annotation>
+        <xs:documentation>
+           Geographical location of the current point. The coordinates
+           may be expressed according to a Geodetic coordinates or any
+           other map projectin system.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="latitude"
+                     type="sentinel-safe:pointLatitudeType" />
+
+         <xs:element name="longitude"
+                     type="sentinel-safe:pointLongitudeType" />
+
+         <xs:element name="elevation"
+                     type="sentinel-safe:pointElevationType"
+                     minOccurs="0" />
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="pointSunType">
+      <xs:annotation>
+         <xs:documentation>
+            <para>
+               Sun's position in the sky. The position is defined by two angles:
+               the Solar Elevation angle and the Azimuth angle from. The Solar
+               Elevation angle is the vertical angle up from the horizon. The
+               Azimuth is the horizontal rotation angle from Due South (in the
+               Northern Hemisphere) or from Due North (in the Southern
+               Hemisphere).
+            </para>
+            <para>
+               The Elevation is zero when the Sun is on the horizon. It is 90
+               degrees when the Sun is directly overhead. In most places the Sun
+               will never be directly overhead. That only happens in the
+               tropics. When the Sun's elevation is lower, its path through the
+               atmosphere is longer, causing some reflection and dispersal
+               (weakening of the solar beam energy that arrives to earth).
+            </para>
+            <!-- TODO: insert a diagram -->
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="azimuth"
+                     type="sentinel-safe:pointSunAzimuthType">
+            <xs:annotation>
+               <xs:documentation>
+                  Sun's Azimuth. The azimuth angle is the angle within the
+                  horizontal plane measured from true South or North. The
+                  azimuth, when in reference to the South is usually called the
+                  bearing. If the sun is East of South, the Bearing is positive,
+                  else the bearing is negative. This element is expressed in
+                  radians and positive clockwise.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="elevation"
+                     type="sentinel-safe:pointSunElevationType">
+            <xs:annotation>
+               <xs:documentation>
+                  Sun's Elevation. The solar elevation is the vertical angle
+                  between the horizontal and the line connecting to the sun. At
+                  sunset/sunrise elevation is 0 and is PI/2 when the sun is at
+                  the zenith. Negative values means that Sun is not visible from
+                  the present location. The elevation relates to the latitude of
+                  the site, the declination angle and the hour angle. This
+                  element is expressed in radians.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="pointPlatformType">
+      <xs:sequence>
+
+         <xs:element name="azimuth"
+                     type="sentinel-safe:pointPlatformAzimuthType" />
+
+         <xs:element name="elevation"
+                     type="sentinel-safe:pointPlatformElevationType" />
+
+      </xs:sequence>
+   </xs:complexType>
+
+
+   <!-- Extension point -->
+
+   <xs:complexType name="gridReferencePointExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+   <xs:simpleType name="originLineType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference origin line cooordinate. This type
+            is dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="originColumnType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference origin column cooordinate. This type
+            is dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="scaleLineSpacingType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference line spacing. This type is dedicated
+            to be further restricted or extended for specific purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="scaleColumnSpacingType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference column spacing. This type is
+            dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="lineOffsetType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference line offset. This type is dedicated
+            to be further restricted or extended for specific purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:nonNegativeInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="lineColumnSpacingType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference line or column spacing. This type is
+            dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:positiveInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="gridReferenceTimeType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference time among lines. This type is
+            dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pointOffsetType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a grid reference time among lines. This type is
+            dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:nonNegativeInteger" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pointTimeType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a time attached to a grid reference point. This type
+            is dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:dateTime" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pointLatitudeType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a latitude attached to a grid reference point. This
+            type is dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pointLongitudeType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a longitude attached to a grid reference point. This
+            type is dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pointElevationType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of an elevation attached to a grid reference point. This
+            type is dedicated to be further restricted or extended for specific
+            purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double" />
+   </xs:simpleType>
+
+   <xs:simpleType name="pointSunAzimuthType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a Sun's azimuth attached to a grid reference point.
+            This type is dedicated to be further restricted or extended for
+            specific purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minInclusive value="0.0" />
+         <xs:maxInclusive value="6.283185307179586" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="pointSunElevationType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a Sun's elevation attached to a grid reference point.
+            This type is dedicated to be further restricted or extended for
+            specific purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minInclusive value="-1.570796326794897" />
+         <xs:maxInclusive value="1.570796326794897" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="pointPlatformAzimuthType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a Platform's azimuth attached to a grid reference
+            point. This type is dedicated to be further restricted or extended
+            for specific purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minInclusive value="0.0" />
+         <xs:maxInclusive value="6.283185307179586" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="pointPlatformElevationType">
+      <xs:annotation>
+         <xs:documentation>
+            Atomic type of a Platform's elevation attached to a grid reference
+            point. This type is dedicated to be further restricted or extended
+            for specific purposes.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minInclusive value="-1.570796326794897" />
+         <xs:maxInclusive value="1.570796326794897" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="pointIncidenceType">
+      <xs:annotation>
+         <xs:documentation>
+            An Angle of Incidence in radians. The angle of incidence is the
+            angle between a beam incident on a surface and the line
+            perpendicular to a collector's surface at the point of incidence. An
+            angle of incidence of 0 means the beam is perpendicular to the
+            collector surface, and an angle of incidence PI/2 means the beam is
+            parallel to the collector surface.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minInclusive value="0.0" />
+         <xs:maxInclusive value="1.570796326794897" />
+      </xs:restriction>
+   </xs:simpleType>
+
+
+   <!-- Extension point -->
+
+   <xs:complexType name="gridReferenceExtensionType">
+      <xs:annotation>
+         <xs:documentation>
+            An extensionType type similar to the XFDU extensionType. It is
+            dedicated to be use as common mechanism to allow versioning and
+            extension of Sentinel-SAFE types. This extension element is
+            necessary to face XML Schema notation that does not support
+            multiple particules during derivation. Where extensibility is made
+            available, the Sentinel-SAFE type defines an "extension" optional
+            element of this "extensionType" type with maximum occurrence of one
+            (1).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:any namespace="##other" processContents="strict"></xs:any>
+      </xs:sequence>
+      <xs:anyAttribute namespace="##other" processContents="strict" />
+   </xs:complexType>
+
+
+   <!-- Processing Type -->
+
+   <xs:complexType name="processingType">
+      <xs:annotation>
+         <xs:documentation>
+            The processing log is a type for collecting historical information
+            dedicated to maintenance and traceability of the described product
+            data. The standard processing log provides a single thread of
+            process logs of any different kind.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+
+         <xs:element name="facility"
+                     type="sentinel-safe:facilityType">
+            <xs:annotation>
+               <xs:documentation>
+                  Reference to any facility that may have been involved in the
+                  processing.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="software"
+                     type="sentinel-safe:softwareType">
+            <xs:annotation>
+               <xs:documentation>
+                  Reference to any software that may have been involved in the
+                  processing.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- Potential sub-processing of the described activity -->
+         <xs:element name="processing"
+                     type="sentinel-safe:processingType">
+            <xs:annotation>
+               <xs:documentation>
+                  An ordered list of processing log entries. Each processing log
+                  entry shall have affected the current package before its
+                  previous sibling occurrence and after its next sibling
+                  occurrence.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <!-- Any resource involved in the processing -->
+         <xs:element name="resource"
+                     type="sentinel-safe:resourceType">
+            <xs:annotation>
+               <xs:documentation>
+                  Reference to any resource that may have been involved in the
+                  processing. This element is an effective way to record the
+                  several threads of processing when relevant. As example, a
+                  merging algorithm may be the history of each input file thanks
+                  to this mechanism.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:choice>
+
+      <!-- Name of the processing -->
+      <xs:attribute name="name"
+                    type="xs:string" use="required">
+         <xs:annotation>
+            <xs:documentation>
+               The name of the processing. This attribute is mandatory and
+               should never be bound to the empty string. However, because the
+               processing log is provided for information, the name may not be a
+               strict identifier.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Level of the processing -->
+      <xs:attribute name="outputLevel">
+         <xs:annotation>
+            <xs:documentation>
+               The level of the output processing. This attribute is not
+               mandatory.
+            </xs:documentation>
+         </xs:annotation>
+         <xs:simpleType>
+            <xs:restriction base="xs:unsignedByte">
+               <xs:enumeration value="0"/>
+               <xs:enumeration value="1"/>
+               <xs:enumeration value="2"/>
+               <xs:enumeration value="3"/>
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:attribute>
+
+      <!-- Begin date of the processing -->
+      <xs:attribute name="start"
+                    type="xs:dateTime">
+         <xs:annotation>
+            <xs:documentation>
+               Beginning date of the referenced processing. The date shall be
+               provided in UTC time system. This date is also be used as
+               reference for ordering the various processing with regard to
+               their siblings.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- End date of the processing -->
+      <xs:attribute name="stop"
+                    type="xs:dateTime">
+         <xs:annotation>
+            <xs:documentation>
+               Ending date of the referenced processing. The date shall be
+               provided in UTC time system. Basically the stop date should be
+               further to the start date of the processing.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:complexType>
+
+   <!-- Input resources of a processing -->
+   <xs:complexType name="resourceType">
+      <xs:annotation>
+         <xs:documentation>
+            A resource of a processing represents any component during the
+            processing and that is relevant to record in the product log. The
+            resource is identified by a name and annotated with its role in the
+            processing. The resource may be located through an optional URL
+            reference. Finally, the major goal of the resource element is to
+            branch the processing log in several sub-logs. Actually, it is
+            possible to record the resource processing log as children entries
+            of the element.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+
+         <xs:element name="processing"
+                     type="sentinel-safe:processingType"
+                     minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>
+                  Processing log entries of a resource.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+
+      <!-- Name of the resource -->
+      <xs:attribute name="name"
+                    type="xs:string" use="required">
+         <xs:annotation>
+            <xs:documentation>
+               The name of the logged resource. This attribute is mandatory.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Role of the resource -->
+      <xs:attribute name="role"
+                    type="xs:string" use="required">
+         <xs:annotation>
+            <xs:documentation>
+               Role of the resource with regard to the holding processing.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Version of the resource -->
+      <xs:attribute name="version"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>
+               Version of the resource.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Resource locator -->
+      <xs:attribute name="href"
+                    type="xs:anyURI">
+         <xs:annotation>
+            <xs:documentation>Location of the resource.</xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:complexType>
+
+   <!-- ====================================================================
+      ENVIRONMENT DESCRIPTION
+      ==================================================================== -->
+
+   <!-- Referencing facilities -->
+   <xs:complexType name="facilityType">
+      <xs:annotation>
+         <xs:documentation>
+            Identifies an organisation authority of a specific processing. The
+            facility may also hold its location coordinate as well as the
+            involved systems (i.e. hardware or software).
+         </xs:documentation>
+      </xs:annotation>
+
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+
+         <xs:element name="facility"
+                     type="sentinel-safe:facilityType">
+            <xs:annotation>
+               <xs:documentation>
+                  Describes a facility sub-component of the facility
+                  environment.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="software"
+                     type="sentinel-safe:softwareType">
+            <xs:annotation>
+               <xs:documentation>
+                  Describes a software sub-component of the facility
+                  environment.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="hardware"
+                     type="sentinel-safe:hardwareType">
+            <xs:annotation>
+               <xs:documentation>
+                  Describes an hardware sub-component of the facility
+                  environment.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:choice>
+
+      <!-- Name of the organisation authority -->
+      <xs:attribute name="name" use="required"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>
+               Name of the organisation authority responsible of the facility.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Organisation -->
+      <xs:attribute name="organisation"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>
+               Explicit name of the organization responsible of the facility.
+               This name may be an agency or company name. The semantic of this
+               name is under responsibility of the user.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Site -->
+      <xs:attribute name="site"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>
+               Geographical location of the facility. This element does not
+               intends to describe the precise location as a postal address.
+               However many facilities can be identified or geographically
+               located with a name such as Kiruna or Sioux-Falls.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Country -->
+      <xs:attribute name="country"
+                    type="xs:token">
+         <xs:annotation>
+            <xs:documentation>
+               Name of the country where the facility is located.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+   </xs:complexType>
+
+   <!-- Referencing software components -->
+   <xs:complexType name="softwareType">
+      <xs:annotation>
+         <xs:documentation>
+            Reference to a software component. The software component is named
+            and may be composed of several sub-components.
+         </xs:documentation>
+      </xs:annotation>
+
+      <xs:sequence>
+
+         <!-- Sub-component -->
+         <xs:element name="software"
+                     type="sentinel-safe:softwareType"
+                     minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+               <xs:documentation>
+                  Describes a sub-component of the facility environment. It may
+                  be another, sub-facility (e.g. the Payload Data Control Center
+                  zith the Payload Data Segment of ENVISAT). It may also be a
+                  software or whatever system.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:sequence>
+
+      <!-- Name of the component -->
+      <xs:attribute name="name" use="required"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>Name of the component.</xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+      <!-- Software version -->
+      <xs:attribute name="version"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>
+               The version or release identifier of the software. No specific
+               pattern has to be followed.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+   </xs:complexType>
+
+   <!-- Referencing hardware components -->
+   <xs:complexType name="hardwareType">
+      <xs:annotation>
+         <xs:documentation>
+            Reference to an hardware component. The hardware component is named
+            and may be composed of several sub-components.
+         </xs:documentation>
+      </xs:annotation>
+
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+
+         <xs:element name="software"
+                     type="sentinel-safe:softwareType">
+            <xs:annotation>
+               <xs:documentation>
+                  Describes a software sub-component of the facility
+                  environment.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+         <xs:element name="hardware"
+                     type="sentinel-safe:hardwareType">
+            <xs:annotation>
+               <xs:documentation>
+                  Describes an hardware sub-component of the facility
+                  environment.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+
+      </xs:choice>
+
+      <!-- Name of the component -->
+      <xs:attribute name="name" use="required"
+                    type="xs:string">
+         <xs:annotation>
+            <xs:documentation>
+               Name of the hardware component.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+
+   </xs:complexType>
+
+</xs:schema>

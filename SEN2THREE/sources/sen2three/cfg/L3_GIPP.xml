@@ -1,0 +1,57 @@
+<?xml version="1.0"  encoding="UTF-8"?><Level-03_Ground_Image_Processing_Parameter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="L3_GIPP.xsd">
+  <Common_Section>
+    <Log_Level>INFO</Log_Level>
+    <!-- NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL -->
+    <Display_Data>true</Display_Data>
+    <Target_Directory>DEFAULT</Target_Directory>
+    <PSD_Scheme PSD_Version="13" PSD_Reference="S2-PDGS-TAS-DI-PSD-V13.1_Schema">
+      <UP_Scheme_2A>S2_User_Product_Level-2A_Metadata.xsd</UP_Scheme_2A>
+      <UP_Scheme_3>S2_User_Product_Level-3_Metadata.xsd</UP_Scheme_3>
+      <Tile_Scheme_2A>S2_PDI_Level-2A_Tile_Metadata.xsd</Tile_Scheme_2A>
+      <Tile_Scheme_3>S2_PDI_Level-3_Tile_Metadata.xsd</Tile_Scheme_3>
+      <DS_Scheme_2A>S2_PDI_Level-2A_Datastrip_Metadata.xsd</DS_Scheme_2A>
+      <DS_Scheme_3>S2_PDI_Level-3_Datastrip_Metadata.xsd</DS_Scheme_3>
+    </PSD_Scheme>
+    <PSD_Scheme PSD_Version="14" PSD_Reference="S2-PDGS-TAS-DI-PSD-V14.2_Schema">
+      <UP_Scheme_2A>S2_User_Product_Level-2A_Metadata.xsd</UP_Scheme_2A>
+      <UP_Scheme_3>S2_User_Product_Level-3_Metadata.xsd</UP_Scheme_3>
+      <Tile_Scheme_2A>S2_PDI_Level-2A_Tile_Metadata.xsd</Tile_Scheme_2A>
+      <Tile_Scheme_3>S2_PDI_Level-3_Tile_Metadata.xsd</Tile_Scheme_3>
+      <DS_Scheme_2A>S2_PDI_Level-2A_Datastrip_Metadata.xsd</DS_Scheme_2A>
+      <DS_Scheme_3>S2_PDI_Level-3_Datastrip_Metadata.xsd</DS_Scheme_3>
+    </PSD_Scheme>
+    <GIPP_Scheme>L3_GIPP.xsd</GIPP_Scheme>
+  </Common_Section>
+  <L3_Synthesis>
+    <Min_Time>2016-01-01T00:00:00Z</Min_Time>
+    <Max_Time>2017-12-31T23:59:59Z</Max_Time>
+    <Tile_Filter>*</Tile_Filter>
+    <Algorithm>TEMP_HOMOGENEITY</Algorithm>
+    <!-- MOST_RECENT, TEMP_HOMOGENEITY, RADIOMETRIC_QUALITY, AVERAGE -->
+    <Radiometric_Preference>AEROSOL_OPTICAL_THICKNESS</Radiometric_Preference>
+    <!-- AEROSOL_OPTICAL_THICKNESS, SOLAR_ZENITH_ANGLE -->
+    <Cirrus_Removal>true</Cirrus_Removal>
+    <Shadow_Removal>true</Shadow_Removal>
+    <Snow_Removal>false</Snow_Removal>
+    <Max_Cloud_Probability>0.0</Max_Cloud_Probability>
+    <Max_Invalid_Pixels_Percentage>0.0</Max_Invalid_Pixels_Percentage>
+    <Max_Aerosol_Optical_Thickness>0.0</Max_Aerosol_Optical_Thickness>
+    <Max_Solar_Zenith_Angle>0.0</Max_Solar_Zenith_Angle>
+    <Median_Filter>3</Median_Filter>
+  </L3_Synthesis>
+  <Classificators>
+    <NO_DATA>0</NO_DATA>
+    <SATURATED_DEFECTIVE>1</SATURATED_DEFECTIVE>
+    <DARK_FEATURES>2</DARK_FEATURES>
+    <CLOUD_SHADOWS>3</CLOUD_SHADOWS>
+    <VEGETATION>4</VEGETATION>
+    <NOT_VEGETATED>5</NOT_VEGETATED>
+    <WATER>6</WATER>
+    <UNCLASSIFIED>7</UNCLASSIFIED>
+    <MEDIUM_PROBA_CLOUDS>8</MEDIUM_PROBA_CLOUDS>
+    <HIGH_PROBA_CLOUDS>9</HIGH_PROBA_CLOUDS>
+    <THIN_CIRRUS>10</THIN_CIRRUS>
+    <SNOW_ICE>11</SNOW_ICE>
+    <URBAN_AREAS>12</URBAN_AREAS>
+  </Classificators>
+</Level-03_Ground_Image_Processing_Parameter>

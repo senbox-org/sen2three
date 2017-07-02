@@ -1,0 +1,191 @@
+<!--
+   Sentinel-SAFE - Sentinel Format
+   Copyright (C) 2011 European Space Agency (ESA)
+   Copyright (C) 2011 Consultant
+   GNU Lesser General Public License (LGPL)
+
+   This file is part of Sentinel-SAFE
+
+   Sentinel-SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Sentinel-SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<xsd:schema xmlns:sdf="http://www.gael.fr/drb/impl/sdf-20020222"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://www.gael.fr/drb/impl/sdf-20020222">
+   
+   <xsd:annotation>
+      <xsd:documentation>SDF Reference Types.</xsd:documentation>
+   </xsd:annotation>
+   
+   <xsd:complexType name="block">
+      <xsd:annotation>
+         <xsd:documentation>
+            A data file is usually defined as a set of adjacent blocks with
+            various lengths. A Structured Data File is a file containing ASCII
+            or BINARY data which can be described as a hierarchy of data blocks.
+            These blocks are organised in a "tree model" as a file system does
+            with directories, sub-directories and files.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:choice maxOccurs="unbounded">
+         <xsd:element name="occurrence" type="sdf:valueType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>
+                  Purpose of this node is to set the occurrence count of the
+                  element in the Structured Data File. This descriptor is not
+                  mandatory and the default value is set to 1 if omitted. The
+                  Occurrence count of an element can be fixed for all datafile
+                  using this schema or can depend on the data file instance.
+                  Therefore you can use this descriptor in two different ways :
+                  By setting a fixed value or setting a query to process with
+                  the file instance.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="length" type="sdf:lengthType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>
+                  This node is used to set the length of an element. It is
+                  mandatory for the "leaves" elements because it sets the number
+                  of bytes to be read to access the data in the file. For
+                  complex elements and types, it is not recommended to set the
+                  length (unless you want to force the value) because it will
+                  result from the sum of all child lengths, paddings, etc.
+                  Length value can be defined in bytes or in bits. A "unit"
+                  attribute can be added to set "byte" or "bit" unit. If the
+                  "unit" attribute is ommited, the "byte" unit is set by
+                  default. In case of "bit" unit the length cannot be longer
+                  than 32 in this version. As the occurrence count the length
+                  can be set to a fixed value or using query.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="encoding" type="sdf:encodingType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>
+                  In a logical representation the encoding is not needed but in
+                  a physical representation you need to know how to extract the
+                  data from the file. Therefore this node is used to set the
+                  encoding method of the element. The possible values are ASCII
+                  or BINARY. If the "sdf:encoding" node is omitted the encoding
+                  is set to BINARY by default.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="offset" type="sdf:lengthType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>
+                  Purpose of this node is to set the offset of an element. In
+                  this version the offset value is considered as a relative
+                  offset from the previous sibling element. This means a shift
+                  between the last byte of the last occurrence of the previous
+                  element and the first byte of the current one. In most cases,
+                  an element is following its previous sibling without any gap
+                  therefore no relative offset is needed. If the "sdf:offset"
+                  node is omitted, the value is set to 0 by default.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="padding" type="sdf:paddingType" minOccurs="0"
+            maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  This node is used to define a gap (offset) inside an element.
+                  Two types are available : the "header" padding and the
+                  "footer" padding. They are respectively the offset to skip
+                  before and after the element value to be extracted. They can
+                  be set together or only one of them. If the "sdf:padding" node
+                  is omitted the value is set to 0 by default.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   
+   <xsd:complexType name="valueType">
+      <xsd:annotation>
+         <xsd:documentation>
+            A value can be defined by a number or an XQuery expression.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:unsignedLong">
+            <xsd:attribute name="query" type="xsd:string" use="optional" />
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   
+   <xsd:complexType name="lengthType">
+      <xsd:annotation>
+         <xsd:documentation>
+            A length can be defined with a specific unit (byte or bit).
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleContent>
+         <xsd:extension base="sdf:valueType">
+            <xsd:attribute name="unit" type="sdf:unitType" default="byte" />
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   
+   <xsd:simpleType name="unitType">
+      <xsd:annotation>
+         <xsd:documentation>
+            The unit available for length definition are byte and bit.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="byte" />
+         <xsd:enumeration value="bit" />
+      </xsd:restriction>
+   </xsd:simpleType>
+   
+   <xsd:simpleType name="encodingType">
+      <xsd:annotation>
+         <xsd:documentation>
+            A value can be encoded in ASCII or in BINARY mode.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="ASCII" />
+         <xsd:enumeration value="BINARY" />
+      </xsd:restriction>
+   </xsd:simpleType>
+   
+   <xsd:complexType name="paddingType">
+      <xsd:annotation>
+         <xsd:documentation>
+            A padding can be inserted within the data stream.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:unsignedLong">
+            <xsd:attribute name="type" type="sdf:paddingMetaType"
+               use="required" />
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   
+   <xsd:simpleType name="paddingMetaType">
+      <xsd:annotation>
+         <xsd:documentation>
+            The location available for padding insertion are header and footer.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="header" />
+         <xsd:enumeration value="footer" />
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

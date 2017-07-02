@@ -1,0 +1,16 @@
+bin/
+dist/
+build/
+dem/
+log/
+sen2three/build/
+*.o
+.p*
+*.pyc
+*~
+.DS_Store
+.settings
+.database.*
+*.png
+*.jp2
+.idea

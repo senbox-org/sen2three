@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="14.25cm" height="11.75cm" viewBox="-16 -15 57 47">
+  <rect style="fill: #ffffff" x="-15.3" y="-14.025" width="56.3501" height="46.8875"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="-15.3" y="-14.025" width="56.3501" height="46.8875"/>
+  <rect style="fill: #ffffff" x="-13.65" y="-12.2625" width="53.05" height="43.25"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="-13.65" y="-12.2625" width="53.05" height="43.25"/>
+  <rect style="fill: #ffffff" x="-12.7" y="-11.3625" width="13.55" height="20.2"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="-12.7" y="-11.3625" width="13.55" height="20.2"/>
+  <polygon style="fill: #ffffff" points="5.35,13.75 13.2363,13.75 15.865,16.3787 15.865,26.8937 5.35,26.8937 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="5.35,13.75 13.2363,13.75 15.865,16.3787 15.865,26.8937 5.35,26.8937 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="13.2363,13.75 13.2363,16.3787 15.865,16.3787 15.865,16.3787 "/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="7.5" y="17.85">Manifest (XML)</text>
+  <polygon style="fill: #ffffff" points="6.95,-0.3125 12.4137,-0.3125 14.235,1.50875 14.235,8.79375 6.95,8.79375 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="6.95,-0.3125 12.4137,-0.3125 14.235,1.50875 14.235,8.79375 6.95,8.79375 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="12.4137,-0.3125 12.4137,1.50875 14.235,1.50875 14.235,1.50875 "/>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="10.45" y="3.3375">SAFE</text>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="10.45" y="4.6375">(XML Schema)</text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x1="10.5925" y1="8.79375" x2="10.606" y2="13.2632"/>
+  <polygon style="fill: #e03434" points="10.6072,13.6382 10.3556,13.139 10.606,13.2632 10.8556,13.1374 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="10.6072,13.6382 10.3556,13.139 10.606,13.2632 10.8556,13.1374 "/>
+  <polygon style="fill: #ffffff" points="27.251,2.64875 32.999,2.64875 34.915,4.56475 34.915,12.2288 27.251,12.2288 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="27.251,2.64875 32.999,2.64875 34.915,4.56475 34.915,12.2288 27.251,12.2288 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="32.999,2.64875 32.999,4.56475 34.915,4.56475 34.915,4.56475 "/>
+  <rect style="fill: #ffffff" x="27.55" y="18.4119" width="6.96625" height="6.14669"/>
+  <ellipse style="fill: #ffffff" cx="31.0331" cy="24.5586" rx="3.48313" ry="1.02445"/>
+  <ellipse style="fill: #ffffff" cx="31.0331" cy="18.4119" rx="3.48313" ry="1.02445"/>
+  <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" cx="31.0331" cy="18.4119" rx="3.48313" ry="1.02445"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 34.5162 18.4119 L 34.5162,24.5586 C 34.5162,25.1244 32.9568,25.5831 31.0331,25.5831 C 29.1094,25.5831 27.55,25.1244 27.55,24.5586 L 27.55,18.4119"/>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="31.6478" y="26.6331">Data Object</text>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="31.6478" y="27.9331">(Binary or XML)</text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x1="31.083" y1="12.2287" x2="31.0378" y2="16.9007"/>
+  <polygon style="fill: #e03434" points="31.0342,17.2757 30.789,16.7733 31.0378,16.9007 31.289,16.7781 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="31.0342,17.2757 30.789,16.7733 31.0378,16.9007 31.289,16.7781 "/>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="31.05" y="6.3375">Data Object</text>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="31.05" y="7.6375">description</text>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="31.05" y="8.9375">(XML Schema)</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="18.55" y="22.0375">references</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="11.2" y="11.0875">describes</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="27.08" y="14.4225">describes</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="25.6" y="20.4375">0..*</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="31.45" y="13.4375">1..*</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="9.6" y="13.0875">1</text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x1="15.865" y1="20.3219" x2="26.9286" y2="7.80351"/>
+  <polygon style="fill: #e03434" points="27.177,7.52252 27.0332,8.06273 26.9286,7.80351 26.6585,7.73162 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="27.177,7.52252 27.0332,8.06273 26.9286,7.80351 26.6585,7.73162 "/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="17.48" y="13.6225">references</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="25.73" y="7.2725">0..*</text>
+  <polygon style="fill: #ffffff" points="-11.2,-2.0125 -5.53,-2.0125 -3.64,-0.1225 -3.64,7.4375 -11.2,7.4375 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="-11.2,-2.0125 -5.53,-2.0125 -3.64,-0.1225 -3.64,7.4375 -11.2,7.4375 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="-5.53,-2.0125 -5.53,-0.1225 -3.64,-0.1225 -3.64,-0.1225 "/>
+  <polygon style="fill: #ffffff" points="-9.87,-3.1275 -4.2,-3.1275 -2.31,-1.2375 -2.31,6.3225 -9.87,6.3225 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="-9.87,-3.1275 -4.2,-3.1275 -2.31,-1.2375 -2.31,6.3225 -9.87,6.3225 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="-4.2,-3.1275 -4.2,-1.2375 -2.31,-1.2375 -2.31,-1.2375 "/>
+  <polygon style="fill: #ffffff" points="-8.47,-4.4775 -2.8,-4.4775 -0.91,-2.5875 -0.91,4.9725 -8.47,4.9725 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="-8.47,-4.4775 -2.8,-4.4775 -0.91,-2.5875 -0.91,4.9725 -8.47,4.9725 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="-2.8,-4.4775 -2.8,-2.5875 -0.91,-2.5875 -0.91,-2.5875 "/>
+  <text style="fill: #000000; text-anchor:start; font-size: 0.8; font-family: sans; font-style: normal; font-weight: normal" x="-2.45" y="-1.8625"></text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="30.18" y="16.6725">1</text>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="-6.1" y="-8.4125">XFDU and SAFE</text>
+  <text style="fill: #000000; text-anchor:middle; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="-6.1" y="-7.1125">(XML Schemas)</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="3.55" y="0.4375">imports</text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x1="6.95" y1="4.24062" x2="1.21145" y2="-0.936416"/>
+  <polygon style="fill: #e03434" points="0.933014,-1.18761 1.47173,-1.03831 1.21145,-0.936416 1.1368,-0.667061 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="0.933014,-1.18761 1.47173,-1.03831 1.21145,-0.936416 1.1368,-0.667061 "/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="1.55" y="1.0875">*</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.5; font-family: sans; font-style: normal; font-weight: normal" x="31.3001" y="-10.3625">SAFE Product</text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x1="15.865" y1="20.3219" x2="27.1154" y2="21.3914"/>
+  <polygon style="fill: #e03434" points="27.4887,21.4269 26.9673,21.6285 27.1154,21.3914 27.0146,21.1307 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="27.4887,21.4269 26.9673,21.6285 27.1154,21.3914 27.0146,21.1307 "/>
+</svg>

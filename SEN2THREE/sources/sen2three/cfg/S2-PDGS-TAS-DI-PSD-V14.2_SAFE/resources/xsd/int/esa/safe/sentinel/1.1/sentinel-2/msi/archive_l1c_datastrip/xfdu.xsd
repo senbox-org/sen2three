@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   SAFE - Standard Archive Format for Europe
+   Copyright (C) 2004,2005,2006,2007,2008,2009,2010 European Space Agency (ESA)
+   Copyright (C) 2004,2005,2006,2007,2008,2009,2010 GAEL Consultant
+   GNU Lesser General Public License (LGPL)
+   
+   This file is part of SAFE
+   
+   SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+   
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<!-- XFDU XML Schema document for SENTINEL-2 MSI Level-1C Datastrip product type.
+     The container XFDU receives SAFE elements. -->
+
+<xs:schema  xmlns:xs       ="http://www.w3.org/2001/XMLSchema"
+            xmlns:sentinel-safe     ="http://www.esa.int/safe/sentinel/1.1"
+            xmlns:xfdu     ="urn:ccsds:schema:xfdu:1"
+            targetNamespace="urn:ccsds:schema:xfdu:1"
+            elementFormDefault="unqualified"
+            attributeFormDefault="unqualified">
+
+   <xs:annotation>
+      <xs:documentation>
+      The container XFDU receives SAFE elements. This schema describes Manifest
+      file for all SENTINEL-2 MSI Level-1C products.
+      </xs:documentation>
+   </xs:annotation>
+
+   <xs:import namespace="http://www.esa.int/safe/sentinel/1.1"
+              schemaLocation="../../../safe.xsd"/>
+
+   <xs:redefine schemaLocation="../../../xfdu.xsd">
+
+
+   <!-- Restriction on the version attribute of root element XFDU -->
+   <xs:simpleType name="versionType">
+      <xs:annotation>
+         <xs:documentation>
+         Indicates the location of the XFDU XML schema validating the Manifest
+         file and its version (major and minor).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xfdu:versionType">
+         <xs:enumeration value="esa/safe/sentinel/1.1/sentinel-2/msi/archive_l1c_datastrip"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <!-- ===================================================================
+        SAFE METADATA SECTION
+        =================================================================== -->
+
+   <xs:complexType name="metadataSectionType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:metadataSectionType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               A container for 4 to 9 metadata<classname>metadataObject</classname>s.
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element name="metadataObject"
+                           type="xfdu:metadataObjectType"
+                           minOccurs="4" maxOccurs="9"/>
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="xmlDataType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:xmlDataType">
+            <xs:annotation>
+               <xs:documentation>
+               A wrapper to contain XML content.
+               </xs:documentation>
+            </xs:annotation>
+		<xs:sequence>
+            <xs:choice>
+
+               <xs:element ref="sentinel-safe:processing"
+                           minOccurs="1" maxOccurs="unbounded"/>
+               <xs:element ref="sentinel-safe:platform"/>
+               <xs:element ref="sentinel-safe:acquisitionPeriod"/>
+               <xs:element ref="sentinel-safe:orbitReference"/>
+
+            </xs:choice>
+		</xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <!-- ===================================================================
+        SAFE DATA SECTION
+        =================================================================== -->
+
+   <xs:complexType name="dataObjectSectionType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:dataObjectSectionType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               A container for 3 data objects<classname>dataObject</classname>s.
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element name="dataObject"
+                           type="xfdu:dataObjectType"
+                           minOccurs="3" maxOccurs="3"/>
+
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="dataObjectType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:dataObjectType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               The <classname>dataObject</classname> is part of a SAFE Object.
+               It may be dedicated to:
+               <itemizedlist>
+                  <listitem>
+                  S2_Level-L1C_Datastrip_Metadata
+                  </listitem>
+               </itemizedlist>
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element name="byteStream"
+                           type="xfdu:byteStreamType"/>
+            </xs:sequence>
+            <xs:attribute name="ID" use="required">
+               <xs:simpleType>
+                  <xs:restriction base="xs:ID">
+                     <xs:enumeration value="OLQC_Report_InformationData"/>
+                     <xs:enumeration value="S2_Level-1C_Datastrip_Metadata"/>
+                     <xs:enumeration value="Inventory_Metadata"/>
+			</xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   </xs:redefine>
+
+</xs:schema>

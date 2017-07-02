@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   Sentinel-SAFE - Sentinel Format
+   Copyright (C) 2011 European Space Agency (ESA)
+   Copyright (C) 2011 Consultant
+   GNU Lesser General Public License (LGPL)
+
+   This file is part of Sentinel-SAFE
+
+   Sentinel-SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Sentinel-SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<!-- Example of notation -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+   <xsd:complexType name="fooType"/>
+
+   <xsd:complexType name="fooSequenceType">
+      <xsd:sequence maxOccurs="unbounded">
+         <xsd:element name="firstElement" type="firstElementType"/>
+         <xsd:element name="secondElement" type="secondElementType" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <xsd:complexType name="fooChoiseType">
+      <xsd:choice minOccurs="0" maxOccurs="7">
+         <xsd:element name="firstElement" type="firstElementType"/>
+         <xsd:element name="secondElement" type="secondElementType" minOccurs="0"/>
+      </xsd:choice>
+   </xsd:complexType>
+
+   <xsd:complexType name="fooAllType">
+      <xsd:all minOccurs="1" maxOccurs="2">
+         <xsd:element name="firstElement" type="firstElementType"/>
+         <xsd:element name="secondElement" type="secondElementType"/>
+      </xsd:all>
+   </xsd:complexType>
+
+   <xsd:complexType name="fooWilcardType">
+      <xsd:sequence maxOccurs="unbounded">
+         <xsd:element name="firstElement" type="firstElementType"/>
+         <!-- Wild card -->
+         <xsd:any namespace="##other" processContents="lax"
+                  minOccurs="0" maxOccurs="unbounded">
+         </xsd:any>
+      </xsd:sequence>
+   </xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+
+File name   :  xfdu.xsd
+
+Purpose     :  XFDU XML Schema document that defines the manifest.safe file
+               for Sentinel-2 HKTM Level 0 products.
+
+Language    :  XML
+
+(c) Copyright ACS, 2011 All Rights Reserved.
+
+$Id: xfdu.xsd,v 1.1 2012/02/14 13:03:08 aleber Exp $
+
+========================================================================== -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	     xmlns:safe="http://www.esa.int/safe/sentinel/1.1" 
+	     xmlns:s2hktm="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm" 
+	     xmlns:xfdu="urn:ccsds:schema:xfdu:1" 
+	     targetNamespace="urn:ccsds:schema:xfdu:1" 
+	     elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation>Sentinel-2 HKTM Level 0 XFDU restricted types. This schema describes the manifest.safe file for Sentinel-2 HKTM Level 0 products.</xs:documentation>
+	</xs:annotation>
+
+	<xs:import namespace="http://www.esa.int/safe/sentinel/1.1" 
+                 schemaLocation="../safe.xsd"/>
+
+      <xs:import namespace="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm"
+              schemaLocation="hktm-level-0-types.xsd" />
+
+	<xs:redefine schemaLocation="../../../xfdu.xsd">
+
+		<!-- Restriction on the version attribute of root element XFDU -->
+		<xs:simpleType name="versionType">
+			<xs:annotation>
+				<xs:documentation>Indicates the location of the XFDU XML schema validating the manifest file and its version (major and minor).</xs:documentation>
+			</xs:annotation>
+			<xs:restriction base="xfdu:versionType">
+				<xs:enumeration value="esa/safe/sentinel/1.1/sentinel-2/hktm/level-0"/>
+			</xs:restriction>
+		</xs:simpleType>
+		<!-- ===================================================================
+        	SAFE METADATA SECTION
+        	=================================================================== -->
+		<xs:complexType name="metadataSectionType">
+			<xs:complexContent>
+				<xs:restriction base="xfdu:metadataSectionType">
+					<xs:annotation>
+						<xs:documentation>The metadataSection for Sentinel-2 HKTM L0 products contains the following 9 metaDataObjects:
+							Wrapped Metadata:
+								acquisitionPeriod
+								platform
+								s2hktm:standAloneProductInformation
+								orbitReference
+								processing
+								measurementQualityInformation
+							Product Annotation Data Sets:
+								measurementAnnotation
+							Representation Data Sets:
+								measurementSchema
+								measurementAnnotationSchema
+						</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="metadataObject" type="xfdu:metadataObjectType" minOccurs="8" maxOccurs="9"/>
+					</xs:sequence>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<!-- MdWrapType sub-element -->
+		<xs:complexType name="xmlDataType">
+			<xs:complexContent>
+				<xs:restriction base="xfdu:xmlDataType">
+					<xs:annotation>
+						<xs:documentation>The xmlDataType is a container for any valid XML data. This data type is restricted to allow inclusion of only the valid SAFE manifest XML data types.</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element ref="safe:acquisitionPeriod"/>
+							<xs:element ref="s2hktm:standAloneProductInformation"/>
+							<xs:element ref="safe:platform"/>
+							<xs:element ref="safe:orbitReference"/>
+							<xs:element ref="safe:processing" maxOccurs="unbounded"/>
+							<xs:element ref="safe:qualityInformation"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<!-- ===================================================================
+        	SAFE DATA SECTION
+        	=================================================================== -->
+		<xs:complexType name="dataObjectSectionType">
+			<xs:complexContent>
+				<xs:restriction base="xfdu:dataObjectSectionType">
+					<xs:annotation>
+						<xs:documentation>The dataObjectSection for Sentinel-2 HKTM L0 products contains the following 2 dataObjects:
+							Measurement Data Sets:
+								measurementData
+							Annotation Data Sets:
+								measurementAnnotData
+						</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="dataObject" type="xfdu:dataObjectType" minOccurs="2" maxOccurs="2"/>
+					</xs:sequence>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+		<xs:complexType name="dataObjectType">
+			<xs:complexContent>
+				<xs:restriction base="xfdu:dataObjectType">
+					<xs:annotation>
+						<xs:documentation>The dataObject ID attribute is restricted to allow only the valid ID patterns for the product type.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="byteStream" type="xfdu:byteStreamType"/>
+					</xs:sequence>
+					<xs:attribute name="ID" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:ID">
+								<xs:pattern value="measurementData"/>
+								<xs:pattern value="measurementAnnotData"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:redefine>
+</xs:schema>

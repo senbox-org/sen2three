@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+
+File name   :  safe-abstract.xsd
+
+Purpose     :  SAFE XML Schema document defines the SAFE restricted types for
+               all Sentinel-2 instrument and auxiliary products.
+
+Language    :  XML
+
+(c) Copyright ACS, 2011 All Rights Reserved.
+
+$Id: safe-abstract.xsd,v 1.2 2012/03/30 11:29:53 aleber Exp $
+
+========================================================================== -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:safe="http://www.esa.int/safe/sentinel/1.1" 
+           targetNamespace="http://www.esa.int/safe/sentinel/1.1" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation>
+      SENTINEL-2 mission (all instrument products): SAFE restricted types.
+      </xs:documentation>
+	</xs:annotation>
+
+	<xs:redefine schemaLocation="../safe.xsd">
+
+		<xs:simpleType name="nssdcIdentifierType">
+			<xs:restriction base="safe:nssdcIdentifierType">
+				<xs:annotation>
+					<xs:documentation>
+               Identifier for the platform provided by the NSSDC (NASA's
+               National Space Science Data Center).
+               </xs:documentation>
+				</xs:annotation>
+				<xs:enumeration value="0000-000A"/>
+			</xs:restriction>
+		</xs:simpleType>
+
+		<xs:simpleType name="platformFamilyNameType">
+			<xs:restriction base="safe:platformFamilyNameType">
+				<xs:annotation>
+					<xs:documentation>
+               Platform family name: SENTINEL.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:enumeration value="SENTINEL-2"/>
+			</xs:restriction>
+		</xs:simpleType>
+		<xs:simpleType name="platformNumberType">
+			<xs:restriction base="safe:platformNumberType">
+				<xs:annotation>
+					<xs:documentation>
+               Platform number.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:enumeration value="A"/>
+				<xs:enumeration value="B"/>
+			</xs:restriction>
+		</xs:simpleType>
+
+	</xs:redefine>
+
+</xs:schema>

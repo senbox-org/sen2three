@@ -1,0 +1,7 @@
+global-exclude .DS_Store .estimation *_report.xml *.bak *.tmp *.~
+include README.md
+recursive-include cfg *
+recursive-include sen2three/cfg *
+graft sen2three/build/lib.linux-x86_64-2.7
+graft sen2three/build/lib.macosx-x86_64-2.7
+graft sen2three/build/lib.win-amd64-2.7

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="12.5cm" height="10.5cm" viewBox="-2 -5 50 42">
+  <rect style="fill: #ffffff" x="-1.05" y="-4.375" width="49.75" height="41.2"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="-1.05" y="-4.375" width="49.75" height="41.2"/>
+  <rect style="fill: #ffffff" x="0.2" y="-2.875" width="31.65" height="38.8"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="0.2" y="-2.875" width="31.65" height="38.8"/>
+  <rect style="fill: #ffffff" x="4.1" y="4.9" width="8.9" height="11.9"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="4.1" y="4.9" width="8.9" height="11.9"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 0.8; font-family: sans; font-style: normal; font-weight: normal" x="4.1" y="10.85"></text>
+  <text style="fill: #000000; text-anchor:start; font-size: 0.8; font-family: sans; font-style: normal; font-weight: normal" x="6.2" y="5.7"></text>
+  <text style="fill: #000000; text-anchor:start; font-size: 0.8; font-family: sans; font-style: normal; font-weight: normal" x="9.4" y="24.2"></text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="5.95" y="6.5">contentUnit</text>
+  <rect style="fill: #ffffff" x="17.5" y="11.5" width="11.25" height="8.1"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="17.5" y="11.5" width="11.25" height="8.1"/>
+  <rect style="fill: #ffffff" x="17.35" y="21.35" width="11.3" height="12.35"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="17.35" y="21.35" width="11.3" height="12.35"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="19.65" y="12.95">metadataObject</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="20.8" y="23.05">dataObject</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="22.3" y="14.55">@ID</text>
+  <rect style="fill: #ffffff" x="18.3" y="15.55" width="9.4" height="3.3"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="18.3" y="15.55" width="9.4" height="3.3"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="18.95" y="16.7">metadataReference</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="21.15" y="18.15">@xlink:href</text>
+  <rect style="fill: #ffffff" x="18.2" y="27.15" width="9.35" height="5.85"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="18.2" y="27.15" width="9.35" height="5.85"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="21.9" y="25.1">@ID</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="21.9" y="26.1">@repID</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="20.6" y="28.45">byteStream</text>
+  <rect style="fill: #ffffff" x="19.2" y="29.05" width="7.55" height="3.2"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="19.2" y="29.05" width="7.55" height="3.2"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="20.6" y="30.35">fileLocation</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="21" y="31.5">@xlink:href</text>
+  <rect style="fill: #ffffff" x="35" y="25.4233" width="7.29875" height="6.44007"/>
+  <ellipse style="fill: #ffffff" cx="38.6494" cy="31.8634" rx="3.64938" ry="1.07335"/>
+  <ellipse style="fill: #ffffff" cx="38.6494" cy="25.4233" rx="3.64938" ry="1.07335"/>
+  <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" cx="38.6494" cy="25.4233" rx="3.64938" ry="1.07335"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 42.2987 25.4233 L 42.2987,31.8634 C 42.2987,32.4562 40.6649,32.9368 38.6494,32.9368 C 36.6339,32.9368 35,32.4562 35,31.8634 L 35,25.4233"/>
+  <text style="fill: #000000; text-anchor:end; font-size: 1.5; font-family: sans; font-style: normal; font-weight: normal" x="47.8801" y="34.1368">metadata.dat</text>
+  <rect style="fill: #ffffff" x="34.87" y="12.6433" width="7.29875" height="6.44007"/>
+  <ellipse style="fill: #ffffff" cx="38.5194" cy="19.0834" rx="3.64938" ry="1.07335"/>
+  <ellipse style="fill: #ffffff" cx="38.5194" cy="12.6433" rx="3.64938" ry="1.07335"/>
+  <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" cx="38.5194" cy="12.6433" rx="3.64938" ry="1.07335"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 42.1687 12.6433 L 42.1687,19.0834 C 42.1687,19.6762 40.5349,20.1568 38.5194,20.1568 C 36.5039,20.1568 34.87,19.6762 34.87,19.0834 L 34.87,12.6433"/>
+  <text style="fill: #000000; text-anchor:end; font-size: 1.5; font-family: sans; font-style: normal; font-weight: normal" x="47.7501" y="21.3568">metadata.xsd</text>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 25.1 31.175 C 27.8556,31.175 32.0444,25.575 34.3132,25.575"/>
+  <polygon style="fill: #e03434" points="34.6882,25.575 34.1882,25.825 34.3132,25.575 34.1882,25.325 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="34.6882,25.575 34.1882,25.825 34.3132,25.575 34.1882,25.325 "/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 25.25 17.975 C 30.05,17.675 32.0938,12.725 34.2132,12.725"/>
+  <polygon style="fill: #e03434" points="34.5882,12.725 34.0882,12.975 34.2132,12.725 34.0882,12.475 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="34.5882,12.725 34.0882,12.975 34.2132,12.725 34.0882,12.475 "/>
+  <text style="fill: #000000; text-anchor:start; font-size: 2; font-family: serif; font-style: normal; font-weight: normal" x="11.1" y="-0.275">MANIFEST FILE</text>
+  <rect style="fill: #ffffff" x="17.55" y="1.565" width="11.14" height="8.1"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="17.55" y="1.565" width="11.14" height="8.1"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="19.79" y="3.015">metadataObject</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="22.44" y="4.065">@ID</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="7.14" y="8.565">@dmdID</text>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 10.5 8.3 C 14.5172,8.3 16.35,3.775 21.7632,3.82087"/>
+  <polygon style="fill: #e03434" points="22.1382,3.82405 21.6361,4.06981 21.7632,3.82087 21.6403,3.56982 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="22.1382,3.82405 21.6361,4.06981 21.7632,3.82087 21.6403,3.56982 "/>
+  <rect style="fill: #ffffff" x="18.55" y="4.9" width="9.15" height="3.975"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="18.55" y="4.9" width="9.15" height="3.975"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="19.35" y="6.3">dataObjectPointer</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="20.6" y="7.8">@dataObjectID</text>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 20.1 7.525 C 16.15,7.875 11.25,20.375 20.955,24.6777"/>
+  <polygon style="fill: #e03434" points="21.2978,24.8297 20.7394,24.8556 20.955,24.6777 20.942,24.3985 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="21.2978,24.8297 20.7394,24.8556 20.955,24.6777 20.942,24.3985 "/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 24.9 25.675 C 32.95,23.325 32.9,14.525 25.0366,14.2896"/>
+  <polygon style="fill: #e03434" points="24.6618,14.2783 25.169,14.0434 25.0366,14.2896 25.154,14.5432 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="24.6618,14.2783 25.169,14.0434 25.0366,14.2896 25.154,14.5432 "/>
+</svg>

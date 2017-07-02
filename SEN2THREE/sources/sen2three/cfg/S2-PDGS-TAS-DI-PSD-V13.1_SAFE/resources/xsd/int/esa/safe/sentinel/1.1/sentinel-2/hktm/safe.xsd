@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+
+File name   :  safe.xsd
+
+Purpose     :  SAFE XML Schema document that defines the SAFE restricted types
+               for the Sentinel-2 HKTM L0 products.
+
+Language    :  XML
+
+(c) Copyright ACS, 2011 All Rights Reserved.
+
+$Id: safe.xsd,v 1.2 2012/05/24 15:28:02 aleber Exp $
+
+========================================================================== -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:safe="http://www.esa.int/safe/sentinel/1.1"
+           xmlns:s2="http://www.esa.int/safe/sentinel/1.1/sentinel-2"
+           xmlns:s2hktm="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm"
+   	     targetNamespace="http://www.esa.int/safe/sentinel/1.1"
+	     elementFormDefault="qualified" 
+           attributeFormDefault="unqualified">
+
+   <xs:annotation>
+	<xs:documentation>Sentinel-2 HKTM: SAFE restricted types.</xs:documentation>
+   </xs:annotation>
+
+   <xs:import namespace="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm"
+              schemaLocation="level-0/hktm-level-0-types.xsd" />
+
+   <xs:import namespace="http://www.esa.int/safe/sentinel/1.1/sentinel-2"
+              schemaLocation="../level-0/s2-level-0-types.xsd" />
+
+   <xs:redefine schemaLocation="../safe-abstract.xsd">
+
+      <!-- Assign Sentinel-2 HKTM properties to the Quality Information extension point -->
+
+      <xs:complexType name="qualityInformationExtensionType">
+         <xs:complexContent>
+            <xs:restriction base="safe:qualityInformationExtensionType">
+               <xs:annotation>
+                  <xs:documentation>
+                     Sentinel-2 product quality additional info.
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:sequence>
+   				<xs:element ref="s2:qualityProperties"/>
+               </xs:sequence>
+            </xs:restriction>
+         </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Assign Sentinel-2 HKTM properties to the Acquisition Period type -->
+
+      <xs:complexType name="acquisitionPeriodType">
+        	  <xs:complexContent>
+        		  <xs:restriction base="safe:acquisitionPeriodType">
+        			  <xs:annotation>
+        				  <xs:documentation>
+        						  Imposes stopTime as mandatory.
+        				  </xs:documentation>
+        			  </xs:annotation>
+        			  <xs:sequence>
+        				  <xs:element name="startTime" type="safe:startTimeType" />
+        				  <xs:element name="stopTime" type="safe:stopTimeType"/>
+        			  </xs:sequence>
+        		  </xs:restriction>
+        	  </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Assign Sentinel-2 HKTM properties to the Platform type -->
+
+	<xs:complexType name="platformType">
+    		<xs:complexContent>
+    			<xs:restriction base="safe:platformType">
+       			<xs:annotation>
+          			<xs:documentation>
+             				Imposes number as mandatory.
+          			</xs:documentation>
+       			</xs:annotation>
+       			<xs:sequence>
+    				<xs:element name="nssdcIdentifier" type="safe:nssdcIdentifierType" />
+    				<xs:element name="familyName" type="safe:platformFamilyNameType"/>
+    				<xs:element name="number" type="safe:platformNumberType"/>
+       			</xs:sequence>
+    			</xs:restriction>
+    		</xs:complexContent>
+    	</xs:complexType>
+
+	<xs:complexType name="orbitReferenceType">
+		<xs:complexContent>
+			<xs:restriction base="safe:orbitReferenceType">
+				<xs:annotation>
+						<xs:documentation>
+                     				The acquisition period metadata is dedicated to provide
+                     				the time extents of the data wrapped by the present SAFE
+                     				archive.
+                     				Imposes an extension point.
+                  			</xs:documentation>
+				</xs:annotation>
+      			<xs:sequence>
+         				<xs:element name="orbitNumber" type="safe:orbitNumberType" maxOccurs="2"/>
+         				<xs:element name="relativeOrbitNumber" type="safe:relativeOrbitNumberType" maxOccurs="2"/>
+         				<xs:element name="cycleNumber" type="safe:cycleNumberType"/>
+         				<xs:element name="phaseIdentifier" type="safe:phaseIdentifierType" minOccurs="0"/>
+      			</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+   </xs:redefine>
+
+</xs:schema>

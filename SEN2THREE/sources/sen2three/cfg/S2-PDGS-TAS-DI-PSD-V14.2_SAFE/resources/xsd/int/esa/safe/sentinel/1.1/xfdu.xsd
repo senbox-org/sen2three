@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   Sentinel-SAFE - Sentinel Format
+   Copyright (C) 2011,2012 European Space Agency (ESA)
+   Copyright (C) 2011,2012 Gael Systems
+   GNU Lesser General Public License (LGPL)
+
+   This file is part of Sentinel-SAFE
+
+   Sentinel-SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Sentinel-SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<!-- Adaptated to Sentinel-SAFE XFDU XML Schema document.
+     The present document is dedicated to validate any Sentinel-SAFE archive.
+     -->
+
+<xs:schema  xmlns:xs       ="http://www.w3.org/2001/XMLSchema"
+            xmlns:xfdu     ="urn:ccsds:schema:xfdu:1"
+            targetNamespace="urn:ccsds:schema:xfdu:1"
+            elementFormDefault="unqualified"
+            attributeFormDefault="unqualified">
+
+   <xs:annotation>
+      <xs:documentation>
+      XFDU Redefined Types. 
+      Some complex and simple types are restricted for Sentinel-SAFE.
+      The xfdu:XFDU element is only a container.
+      </xs:documentation>
+   </xs:annotation>
+
+   <xs:redefine schemaLocation="../../../../../org/ccsds/xfdu/xfdu.xsd">
+
+   <xs:complexType name="XFDUType">
+      <xs:annotation>
+         <xs:documentation>
+         XFDU root type is a restriction of XFDU in order to assure that no
+         departure from the CCSDS standard is possible. This option makes
+         Sentinel-SAFE systematically compatible with any existing environment
+         using XFDU packages for transferring or archiving data. The XFDU root
+         type makes mandatory one Information Package Map, one Metadata Section
+         and one Data Object Section. XFDU root has a &quot;version&quot;
+         attribute used for the identification of the product specialision (or
+         product type).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:restriction base="xfdu:XFDUType">
+
+            <xs:sequence>
+
+               <!-- Package Header has been removed from XFDUType -->
+
+               <xs:element name="informationPackageMap"
+                           type="xfdu:informationPackageMapType">
+                  <xs:annotation>
+                     <xs:documentation>
+                     Any Sentinel-SAFE product contains one Information Package
+                     Map (one informationPackageMap element of
+                     informationPackageMapType).
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+               <xs:element name="metadataSection"
+                           type="xfdu:metadataSectionType">
+                  <xs:annotation>
+                     <xs:documentation>
+                     Any Sentinel-SAFE product contains one Metadata Section
+                     (one metadataSection element of metadataSectionType).
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+               <xs:element name="dataObjectSection"
+                           type="xfdu:dataObjectSectionType">
+                  <xs:annotation>
+                     <xs:documentation>
+                     Any Sentinel-SAFE product contains one Data Object Section
+                     (one dataObjectSection element of dataObjectSectionType).
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+
+            <xs:attribute name="version" type="xfdu:versionType"
+                          use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                  The version attribute identifies the type of the
+                  Sentinel-SAFE product (also called the product-type or the
+                  specialisation type/version).
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <!-- ====================================================================
+        Sentinel-SAFE INFORMATION PACKAGE MAP
+        ==================================================================== -->
+
+   <xs:complexType name="informationPackageMapType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:informationPackageMapType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               An element of informationPackageMapType describes hierarchic
+               structure of the product. Nested contentUnit and
+               dataObjectPointer elements (by their pdiID, dmdID, repID and
+               dataObjectID attributes) reference metadataObjects and
+               dataObjects.
+               </para>
+               <para>
+               TODO modify?
+               Each Content Unit represents one entity of the product (in most
+               cases a Data Object). The main Content Unit (the first
+               contentUnit sub-element of the Information Package Map)
+               represents the product itself.
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element ref="xfdu:abstractContentUnit">
+                  <xs:annotation>
+                     <xs:documentation>
+                     The &quot;root&quot; Content Unit is the only sub-element
+                     of the Information Package Map.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <!-- ====================================================================
+        Sentinel-SAFE CONTENT UNIT
+        ==================================================================== -->
+
+   <xs:complexType name="contentUnitType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:contentUnitType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               An element of contentUnitType represents one entity in the
+               product. The first (or &quot;root&quot; or &quot;main&quot;)
+               Content Unit (the only sub-element of informationPackageMap
+               element) represents the product itself.
+               </para>
+               <para>
+               The &quot;root&quot; Content Unit relates the general metadata
+               (platform identification, processing history, acquisition
+               period...) to the product via pdiID and dmdID attributes. The
+               pdiID (Preservation Description Information Identifier)
+               attribute relates the Content Unit to the Processing Metadata
+               Object; the dmdID (Description MetaData Identifier) attribute
+               relates the Content Unit to the Platform Metadata Object and, if
+               available, to the Acquisition Period Metadata Object (and to any
+               additional Metadata Object).
+               </para>
+               <para>
+               The &quot;root&quot; Content Unit may contain any number of
+               contentUnit sub-elements. Each Content Unit (other than the
+               &quot;root&quot; Content Unit) is a view of the product.
+               </para>
+               <para>
+               Each Content Unit, except &quot;root&quot; Content Unit:
+               </para>
+               <para>
+                  <itemizedlist>
+                  <listitem>
+                  may nest one or more content units, or may  point to a
+                  dataObject or a metadataObject of the product;
+                  </listitem>
+                  <listitem>
+                  may relate one or more Metadata Objects to a group of nested
+                  content units or to a Data Object via dmdID (Description
+                  MetaData Identifier) attribute (e.g. a
+                  measurementQualityInformation Metadata Object, a
+                  measurementOrbitReference Metadata Object to a measurement
+                  Data Object...);
+                  </listitem>
+                  <listitem>
+                  may relate one or more XML Schema Components to a Metadata or
+                  Data Object via repID (Representation Information Identifier)
+                  attribute;
+                  </listitem>
+                  <listitem>
+                  may have a dataObjectPointer sub-element
+                  (dataObject element is pointed from the InformationPackage
+                  Map only via the dataObjectPointer/@dataObject ID attribute)."
+                  </listitem>
+                  </itemizedlist>
+               </para>
+               </xs:documentation>
+               <!--
+               <xs:documentation>
+               <para>
+               An element of contentUnitType represents one entity in the
+               product. The first (or &quot;root&quot; or &quot;main&quot;)
+               Content Unit (the only sub-element of informationPackageMap
+               element) represents the product itself.
+               </para>
+               <para>
+               The &quot;root&quot; Content Unit relates the general metadata
+               (platform identification, processing history, acquisition
+               period...) to the product via pdiID and dmdID attributes. The
+               pdiID (Preservation Description Information Identifier)
+               attribute relates the Content Unit to the Processing Metadata
+               Object; the dmdID (Description MetaData Identifier) attribute
+               relates the Content Unit to the Platform Metadata Object and, if
+               available, to the Acquisition Period Metadata Object (and to any
+               additional Metadata Object).
+               </para>
+               <para>
+               The &quot;root&quot; Content Unit may contain any number of
+               contentUnit sub-elements (one for each Data Object). Each
+               Content Unit (other than the &quot;root&quot; Content Unit) is a
+               view of the product as each Data Object is part of the product).
+               </para>
+               <para>
+               Each Content Unit, except &quot;root&quot; Content Unit:
+               </para>
+               <para>
+                  <itemizedlist>
+                  <listitem>
+                  may relate one or more Metadata Objects to a Data Object via
+                  dmdID (Description MetaData Identifier) attribute (e.g. a
+                  measurementQualityInformation Metadata Object, a
+                  measurementOrbitReference Metadata Object to a measurement
+                  Data Object...);
+                  </listitem>
+                  <listitem>
+                  must relate one or more XML Schema Components to a Data
+                  Object via repID (Representation Information Identifier)
+                  attribute;
+                  </listitem>
+                  <listitem>
+                  must have a dataObjectPointer sub-element (dataObject element
+                  is pointed from the Information Package Map only via the
+                  dataObjectPointer/@dataObject ID attribute).
+                  </listitem>
+                  </itemizedlist>
+               </para>
+               </xs:documentation>
+               -->
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element name="dataObjectPointer"
+                           type="xfdu:dataObjectPointerType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>
+                     An element of dataObjectPointerType is a contentUnit
+                     sub-element. It relates a Data Object to the
+                     dataObjectPointer's Content Unit.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+               <xs:element ref="xfdu:abstractContentUnit"
+                           minOccurs="0" maxOccurs="unbounded">
+                  <xs:annotation>
+                     <xs:documentation>
+                     Each Content Unit may contain any number of contentUnit
+                     sub-elements.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <!-- ====================================================================
+        Sentinel-SAFE METADATA SECTION
+        ==================================================================== -->
+
+   <xs:complexType name="metadataSectionType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:metadataSectionType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               The Metadata Section (a metadataSection element of
+               metadataSectionType) contains two or more Metadata Objects
+               (metadataObject elements of metadataObjectType) that record all
+               of the static metadata for all entities in the Sentinel-SAFE
+               product.
+               </para>
+               <para>
+               One of the two mandatory Metadata Objects must be dedicated to
+               the product processing history. The other must be dedicated to
+               the identification of the platform that has acquired the product
+               data.
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element name="metadataObject"
+                           type="xfdu:metadataObjectType"
+                           minOccurs="2" maxOccurs="unbounded">
+                  <xs:annotation>
+                     <xs:documentation>
+                     <para>
+                     The two mandatory Metadata Objects must be dedicated to
+                     the product processing history and to the platform
+                     identification.
+                     </para>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="metadataObjectType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:metadataObjectType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               A Metadata Object (a metadataObject element of
+               metadataObjectType) is used to either encapsulate metadata in
+               XML, to point to an XML Schema Components within the
+               Sentinel-SAFE Package, or to point to a dataObject element in
+               the dataObjectSection element.
+               </para>
+               <para>
+               A metadataObject element of metadataObjectType is identified by
+               the value of its ID attribute (e.g.
+               &lt;metadataObject ID=&quot;processing&quot;&gt;).
+               </para>
+               <para>
+               A metadataObject element may:
+                  <itemizedlist>
+                  <listitem>
+                  encapsulate metadata (the Metadata Object contains a
+                  metadataWrap sub-element which is a wrapper to contain XML
+                  content);
+                  </listitem>
+                  <listitem>
+                  point to an XML Schema Component within the Sentinel-SAFE
+                  Package (the Metadata Object contains a metadataReference
+                  sub-element which allows to point outside of the
+                  Sentinel-SAFE manifest);
+                  </listitem>
+                  <listitem>
+                  point to a Metadata Component within the Sentinel-SAFE
+                  Package (the Metadata Object contains a dataObjectPointer
+                  sub-element which relates a dataObject element to the
+                  dataObjectPointer's Metadata Object) (this mechanism is fully
+                  explained in Sentinel-SAFE Control book - Volume 1: Core
+                  Specifications).
+                  </listitem>
+                  </itemizedlist>
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+
+            <xs:sequence>
+
+               <xs:element name="metadataReference"
+                           type="xfdu:metadataReferenceType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>
+                     The metadataReference element is used to point to an XML
+                     Schema Component via its href attribute. No other
+                     Component but XML Schema Component may be pointed to by
+                     metadataReference element.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+               <xs:element name="metadataWrap"
+                           type="xfdu:metadataWrapType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>
+                     A metadataWrap element is used to encapsulate authorized
+                     Sentinel-SAFE-types.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+               <xs:element name="dataObjectPointer"
+                           type="xfdu:dataObjectPointerType"
+                           minOccurs = "0">
+                  <xs:annotation>
+                     <xs:documentation>
+                     An element of dataObjectPointerType is a Metadata Object
+                     sub-element. It relates a dataObject element to the
+                     dataObjectPointer's Metadata Object.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+
+            <!-- ID attribute is now required -->
+            <xs:attribute name="ID" use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                  An XML ID for this element. ID attribute is required and has
+                  restricted patterns.
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:ID">
+                     <xs:pattern value="processing"/>
+                     <xs:pattern value="(a|.+A)cquisitionPeriod"/>
+                     <xs:pattern value="(p|.+P)latform"/>
+                     <xs:pattern value=".+Schema"/>
+                     <xs:pattern value=".+QualityInformation"/>
+                     <xs:pattern value=".+OrbitReference"/>
+                     <xs:pattern value=".+GridReference"/>
+                     <xs:pattern value=".+FrameSet"/>
+                     <xs:pattern value=".+Index"/>
+                     <xs:pattern value=".+Annotation"/>
+                     <xs:pattern value=".+Information"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:attribute>
+
+            <!-- category and classification attributes are required
+            Problem of XSD validity
+
+            <xs:attribute name="category" use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                  Type of metadata class to which this metadata belongs (e.g.
+                  DMD, REP...)
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+            <xs:attribute name="classification" use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                  Concrete type of metadata represented by this element of
+                  metadataObjectType.
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+            -->
+            <!-- otherClass and otherCategory attributes are prohibited -->
+
+            <xs:attribute name="otherClass" type="xs:string"
+                          use="prohibited"/>
+
+            <xs:attribute name="otherCategory" type="xs:string"
+                          use="prohibited"/>
+
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="metadataReferenceType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:metadataReferenceType">
+            <xs:annotation>
+               <xs:documentation>
+               An element of metadataReferenceType is used to point to an XML
+               Schema Component via its href attribute. No other Component but
+               XML Schema Component may be pointed to by metadataReference
+               element.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence/>
+
+            <!-- href attribute is now required -->
+            <xs:attribute name="href" type="xs:string" use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                  The href attribute is required and its value is the URL of
+                  the pointed Component.
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="metadataWrapType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:metadataWrapType">
+            <xs:annotation>
+               <xs:documentation>
+               An element of metadataWrapType element is used to encapsulate
+               authorized Sentinel-SAFE-types, via its xmlData sub-element.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element name="xmlData"
+                           type="xfdu:xmlDataType">
+                  <xs:annotation>
+                     <xs:documentation>
+                     An xmlData element contains an xs:any wild card
+                     sub-element. The wild card permits some well-formed XML
+                     belonging to any namespace to appear inside the xmlData
+                     element
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <!-- ====================================================================
+        Sentinel-SAFE DATA SECTION
+        ==================================================================== -->
+
+   <!-- new Data Object type -->
+   <!-- attributes ID now required -->
+   <!-- attributes repID optional -->
+   <!-- attributes mimeType, checksum and checksumType now prohibited : they
+        are required in byteStream element -->
+   
+   <xs:complexType name="dataObjectType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:dataObjectType">
+            <xs:annotation>
+               <xs:documentation>
+               <para>
+               A dataObject element of dataObjectType relates a Component (a
+               Data or a Metadata Component, but not an XML Schema Component)
+               to the manifest via its single byteStream sub-element.
+               </para>
+               <para>
+               The dataObject's ID attribute, which is required is pointed to
+               by:
+                  <itemizedlist>
+                  <listitem>
+                  a dataObjectPointer's dataObjectID attribute, sub-element of
+                  a Content Unit if the Component is a Data Component;
+                  </listitem>
+                  <listitem>
+                  a dataObjectPointer's dataObjectID attribute, sub-element of
+                  a Content Unit  and a a dataObjectPointer's dataObjectID
+                  attribute, sub-element of a Metadata Object if the Component
+                  is a Metadata Component (this mechanism is fully explained in
+                  Sentinel-SAFE Control book - Volume 1: Core Specifications).
+                  </listitem>
+                  </itemizedlist>
+               </para>
+               <para>
+               The dataObject's repID attribute is optional and may point to one
+               or more metadataObject elements each referencing an XML Schema
+               Component within the Sentinel-SAFE Package.
+               </para>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element name="byteStream"
+                           type="xfdu:byteStreamType"
+                           minOccurs="1" maxOccurs="1"/>
+
+               <!-- checksum element prohibited -->
+
+            </xs:sequence>
+
+            <!-- ID attributes is required,
+                 repID attribute is optional,
+                 mimeType attribute is prohibited -->
+
+            <xs:attribute name="ID" type="xs:ID"
+                          use="required"/>
+
+            <xs:attribute name="repID" type="xs:IDREFS"
+                          use="optional"/>
+
+            <xs:attribute name="mimeType" type="xfdu:mimeTypeType"
+                          use="prohibited"/>
+
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+    <xs:complexType name="byteStreamType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:byteStreamType">
+            <xs:annotation>
+               <xs:documentation>
+               An element of byteStreamType contains a fileLocation element,
+               which provides a pointer to a Component (a Data or a Metadata
+               Component, but not an XML Schema Component).
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+
+               <xs:element name="fileLocation" type="xfdu:referenceType">
+                  <xs:annotation>
+                     <xs:documentation>
+                     A fileLocation element references a Component (a Data or a
+                     Metadata Component, but not an XML Schema Component) via
+                     its href attribute.
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+               <xs:element name="checksum" type="xfdu:checksumInformationType">
+                  <xs:annotation>
+                     <xs:documentation>
+                     A checksum for a Component (Data or Metadata Component -
+                     except XML Schema Component).
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+
+            </xs:sequence>
+
+            <!-- mimeType attribute now required -->
+            <xs:attribute name="mimeType" use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                     The MIME type for the referenced Component (Data or
+                     Metadata Component - except XML Schema Component).
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xfdu:mimeTypeType"/>
+               </xs:simpleType>
+            </xs:attribute>
+
+            <!-- size attribute now required -->
+            <xs:attribute name="size" use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                     The size of the data component in bytes.
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:long"/>
+               </xs:simpleType>
+            </xs:attribute>
+
+         </xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+
+   <xs:simpleType name="mimeTypeType">
+      <xs:annotation>
+         <xs:documentation>
+            The MIME type for the referenced Component (Data or Metadata
+            Component - except XML Schema Component).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xfdu:mimeTypeType">
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="checksumNameType">
+      <xs:annotation>
+         <xs:documentation>
+         Name of the checksum algorithm used to compute checksum.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xfdu:checksumNameType">
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="referenceType">
+      <xs:complexContent>
+         <xs:restriction base="xfdu:referenceType">
+            <xs:annotation>
+               <xs:documentation>
+               An element of referenceType points to a Component via its
+               required href attribute.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence/>
+
+            <!-- attribute href now required -->
+            <xs:attribute name="href" type="xs:string"
+                          use="required">
+               <xs:annotation>
+                  <xs:documentation>
+                  The href attribute is required and its value is the URL of
+                  the pointed Component.
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+
+   </xs:redefine>
+
+</xs:schema>

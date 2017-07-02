@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="Level-03_Ground_Image_Processing_Parameter" type="Level-03_Ground_Image_Processing_ParameterType"/>
+<xs:complexType name="Level-03_Ground_Image_Processing_ParameterType">
+    <xs:sequence>
+          <xs:element type="Common_SectionType" name="Common_Section"/>
+          <xs:element type="L3_SynthesisType" name="L3_Synthesis"/>
+          <xs:element type="ClassificatorsType" name="Classificators"/>
+    </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Common_SectionType">
+        <xs:sequence>
+          <xs:element type="xs:string" name="Log_Level"/>
+          <xs:element type="xs:string" name="Display_Data">
+            <xs:annotation>
+              <xs:documentation>NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element type="xs:string" name="Target_Directory">
+            <xs:annotation>
+              <xs:documentation>should be either a directory or 'DEFAULT'. If default, target will be created at root of L1C product</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element ref="PSD_Scheme" maxOccurs="unbounded"/>
+          <xs:element ref="GIPP_Scheme"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="L3_SynthesisType">
+        <xs:sequence>
+          <xs:element type="xs:dateTime" name="Min_Time"/>
+          <xs:element type="xs:dateTime" name="Max_Time"/>
+          <xs:element type="xs:string" name="Tile_Filter"/>
+          <xs:element type="xs:string" name="Algorithm"/>
+          <xs:element type="xs:string" name="Radiometric_Preference">
+            <xs:annotation>
+              <xs:documentation>MOST_RECENT, TEMP_HOMOGENEITY, RADIOMETRIC_QUALITY, AVERAGE</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element type="xs:string" name="Cirrus_Removal">
+            <xs:annotation>
+              <xs:documentation>AEROSOL_OPTICAL_THICKNESS, SOLAR_ZENITH_ANGLE</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element type="xs:string" name="Shadow_Removal"/>
+          <xs:element type="xs:string" name="Snow_Removal"/>
+          <xs:element type="xs:float" name="Max_Cloud_Probability"/>
+          <xs:element type="xs:float" name="Max_Invalid_Pixels_Percentage"/>
+          <xs:element type="xs:float" name="Max_Aerosol_Optical_Thickness"/>
+          <xs:element type="xs:float" name="Max_Solar_Zenith_Angle"/>
+          <xs:element type="xs:byte" name="Median_Filter"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ClassificatorsType">
+        <xs:sequence>
+          <xs:element type="xs:byte" name="NO_DATA"/>
+          <xs:element type="xs:byte" name="SATURATED_DEFECTIVE"/>
+          <xs:element type="xs:byte" name="DARK_FEATURES"/>
+          <xs:element type="xs:byte" name="CLOUD_SHADOWS"/>
+          <xs:element type="xs:byte" name="VEGETATION"/>
+          <xs:element type="xs:byte" name="NOT_VEGETATED"/>
+          <xs:element type="xs:byte" name="WATER"/>
+          <xs:element type="xs:byte" name="UNCLASSIFIED"/>
+          <xs:element type="xs:byte" name="MEDIUM_PROBA_CLOUDS"/>
+          <xs:element type="xs:byte" name="HIGH_PROBA_CLOUDS"/>
+          <xs:element type="xs:byte" name="THIN_CIRRUS"/>
+          <xs:element type="xs:byte" name="SNOW_ICE"/>
+          <xs:element type="xs:byte" name="URBAN_AREAS"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="DS_Scheme_3">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="S2(.)+\.xsd"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="DS_Scheme_2A">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="S2(.)+\.xsd"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="UP_Scheme_3">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="S2(.)+\.xsd"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="UP_Scheme_2A">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="S2(.)+\.xsd"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+	<xs:element name="Tile_Scheme_3">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="S2(.)+\.xsd"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Tile_Scheme_2A">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="S2(.)+\.xsd"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+    <xs:element name="GIPP_Scheme">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="L3(.)+\.xsd"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+	<xs:element name="PSD_Scheme">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="UP_Scheme_2A"/>
+				<xs:element ref="UP_Scheme_3"/>
+				<xs:element ref="Tile_Scheme_2A"/>
+				<xs:element ref="Tile_Scheme_3"/>
+				<xs:element ref="DS_Scheme_2A"/>
+				<xs:element ref="DS_Scheme_3"/>
+			</xs:sequence>
+			<xs:attribute name="PSD_Version">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="2"/>
+						<xs:pattern value="[0-9][0-9]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="PSD_Reference">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="S2(.)+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

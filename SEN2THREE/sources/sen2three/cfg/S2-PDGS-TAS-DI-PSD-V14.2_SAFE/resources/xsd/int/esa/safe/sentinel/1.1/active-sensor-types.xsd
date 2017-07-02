@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   Sentinel-SAFE - Sentinel Format
+   Copyright (C) 2011,2012 European Space Agency (ESA)
+   Copyright (C) 2011,2012 Gael Systems
+   GNU Lesser General Public License (LGPL)
+
+   This file is part of Sentinel-SAFE
+
+   Sentinel-SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Sentinel-SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<xs:schema
+   xmlns:xs              ="http://www.w3.org/2001/XMLSchema"
+   xmlns:sentinel-safe-as="http://www.esa.int/safe/sentinel/1.1/active-sensor"
+   targetNamespace       ="http://www.esa.int/safe/sentinel/1.1/active-sensor"
+   elementFormDefault    ="qualified"
+   version               ="@version">
+
+   <xs:annotation>
+      <xs:documentation>
+      Sentinel-SAFE Active Sensor Reference Types.
+      </xs:documentation>
+   </xs:annotation>
+
+   <!-- Pulse Repetition Frequency -->
+   <xs:simpleType name="pulseRepetitionFrequencyType">
+      <xs:annotation>
+         <xs:documentation>
+          Also known as Pulse Recurrency Frequency. It is the average number of
+          pulses/interrogations per second transmitted by the RADAR. The Pulse
+          Repetition Frequency is to be expressed in Hertz (Hz).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minExclusive value="0.0"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <!-- Transmission Frequency -->
+   <xs:simpleType name="transmissionFrequencyType">
+      <xs:annotation>
+         <xs:documentation>
+          Specifies the frequency of the carrier used for conveying a message
+          from a transmitter to a receiver. A typical example of message may be
+          a telemetry or a telecommand channel. The Transmission Frequency is
+          to be expressed in Hertz (Hz).
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minExclusive value="0.0"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <!-- Polarisation -->
+   <xs:simpleType name="polarisationType">
+      <xs:annotation>
+         <xs:documentation>
+         For radars designed to transmit either vertically polarised or
+         horizontally polarised radiation. This means that the electric field
+         of the wave is in a vertical plane or a horizontal plane. Likewise,
+         the radar can receive either vertically or horizontally polarised
+         radiation, and sometimes both. The planes of transmitted and received
+         polarisation are designated by the letters H for Horizontal and V for
+         Vertical. Thus the polarisation of a radar image can be H/H, for
+         horizontal transmit, horizontal receive, V/V for vertical transmit,
+         vertical receive, H/V for horizontal transmit vertical receive, and
+         vice versa (V/H). Also, for alternate transmit and receive
+         polarization, the value can be HV/HV; for horizontal transmit and
+         alternate receive, the value can be H/HV; for vertical transmit and
+         alternate receive, the values can be V/VH or V/HV.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="H/H"/>
+         <xs:enumeration value="V/V"/>
+         <xs:enumeration value="H/V"/>
+         <xs:enumeration value="V/H"/>
+         <xs:enumeration value="HV/HV"/>
+         <xs:enumeration value="H/HV"/>
+         <xs:enumeration value="V/VH"/>
+         <xs:enumeration value="V/HV"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <!-- Pulse Length -->
+   <xs:simpleType name="pulseLengthType">
+      <xs:annotation>
+         <xs:documentation>
+         Measurement of pulse transmission time in seconds, that is, the time
+         the radar's transmitter is energized during each cycle.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:double">
+         <xs:minExclusive value="0.0"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+</xs:schema>
