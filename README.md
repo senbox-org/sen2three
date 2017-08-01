@@ -2,8 +2,8 @@ Unpack the Online Documentation
 -------------------------------
 
   	cd SEN2THREE/distributions/v1.1.0
-  	unzip sen2three-1.0.0.htmldoc.zip
-  	cd sen2three-1.0.0.htmldoc/html
+  	unzip sen2three-1.1.0.htmldoc.zip
+  	cd sen2three-1.1.0.htmldoc/html
   open index.html with a web browser
     
 Install Sen2Three Runtime
