@@ -871,10 +871,8 @@ class L3_Tables(object):
         ds2a = gr2a.attrib['datastripIdentifier']
         l3TileId_split = self.config.L3_TILE_ID.split('_')
 
-        gi3 = gi2a.replace('_OPER_', '_USER_')
-        ds3 = ds2a.replace('_OPER_', '_USER_')
-        gi3 = gi3.replace('_L2a_', '_L3_')
-        ds3 = ds3.replace('_L2a_', '_L3_')
+        gi3 = gi2a.replace('_L2A_', '_L03_')
+        ds3 = ds2a.replace('_L2A_', '_L03_')
 
         gi3 = gi3[:41] + l3TileId_split[2] + '_' + l3TileId_split[1] + gi3[-7:]
         Granule = objectify.Element('Granule')
@@ -929,6 +927,11 @@ class L3_Tables(object):
         
         #update on tile level
         xp = L3_XmlParser(self.config, 'T03')
+        ti3 = xp.getTree('General_Info', 'TILE_ID_3')
+        ti3._setText(gi3)
+        di3 = xp.getTree('General_Info', 'DATASTRIP_ID_3')
+        di3._setText(ds3)
+
         # clean up and post processing actions:
         pxlQI = objectify.Element('L3_Pixel_Level_QI')
         pxlQI.attrib['resolution'] = str(self.config.resolution)

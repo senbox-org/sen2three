@@ -267,7 +267,7 @@ class L3_Product(object):
         pi.PRODUCT_STOP_TIME = tmax[:4]+'-'+tmax[4:6]+'-'+tmax[6:11]+'-'+tmax[11:13]+':'+tmax[13:15]+'.000Z'
         # update L2A and L3 entries from L2A_UP_MTD_XML:
         pi.PRODUCT_URI_2A = self.config.L2A_UP_ID
-        pi.PRODUCT_URI_3 = self.config.L2A_UP_ID.replace('L2A_', 'L3_')
+        pi.PRODUCT_URI_3 = self.config.L3_TARGET_ID
         pi.PROCESSING_LEVEL = 'Level-3p'
         pi.PRODUCT_TYPE = 'S2MSI3p'
         pi.PROCESSING_ALGORITHM = self.config.algorithm
@@ -502,9 +502,10 @@ class L3_Product(object):
         except:
             gr2a = pi.L2A_Product_Organisation.Granule_List.Granules
         gi2a = gr2a.attrib['granuleIdentifier']
+        gi03 = gi2a.replace('L2A', 'L03')
         xp = L3_XmlParser(self.config, 'DS03')
         ti = xp.getTree('Image_Data_Info', 'Tiles_Information')
-        ti.Tile_List.append(objectify.Element('Tile', tileId = gi2a))
+        ti.Tile_List.append(objectify.Element('Tile', tileId = gi03))
         xp.export()
         return
     
