@@ -274,8 +274,15 @@ class L3_Product(object):
         pi.RADIOMETRIC_PREFERENCE = self.config.radiometricPreference
         dt = datetime.utcnow()
         pi.GENERATION_TIME = strftime('%Y-%m-%dT%H:%M:%SZ', dt.timetuple())
-        qo = pi.Query_Options
-        del qo[:]
+        if self.config.namingConvention == 'SAFE_STANDARD':
+            qo = pi.Query_Options
+            del qo[:]
+            qo = objectify.Element('Query_Options')
+            qo.attrib['completeSingleTile'] = "false"
+            qo.append(objectify.Element('PRODUCT_FORMAT'))
+            qo.PRODUCT_FORMAT = 'SAFE_COMPACT'
+            pi.append(qo)
+
         gl = pi.L3_Product_Organisation.Granule_List
         del gl[:]
         aux = xp.getRoot('Auxiliary_Data_Info')

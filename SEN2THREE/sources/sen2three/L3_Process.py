@@ -16,6 +16,22 @@ from L3_Product import L3_Product
 from L3_Tables import L3_Tables
 from L3_Synthesis import L3_Synthesis
 
+def sortObservationStartTime(dirList):
+    UP_mask = '*_MSIL2A_*'
+
+    products = {}
+    for item in dirList:
+        if not fnmatch.fnmatch(item, UP_mask):
+            continue
+        items = item.split('_')
+        if items[1] == 'USER': # it's a V13.1 product ..
+            products[items[8].split('.')[0]] = item
+        else: # a V14.2 product:
+            products[items[6].split('.')[0]] = item
+    rows = sorted(products.items())
+    return [x[1] for x in rows]
+
+
 class L3_Process(object):
     ''' The main processor module, which coordinates the interaction between the other modules.
         
@@ -141,7 +157,7 @@ def doTheLoop(config):
     HelloWorld = processorName + ', ' + processorVersion + ', created: ' + processorDate
     stdoutWrite('\n%s started with %dm resolution ...\n' % (HelloWorld, config.resolution))
     dirlist = os.listdir(config.sourceDir)
-    upList = sorted(dirlist)
+    upList = sortObservationStartTime(dirlist)
     tileFilter = config.tileFilter
 
     # Process all unprocessed L2A products:
@@ -150,8 +166,6 @@ def doTheLoop(config):
     processor = L3_Process(config)
     proc = None
     for L2A_UP_ID in upList:
-        if not fnmatch.fnmatch(L2A_UP_ID, UP_mask):
-            continue
         if not config.checkTimeRange(L2A_UP_ID):
             continue
         product.updateUserProduct(L2A_UP_ID)

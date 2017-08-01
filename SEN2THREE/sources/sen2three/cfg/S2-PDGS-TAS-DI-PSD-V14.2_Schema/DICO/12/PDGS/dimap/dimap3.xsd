@@ -149,6 +149,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					<xs:documentation>General information about the MSI datatake</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="Query_Options" type="dimap:A_PRODUCT_OPTIONS"/>
 			<xs:element name="L3_Product_Organisation">
 				<xs:annotation>
 					<xs:documentation>Logical map of the elements compounding the Level 3 User Product</xs:documentation>
