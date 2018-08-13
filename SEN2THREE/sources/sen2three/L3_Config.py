@@ -58,7 +58,7 @@ class L3_Config(Borg):
             if not os.path.exists(self._logDir):
                 os.mkdir(self._logDir)
             self._processorVersion = None
-            self._productVersion = 14
+            self._productVersion = 14.5
             self._tEstimation = 0.0
             self._tEst60 = 150.0
             self._tEst20 = self._tEst60 * 8.0
@@ -1443,7 +1443,7 @@ class L3_Config(Borg):
                 continue
 
             GRANULE = os.path.join(self.sourceDir, L2A_UP_ID, 'GRANULE')
-            if self.namingConvention == 'SAFE_STANDARD':
+            if self.productVersion == 13.1:
                 L2A_mask = '*_MSI_L2A_*'
             else:
                 L2A_mask = 'L2A_*'
@@ -1554,14 +1554,18 @@ class L3_Config(Borg):
             prdMinTime = time.mktime(datetime.strptime(prdMinTimeS,'%Y%m%dT%H%M%S').timetuple())
             prdMaxTime = time.mktime(datetime.strptime(prdMaxTimeS,'%Y%m%dT%H%M%S').timetuple())
             self.namingConvention = 'SAFE_STANDARD'
-            self.productVersion = 13
+            self.productVersion = 13.1
         except:
             prdMinTimeS = userProduct[45:60]
             try: # check if its' a V14.2 product:
                 prdMinTime = time.mktime(datetime.strptime(prdMinTimeS,'%Y%m%dT%H%M%S').timetuple())
                 prdMaxTime = prdMinTime
                 self.namingConvention = 'SAFE_COMPACT'
-                self.productVersion = 14
+                prdBaseline = int(userProduct[28:32])
+                if  prdBaseline < 207:
+                    self.productVersion = 14.2
+                else:
+                    self.productVersion = 14.5
             except: # nothing of both, exit now.
                 self.exitError('error in parsing timestamp of user product: %s' % prdMinTimeS)
 
@@ -2042,9 +2046,9 @@ class L3_Config(Borg):
         # get the product version from metadata:
         filelist = sorted(os.listdir(self.sourceDir))
         if self.namingConvention == 'SAFE_STANDARD':
-            filemask = 'S2?_OPER_MTD_SAFL1C*.xml'
+            filemask = 'S2?_OPER_MTD_SAFL2A*.xml'
         else:
-            filemask = 'MTD_MSIL1C.xml'
+            filemask = 'MTD_MSIL2A.xml'
 
         for filename in filelist:
             if(fnmatch.fnmatch(filename, filemask) == True):

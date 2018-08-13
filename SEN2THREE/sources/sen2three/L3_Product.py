@@ -259,7 +259,7 @@ class L3_Product(object):
             stderrWrite('Error in converting user product metadata to level 3')
             self.config.exitError()
         xp = L3_XmlParser(self.config, 'UP03')
-        pi = xp.getTree('General_Info', 'L3_Product_Info')        
+        pi = xp.getTree('General_Info', 'Product_Info')
         # update L2A entries from L2A_UP_MTD_XML:
         tmin = self.config.minTime
         tmax = self.config.maxTime
@@ -283,18 +283,18 @@ class L3_Product(object):
             qo.PRODUCT_FORMAT = 'SAFE_COMPACT'
             pi.append(qo)
 
-        gl = pi.L3_Product_Organisation.Granule_List
+        gl = pi.Product_Organisation.Granule_List
         del gl[:]
         aux = xp.getRoot('Auxiliary_Data_Info')
         del aux[:]
-        l3auxData = xp.getTree('L3_Auxiliary_Data_Info', 'Aux_Data')
-        l3auxData.clear()
+        #l3auxData = xp.getTree('Auxiliary_Data_Info', 'Aux_Data')
+        #l3auxData.clear()
         qii = xp.getRoot('Quality_Indicators_Info')
-        del qii[:]
-        l3icqi = xp.getTree('L3_Quality_Indicators_Info', 'Image_Content_QI')
-        del l3icqi[:]
-        l3qii = xp.getRoot('L3_Quality_Indicators_Info')
-        tree = objectify.Element('L3_Classification_QI')
+        #del qii[:]
+        #l3icqi = xp.getTree('Quality_Indicators_Info', 'Image_Content_QI')
+        #del l3icqi[:]
+        l3qii = xp.getRoot('Quality_Indicators_Info')
+        tree = objectify.Element('Classification_QI')
         tree.attrib['resolution'] = str(self.config.resolution)
         l3qii.append(tree)
         xp.export()
@@ -380,8 +380,8 @@ class L3_Product(object):
         self.config.L3_TARGET_MTD_XML = os.path.join(self.config.L3_TARGET_DIR, filename)
 
         xp = L3_XmlParser(self.config, 'UP03')
-        l3qii = xp.getRoot('L3_Quality_Indicators_Info')
-        node = objectify.Element('L3_Classification_QI')
+        l3qii = xp.getRoot('Quality_Indicators_Info')
+        node = objectify.Element('Classification_QI')
         if self.insert(l3qii, node):
             xp.export()
 
@@ -468,11 +468,7 @@ class L3_Product(object):
         try:
             # remove all QI items from the past, as they will be calculated
             # directly from contents of images
-            tree = xp.getTree('Quality_Indicators_Info', 'L1C_Image_Content_QI')
-            del tree[:]
             tree = xp.getTree('Quality_Indicators_Info', 'L2A_Image_Content_QI')
-            del tree[:]
-            tree = xp.getTree('Quality_Indicators_Info', 'L1C_Pixel_Level_QI')
             del tree[:]
             tree = xp.getTree('Quality_Indicators_Info', 'L2A_Pixel_Level_QI')
             del tree[:]
@@ -487,15 +483,15 @@ class L3_Product(object):
         xp = L3_XmlParser(self.config, 'T03')
         root = xp.getRoot('Quality_Indicators_Info')
 
-        tree = objectify.Element('L3_Pixel_Level_QI')
+        tree = objectify.Element('Pixel_Level_QI')
         tree.attrib['resolution'] = str(self.config.resolution)
         root.append(tree)
 
-        tree = objectify.Element('L3_Classification_QI')
+        tree = objectify.Element('Classification_QI')
         tree.attrib['resolution'] = str(self.config.resolution)
         root.append(tree)
 
-        tree = objectify.Element('L3_Mosaic_QI')
+        tree = objectify.Element('Mosaic_QI')
         tree.attrib['resolution'] = str(self.config.resolution)
         root.append(tree)
 
@@ -503,13 +499,17 @@ class L3_Product(object):
 
         #update tile id in ds metadata file.
         xp = L3_XmlParser(self.config, 'UP2A')
-        pi = xp.getTree('General_Info', 'L2A_Product_Info')
-        try:
-            gr2a = pi.L2A_Product_Organisation.Granule_List.Granule
-        except:
-            gr2a = pi.L2A_Product_Organisation.Granule_List.Granules
+        if self.config.productVersion > 14.2:
+            pi = xp.getTree('General_Info', 'Product_Info')
+            gr2a = pi.Product_Organisation.Granule_List.Granule
+        else:
+            pi = xp.getTree('General_Info', 'L2A_Product_Info')
+            try:
+                gr2a = pi.L2A_Product_Organisation.Granule_List.Granule
+            except: # it's a boring old 13.1 product:
+                gr2a = pi.L2A_Product_Organisation.Granule_List.Granules
         gi2a = gr2a.attrib['granuleIdentifier']
-        gi03 = gi2a.replace('L2A', 'L03')
+        gi03 = gi2a.replace('L2A_', '')
         xp = L3_XmlParser(self.config, 'DS03')
         ti = xp.getTree('Image_Data_Info', 'Tiles_Information')
         ti.Tile_List.append(objectify.Element('Tile', tileId = gi03))
@@ -564,13 +564,13 @@ class L3_Product(object):
         xp = L3_XmlParser(self.config, 'T03')
         qii = xp.getRoot('Quality_Indicators_Info')
 
-        node = objectify.Element('L3_Pixel_Level_QI')
+        node = objectify.Element('Pixel_Level_QI')
         if self.insert(qii, node):
             xp.export()
-        node = objectify.Element('L3_Classification_QI')
+        node = objectify.Element('Classification_QI')
         if self.insert(qii, node):
             xp.export()
-        node = objectify.Element('L3_Mosaic_QI')
+        node = objectify.Element('Mosaic_QI')
         if self.insert(qii, node):
             xp.export()
 
@@ -654,14 +654,14 @@ class L3_Product(object):
 
         self.updateProductMetadata()
         xp = L3_XmlParser(self.config, 'UP03')
-        auxdata = xp.getTree('L3_Auxiliary_Data_Info', 'Aux_Data')
+        auxdata = xp.getTree('Auxiliary_Data_Info', 'Aux_Data')
         auxdata.clear()
         dirname, basename = os.path.split(self.config.L3_TILE_MTD_XML)
         fn1r = basename.replace('_MTD_', '_GIP_')
         fn2r = fn1r.replace('.xml', '')
         gippFn = etree.Element('GIPP_FILENAME', type='GIP_Level-3p', version=self.config.processorVersion)
         gippFn.text = fn2r
-        gippList = objectify.Element('L3_GIPP_LIST')
+        gippList = objectify.Element('GIPP_LIST')
         gippList.append(gippFn)
         auxdata.append(gippList)
         xp.export()
@@ -915,7 +915,7 @@ class L3_Product(object):
         snowIcePercentage = float32(snowIceCount) / dataPixelCount
 
 
-        classificationQI = objectify.Element('L3_Classification_QI')
+        classificationQI = objectify.Element('Classification_QI')
         classificationQI.attrib['resolution'] = str(self.config.resolution)
         classificationQI.append(objectify.Element('TOTAL_PIXEL_COUNT'))
         classificationQI.append(objectify.Element('DATA_PIXEL_COUNT'))
@@ -982,7 +982,7 @@ class L3_Product(object):
         classificationQI.SNOW_ICE_PERCENTAGE = snowIcePercentage
 
         xp = L3_XmlParser(self.config, 'UP03')
-        l3qi = xp.getTree('L3_Quality_Indicators_Info', 'L3_Classification_QI')
+        l3qi = xp.getTree('Quality_Indicators_Info', 'Classification_QI')
         l3qiLen = len(l3qi)
         for i in range(l3qiLen):
             if int(l3qi[i].attrib['resolution']) == self.config.resolution:

@@ -4,7 +4,7 @@
     <!-- NOTSET, DEBUG, INFO, WARNING, ERROR, CRITICAL -->
     <Display_Data>true</Display_Data>
     <Target_Directory>DEFAULT</Target_Directory>
-    <PSD_Scheme PSD_Version="13" PSD_Reference="S2-PDGS-TAS-DI-PSD-V13.1_Schema">
+    <PSD_Scheme PSD_Version="13.1" PSD_Reference="S2-PDGS-TAS-DI-PSD-V13.1_Schema">
       <UP_Scheme_2A>S2_User_Product_Level-2A_Metadata.xsd</UP_Scheme_2A>
       <UP_Scheme_3>S2_User_Product_Level-3_Metadata.xsd</UP_Scheme_3>
       <Tile_Scheme_2A>S2_PDI_Level-2A_Tile_Metadata.xsd</Tile_Scheme_2A>
@@ -12,7 +12,15 @@
       <DS_Scheme_2A>S2_PDI_Level-2A_Datastrip_Metadata.xsd</DS_Scheme_2A>
       <DS_Scheme_3>S2_PDI_Level-3_Datastrip_Metadata.xsd</DS_Scheme_3>
     </PSD_Scheme>
-    <PSD_Scheme PSD_Version="14" PSD_Reference="S2-PDGS-TAS-DI-PSD-V14.2_Schema">
+    <PSD_Scheme PSD_Version="14.2" PSD_Reference="S2-PDGS-TAS-DI-PSD-V14.2_Schema">
+      <UP_Scheme_2A>S2_User_Product_Level-2A_Metadata.xsd</UP_Scheme_2A>
+      <UP_Scheme_3>S2_User_Product_Level-3_Metadata.xsd</UP_Scheme_3>
+      <Tile_Scheme_2A>S2_PDI_Level-2A_Tile_Metadata.xsd</Tile_Scheme_2A>
+      <Tile_Scheme_3>S2_PDI_Level-3_Tile_Metadata.xsd</Tile_Scheme_3>
+      <DS_Scheme_2A>S2_PDI_Level-2A_Datastrip_Metadata.xsd</DS_Scheme_2A>
+      <DS_Scheme_3>S2_PDI_Level-3_Datastrip_Metadata.xsd</DS_Scheme_3>
+    </PSD_Scheme>
+    <PSD_Scheme PSD_Version="14.5" PSD_Reference="S2-PDGS-TAS-DI-PSD-V14.5_Schema">
       <UP_Scheme_2A>S2_User_Product_Level-2A_Metadata.xsd</UP_Scheme_2A>
       <UP_Scheme_3>S2_User_Product_Level-3_Metadata.xsd</UP_Scheme_3>
       <Tile_Scheme_2A>S2_PDI_Level-2A_Tile_Metadata.xsd</Tile_Scheme_2A>
@@ -23,8 +31,8 @@
     <GIPP_Scheme>L3_GIPP.xsd</GIPP_Scheme>
   </Common_Section>
   <L3_Synthesis>
-    <Min_Time>2016-01-01T00:00:00Z</Min_Time>
-    <Max_Time>2017-12-31T23:59:59Z</Max_Time>
+    <Min_Time>2017-01-01T00:00:00Z</Min_Time>
+    <Max_Time>2018-12-31T23:59:59Z</Max_Time>
     <Tile_Filter>*</Tile_Filter>
     <Algorithm>TEMP_HOMOGENEITY</Algorithm>
     <!-- MOST_RECENT, TEMP_HOMOGENEITY, RADIOMETRIC_QUALITY, AVERAGE -->

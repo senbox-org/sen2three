@@ -92,13 +92,10 @@ class L3_Tables(object):
         if reinit == False:
             product.createL3_Tile(L2A_TILE_ID)
 
-        L2A_UP_ID = self.config.L2A_UP_ID
         L3_TILE_ID = self.config.L3_TILE_ID
         if self.config.namingConvention == 'SAFE_STANDARD':
-            L2A_TILE_ID_SHORT = L2A_TILE_ID[:55]
             L3_TILE_ID_SHORT = self.config.L3_TILE_ID[:55]
         else:
-            L2A_TILE_ID_SHORT = L2A_TILE_ID
             L3_TILE_ID_SHORT = self.config.L3_TILE_ID
 
         L2A_TILE_ID = os.path.join(self.config.L2A_UP_DIR, GRANULE, L2A_TILE_ID)
@@ -133,10 +130,9 @@ class L3_Tables(object):
             L3_TILE_ID_SHORT + '_PLT_' + str(self.config.getNrTilesProcessed()+1) + '.png')
 
         # Product Levels:
-        self._productLevel = ['L1C','L2A','L3']
+        self._productLevel = ['L2A','L3']
         
         # the mapping of the product levels
-        self._L1C = 0
         self._L2A = 1
         self._L03 = 2
 
@@ -627,7 +623,6 @@ class L3_Tables(object):
         try:
             h5file = open_file(self._imageDatabase, mode='a', title =  str(self._resolution) + 'm bands')
             # remove all existing L2A tables as they will be replaced by the new data set
-            h5file.create_group('/', 'L1C', 'bands L1C')
             h5file.create_group('/', 'L2A', 'bands L2A')
             h5file.create_group('/', 'L3', 'bands L3')
             result = True
@@ -641,12 +636,12 @@ class L3_Tables(object):
     def importBandList(self, productLevel):
         ''' Import all bands of current tile.
             
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [L2A | L3].
             :type productLevel: str
             :rtype: none.
             
         '''        
-        self.config.timestamp('L3_Tables: start import')
+        self.config.timestamp('L3_Tables: start import, source product version is: ' + str(self.config.productVersion))
         self._productLevel = productLevel        
         bandDir = self._L2A_bandDir
         os.chdir(bandDir)
@@ -655,10 +650,12 @@ class L3_Tables(object):
         for i in bands:
             for filename in dirs:  
                 bandName = self.getBandNameFromIndex(i)
-                if self.config.namingConvention == 'SAFE_STANDARD':
+                if self.config.productVersion == 13.1:
                     filemask = '*_L2A_*_B%2s_??m.jp2' % bandName[1:3]
-                else:
-                    filemask = 'L2A_*_B%2s_??m.jp2' % bandName[1:3]
+                elif self.config.productVersion == 14.2:
+                    filemask = 'L2A_T*_B%2s_??m.jp2' % bandName[1:3]
+                elif self.config.productVersion == 14.5:
+                    filemask = 'T*_B%2s_??m.jp2' % bandName[1:3]
                 if not fnmatch.fnmatch(filename, filemask):
                     continue
 
@@ -667,7 +664,7 @@ class L3_Tables(object):
                 #
                 # the File structure:
                 # -------------------------------------------------------
-                if (self.config.namingConvention == 'SAFE_STANDARD') and (bandName == 'B02'):
+                if (self.config.productVersion == 13.1) and (bandName == 'B02'):
                     # B02 is always present:
                     L2A_TILE_ID_SHORT = self.config.L2A_TILE_ID[:55]
                     pre = L2A_TILE_ID_SHORT[:8]
@@ -686,7 +683,7 @@ class L3_Tables(object):
                         pre + '_SNW' + post + '_' + str(self._resolution) + 'm.jp2')
                     self._L2A_Tile_PVI_File = os.path.join(self._L2A_QualityDataDir,
                         pre + '_PVI' + post + '.jp2')
-                elif (self.config.namingConvention == 'SAFE_COMPACT') and (bandName == 'B02'):
+                elif (self.config.productVersion > 13.1) and (bandName == 'B02'):
                     self._L2A_Tile_BND_File = os.path.join(bandDir, filename.replace('B02', 'BXX'))
                     self._L2A_Tile_AOT_File = os.path.join(bandDir, filename.replace('B02', 'AOT'))
                     self._L2A_Tile_WVP_File = os.path.join(bandDir, filename.replace('B02', 'AOT'))
@@ -705,10 +702,12 @@ class L3_Tables(object):
             srcResolution = '_20m'
 
             channel = 17 # import AOT:
-            if self.config.namingConvention == 'SAFE_STANDARD':
+            if self.config.productVersion == 13.1:
                 filemask = '*_L2A_*_AOT_??m.jp2'
-            else:
+            elif self.config.productVersion == 14.2:
                 filemask = 'L2A_*_AOT_??m.jp2'
+            else:
+                filemask = 'T*_AOT_??m.jp2'
 
             sourceDir = self._L2A_bandDir.replace('R10m', 'R20m')
             dirs = sorted(os.listdir(sourceDir))
@@ -719,13 +718,16 @@ class L3_Tables(object):
                 break
 
             channel = 14 # import SCL:
-            if self.config.namingConvention == 'SAFE_STANDARD':
+            if self.config.productVersion == 13.1:
                 # scene class is in different directory:
                 sourceDir = self._L2A_ImgDataDir
                 filemask = '*_L2A_*_SCL_??m.jp2'
-            else:
+            elif self.config.productVersion == 14.2:
                 sourceDir = self._L2A_bandDir.replace('R10m', 'R20m')
                 filemask = 'L2A_*_SCL_??m.jp2'
+            else:
+                sourceDir = self._L2A_bandDir.replace('R10m', 'R20m')
+                filemask = 'T*_SCL_??m.jp2'
 
             dirs = sorted(os.listdir(sourceDir))
             for filename in dirs:
@@ -737,7 +739,7 @@ class L3_Tables(object):
     def getBand(self, productLevel, bandIndex, dataType=uint16):
         ''' Get a single band from database.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str            
             :param bandIndex: the band index.
             :type bandIndex: unsigned int
@@ -809,9 +811,7 @@ class L3_Tables(object):
                 self.config.exitError()
                 return False
 
-            if self._productLevel == 'L1C':
-                locator = h5file.root.L1C
-            elif self._productLevel == 'L2A':
+            if self._productLevel == 'L2A':
                 locator = h5file.root.L2A
             elif self._productLevel == 'L3':
                 locator = h5file.root.L3
@@ -837,7 +837,7 @@ class L3_Tables(object):
         ''' Export all bands of current tile.
             converts all bands from hdf5 to JPEG-2000.
             
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :return: false if error occurred during export.
             :rtype: boolean           
@@ -862,19 +862,26 @@ class L3_Tables(object):
             bandIndex = [0, 1, 2, 3, 4, 5, 6, 8, 9, 11, 12, 14, 34]
 
         xp = L3_XmlParser(self.config, 'UP2A')
-        pi = xp.getTree('General_Info', 'L2A_Product_Info')
-        try:
-            gr2a = pi.L2A_Product_Organisation.Granule_List.Granule
-        except:
-            gr2a = pi.L2A_Product_Organisation.Granule_List.Granules
+        if self.config.productVersion < 14.5:
+            pi = xp.getTree('General_Info', 'L2A_Product_Info')
+            try: # 14.2:
+                gr2a = pi.L2A_Product_Organisation.Granule_List.Granule
+            except: # 13.1:
+                gr2a = pi.L2A_Product_Organisation.Granule_List.Granules
+        else: # 14.5:
+            pi = xp.getTree('General_Info', 'Product_Info')
+            gr2a = pi.Product_Organisation.Granule_List.Granule
+
         gi2a = gr2a.attrib['granuleIdentifier']
         ds2a = gr2a.attrib['datastripIdentifier']
         l3TileId_split = self.config.L3_TILE_ID.split('_')
-
         gi3 = gi2a.replace('_L2A_', '_L03_')
         ds3 = ds2a.replace('_L2A_', '_L03_')
+        if self.config.productVersion < 14.5:
+            gi3 = gi3[:41] + l3TileId_split[2] + '_' + l3TileId_split[1] + gi3[-7:]
+        else:
+            gi3 = gi3[:41] + l3TileId_split[2] + '_' + l3TileId_split[1] + gi3[-7:]
 
-        gi3 = gi3[:41] + l3TileId_split[2] + '_' + l3TileId_split[1] + gi3[-7:]
         Granule = objectify.Element('Granule')
         Granule.attrib['granuleIdentifier'] = gi3
         Granule.attrib['datastripIdentifier'] = ds3
@@ -912,7 +919,7 @@ class L3_Tables(object):
             self.config.logger.info('Band ' + bandName + ' exported')
             self.config.timestamp('L3_Tables: band ' + bandName + ' exported')
             filename = os.path.basename(filename.strip('.jp2'))
-            imageFile3 = etree.Element('IMAGE_FILE_3')
+            imageFile3 = etree.Element('IMAGE_FILE')
             # by intention os.path.join is not used here, as otherwise validation on windows fails:
             resolution = 'R' + str(self.config.resolution) + 'm/'
             imageFile3.text = 'GRANULE/' + self.config.L3_TILE_ID + '/IMG_DATA/' + resolution + filename
@@ -920,28 +927,28 @@ class L3_Tables(object):
 
         self.createTci('L3')
         xp = L3_XmlParser(self.config, 'UP03')
-        pi = xp.getTree('General_Info', 'L3_Product_Info')
+        pi = xp.getTree('General_Info', 'Product_Info')
         po = pi.L3_Product_Organisation
         po.append(gl)
         xp.export()
         
         #update on tile level
         xp = L3_XmlParser(self.config, 'T03')
-        ti3 = xp.getTree('General_Info', 'TILE_ID_3')
+        ti3 = xp.getTree('General_Info', 'TILE_ID')
         ti3._setText(gi3)
-        di3 = xp.getTree('General_Info', 'DATASTRIP_ID_3')
+        di3 = xp.getTree('General_Info', 'DATASTRIP_ID')
         di3._setText(ds3)
 
         # clean up and post processing actions:
-        pxlQI = objectify.Element('L3_Pixel_Level_QI')
+        pxlQI = objectify.Element('Pixel_Level_QI')
         pxlQI.attrib['resolution'] = str(self.config.resolution)
-        pxlQI.append(objectify.Element('L3_TILE_CLASSIFICATION_MASK'))
-        pxlQI.append(objectify.Element('L3_TILE_MOSAIC_MASK'))
+        pxlQI.append(objectify.Element('TILE_CLASSIFICATION_MASK'))
+        pxlQI.append(objectify.Element('TILE_MOSAIC_MASK'))
 
         pxlQI.L3_TILE_CLASSIFICATION_MASK = os.path.basename(self._L3_Tile_SCL_File).replace('.jp2', '')
         pxlQI.L3_TILE_MOSAIC_MASK = os.path.basename(self._L3_Tile_MSC_File).replace('.jp2', '')
 
-        qiiL3 = xp.getTree('Quality_Indicators_Info', 'L3_Pixel_Level_QI')
+        qiiL3 = xp.getTree('Quality_Indicators_Info', 'Pixel_Level_QI')
         qiiL3Len = len(qiiL3)
         for i in range(qiiL3Len):
             if int(qiiL3[i].attrib['resolution']) == self.config.resolution:
@@ -1004,7 +1011,7 @@ class L3_Tables(object):
     def setBand(self, productLevel, bandIndex, arr):
         ''' Set a single band from numpy array to H5 database.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :param bandIndex: the band index.
             :type bandIndex: unsigned int
@@ -1023,9 +1030,7 @@ class L3_Tables(object):
             dtIn = self.mapDataType(arr.dtype)
             filters = Filters(complib="zlib", complevel=1)
             # create new group and append node:
-            if productLevel == 'L1C':
-                locator = h5file.root.L1C
-            elif productLevel == 'L2A':
+            if productLevel == 'L2A':
                 locator = h5file.root.L2A
             elif productLevel == 'L3':
                 locator = h5file.root.L3
@@ -1043,7 +1048,7 @@ class L3_Tables(object):
     def delBand(self, productLevel, bandIndex):
         ''' Delete a single band from H5 database.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :param bandIndex: the band index.
             :type bandIndex: unsigned int
@@ -1069,7 +1074,7 @@ class L3_Tables(object):
     def delBandList(self, productLevel):
         ''' Delete the complete list of bands from H5 database.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :return: false if error occurred during deletion of band.            
             :rtype: boolean
@@ -1107,7 +1112,7 @@ class L3_Tables(object):
     def createPreviewImage(self, productLevel):
         ''' Create an RGB preview image from bands 2-4.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :return: false if image cannot be created, else true.            
             :rtype: boolean
@@ -1151,7 +1156,7 @@ class L3_Tables(object):
     def createTci(self, productLevel):
         ''' Create an RGB TCI image from bands 2-4.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :return: false if image cannot be created, else true.
             :rtype: boolean
@@ -1210,13 +1215,13 @@ class L3_Tables(object):
     def verifyProductId(self, productLevel):
         ''' Verify the product ID.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :return: true if product level exists, else false.            
             :rtype: boolean
             
         '''
-        if productLevel != 'L1C' and productLevel != 'L2A' and productLevel != 'L3':
+        if productLevel != 'L2A' and productLevel != 'L3':
             self.config.logger.fatal('Wrong product ID %s', productLevel)
             self.config.exitError()
         return True
@@ -1224,7 +1229,7 @@ class L3_Tables(object):
     def testBand(self, productLevel, bandIndex):
         ''' Test if band exists in database.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :param bandIndex: the band index.
             :type bandIndex: unsigned int
@@ -1248,7 +1253,7 @@ class L3_Tables(object):
     def getBandSize(self, productLevel, bandIndex):
         ''' Get size of image array.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :param bandIndex: the band index.
             :type bandIndex: unsigned int
@@ -1274,7 +1279,7 @@ class L3_Tables(object):
     def getDataType(self, productLevel, bandIndex):
         ''' Get data type of image array.
 
-            :param productLevel: [L1C | L2A | L3].
+            :param productLevel: [ L2A | L3].
             :type productLevel: str
             :param bandIndex: the band index.
             :type bandIndex: unsigned int

@@ -129,8 +129,8 @@
 			<xs:attribute name="PSD_Version">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:length value="2"/>
-						<xs:pattern value="[0-9][0-9]"/>
+						<xs:length value="4"/>
+						<xs:pattern value="[0-9][0-9]\.[0-9]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>

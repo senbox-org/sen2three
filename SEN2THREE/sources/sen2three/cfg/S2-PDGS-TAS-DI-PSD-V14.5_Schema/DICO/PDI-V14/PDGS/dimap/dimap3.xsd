@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Yasar Kurt (Telespazio VEGA Deutschland GmbH) -->
-<xs:schema xmlns:gs2="https://psd-12.sentinel2.eo.esa.int/doc/13/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:center="https://psd-12.sentinel2.eo.esa.int/DICO/12/PDGS/center/" xmlns:image="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/image/" xmlns:date_time="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/date_time/" xmlns:base="https://psd-12.sentinel2.eo.esa.int/DICO/12/PDGS/base/" xmlns:orbital="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/orbital/" xmlns:platform="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/platform/" xmlns:misc="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/misc/" xmlns:geographical="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/geographical/" xmlns:spatio="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/spatio/" xmlns:tile="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/tile/" xmlns:representation="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/representation/" xmlns:item="https://psd-12.sentinel2.eo.esa.int/DICO/12/DataAccess/item/" xmlns:dimap="https://psd-12.sentinel2.eo.esa.int/DICO/12/PDGS/dimap/" targetNamespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/PDGS/dimap/" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="12">
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/image/" schemaLocation="../../SY/image/image.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/date_time/" schemaLocation="../../SY/date_time/date_time.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/PDGS/base/" schemaLocation="../base/base.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/PDGS/center/" schemaLocation="../center/center.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/orbital/" schemaLocation="../../SY/orbital/orbital.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/platform/" schemaLocation="../../SY/platform/platform.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/misc/" schemaLocation="../../SY/misc/misc.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/geographical/" schemaLocation="../../SY/geographical/geographical.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/spatio/" schemaLocation="../../SY/spatio/spatio.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/tile/" schemaLocation="../../SY/tile/tile.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/SY/representation/" schemaLocation="../../SY/representation/representation.xsd"/>
-	<xs:import namespace="https://psd-12.sentinel2.eo.esa.int/DICO/12/DataAccess/item/" schemaLocation="../../DataAccess/item/item3.xsd"/>
+<xs:schema xmlns:gs2="https://psd-14.sentinel2.eo.esa.int/doc/14/"
+		   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns:center="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/center/"
+		   xmlns:image="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/image/"
+		   xmlns:date_time="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/date_time/"
+           xmlns:base="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/base/"
+           xmlns:orbital="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/orbital/"
+           xmlns:platform="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/platform/"
+           xmlns:misc="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/misc/"
+           xmlns:geographical="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/geographical/"
+           xmlns:spatio="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/spatio/"
+           xmlns:tile="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/tile/"
+           xmlns:representation="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/representation/"
+           xmlns:item="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/DataAccess/item/"
+           xmlns:dimap="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/dimap/"
+           targetNamespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/dimap/"
+           elementFormDefault="unqualified" attributeFormDefault="unqualified" version="14">
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/image/" schemaLocation="../../SY/image/image.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/date_time/" schemaLocation="../../SY/date_time/date_time.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/base/" schemaLocation="../base/base.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/center/" schemaLocation="../center/center.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/orbital/" schemaLocation="../../SY/orbital/orbital.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/platform/" schemaLocation="../../SY/platform/platform.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/misc/" schemaLocation="../../SY/misc/misc.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/geographical/" schemaLocation="../../SY/geographical/geographical.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/spatio/" schemaLocation="../../SY/spatio/spatio.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/tile/" schemaLocation="../../SY/tile/tile.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/representation/" schemaLocation="../../SY/representation/representation.xsd"/>
+	<xs:import namespace="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/DataAccess/item/" schemaLocation="../../DataAccess/item/item3.xsd"/>
 	<xs:include schemaLocation="../dimap/dimap2A.xsd"/>
 	<xs:complexType name="A_GIPP_LIST_3">
 		<xs:sequence>
@@ -36,13 +52,20 @@
 			<xs:documentation>General PDGS Product Information on Level 3</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Granules">
+			<xs:element name="Granule">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="IMAGE_ID_3" maxOccurs="unbounded" minOccurs="1">
+						<xs:element name="IMAGE_ID_3" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="item:IMAGE_ID_3"/>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="IMAGE_FILE_3" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="item:IMAGE_FILE_3"/>
 								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
@@ -149,8 +172,8 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					<xs:documentation>General information about the MSI datatake</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Query_Options" type="dimap:A_PRODUCT_OPTIONS"/>
-			<xs:element name="L3_Product_Organisation">
+            <xs:element name="Query_Options" type="dimap:A_PRODUCT_OPTIONS"/>
+			<xs:element name="Product_Organisation">
 				<xs:annotation>
 					<xs:documentation>Logical map of the elements compounding the Level 3 User Product</xs:documentation>
 				</xs:annotation>
@@ -173,12 +196,12 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			<xs:documentation>General PDGS Product Information</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="L3_Product_Info" type="dimap:A_L3_Product_Info">
+			<xs:element name="Product_Info" type="dimap:A_L3_Product_Info">
 				<xs:annotation>
 					<xs:documentation>Common general Product Information</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="L3_Product_Image_Characteristics">
+			<xs:element name="Product_Image_Characteristics">
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="Special_Values" type="dimap:A_SPECIAL_VALUES" minOccurs="2" maxOccurs="2">
@@ -224,7 +247,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 													</xs:complexType>
 												</xs:element>
 											</xs:sequence>
-	                                   </xs:complexType>
+										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -261,7 +284,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 													</xs:complexType>
 												</xs:element>
 											</xs:sequence>
-											<xs:attribute name="physicalBand" type="image:A_PHYSICAL_BAND_NAME" use="required"/>
+											<xs:attribute name="physicalBand" type="image:A_PHYSICAL_BAND_NAME_AND_TCI" use="required"/>
 											<xs:attribute name="bandId" type="image:A_BAND_NUMBER" use="required"/>
 										</xs:complexType>
 									</xs:element>
@@ -296,18 +319,18 @@ Examples: EPSG:4326, RAW</xs:documentation>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="REFERENCE_BAND" type="xs:int"/>
-						<xs:element name="L3_Scene_Classification_List" type="dimap:A_L3_SCENE_CLASSIFICATION_LIST"/>
+						<xs:element name="Scene_Classification_List" type="dimap:A_L3_SCENE_CLASSIFICATION_LIST"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="A_L3_SCENE_CLASSIFICATION_LIST">
+	<xs:complexType name="A_SCENE_CLASSIFICATION_LIST">
 		<xs:annotation>
 			<xs:documentation>A list of L3 Scene Classification IDs</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="L3_Scene_Classification_ID" type="dimap:A_L3_SCENE_CLASSIFICATION_ID" minOccurs="12" maxOccurs="12">
+			<xs:element name="Scene_Classification_ID" type="dimap:A_L3_SCENE_CLASSIFICATION_ID" minOccurs="12" maxOccurs="12">
 				<xs:annotation>
 					<xs:documentation>L3 Scene Classification IDs encoding (SC_NODATA, SC_NODATA, SC_SATURATED_DEFECTIVE, SC_DARK_FEATURE_SHADOW, SC_CLOUD_SHADOW, SC_VEGETATION, SC_BARE_SOIL_DESERT, SC_WATER, SC_CLOUD_LOW_PROBA, SC_CLOUD_MEDIUM_PROBA, SC_CLOUD_HIGH_PROBA, SC_THIN_CIRRUS, SC_SNOW_ICE)</xs:documentation>
 				</xs:annotation>
@@ -345,8 +368,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			<xs:documentation>Quality Indicators information on product level (L3 + L1C Technical assessment info)</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="L3_Classification_QI"
-				type="dimap:A_L3_IMAGE_CONTENT_QI" maxOccurs="3" minOccurs="1">
+			<xs:element name="Classification_QI" type="dimap:A_L3_IMAGE_CONTENT_QI" minOccurs="1" maxOccurs="3">
 				<xs:annotation>
 					<xs:documentation>
 						Image content Quality Indicators (percentages of
@@ -430,7 +452,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			<xs:documentation>Quality Indicators information on L3 tile and pixel level</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="L3_Pixel_Level_QI" type="dimap:A_L3_PIXEL_LEVEL_QI" maxOccurs="3" minOccurs="1">
+			<xs:element name="Pixel_Level_QI" type="dimap:A_L3_PIXEL_LEVEL_QI" minOccurs="1" maxOccurs="3">
 				<xs:annotation>
 					<xs:documentation>
 						Pointer to the L3 Pixel Level QI files contained
@@ -438,16 +460,14 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="L3_Classification_QI"
-				type="dimap:A_L3_IMAGE_CONTENT_QI" maxOccurs="3" minOccurs="1">
+			<xs:element name="Classification_QI" type="dimap:A_L3_IMAGE_CONTENT_QI" minOccurs="1" maxOccurs="3">
 				<xs:annotation>
 					<xs:documentation>
 						QI of scene classification
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="L3_Mosaic_QI"
-				type="dimap:A_L3_MOSAIC_LIST" maxOccurs="3" minOccurs="1">
+			<xs:element name="Mosaic_QI" type="dimap:A_L3_MOSAIC_LIST" minOccurs="1" maxOccurs="3">
 				<xs:annotation>
 					<xs:documentation>
 						List of QIs of tiles used for synthesis (mosaic)
@@ -465,50 +485,42 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="TOTAL_PIXEL_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="TOTAL_PIXEL_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of all pixels of image
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DATA_PIXEL_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="DATA_PIXEL_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of all data pixels containing data
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DATA_PIXEL_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="DATA_PIXEL_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of all pixels containing data
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="NODATA_PIXEL_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="NODATA_PIXEL_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of all pixels containing no data
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="NODATA_PIXEL_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="NODATA_PIXEL_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of all pixels containing no data
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="GOOD_PIXEL_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="GOOD_PIXEL_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of all pixels containing 'good
@@ -516,18 +528,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="GOOD_PIXEL_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="GOOD_PIXEL_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of all pixels containing 'good data'.
 						'Good data' is configurable by user
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="BAD_PIXEL_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="BAD_PIXEL_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of all pixels containing bad data'.
@@ -535,18 +544,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BAD_PIXEL_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="BAD_PIXEL_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of all pixels containing bad data'.
 						Bad data' is configurable by user
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="SATURATED_DEFECTIVE_PIXEL_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="SATURATED_DEFECTIVE_PIXEL_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of saturated or defective data
@@ -554,17 +560,14 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SATURATED_DEFECTIVE_PIXEL_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="SATURATED_DEFECTIVE_PIXEL_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of saturated or defective data pixels
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="DARK_FEATURES_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="DARK_FEATURES_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as dark
@@ -572,18 +575,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DARK_FEATURES_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="DARK_FEATURES_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as dark
 						features or shadows
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="CLOUD_SHADOWS_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="CLOUD_SHADOWS_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as cloud
@@ -591,18 +591,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="CLOUD_SHADOWS_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="CLOUD_SHADOWS_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as cloud
 						shadow
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="VEGETATION_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="VEGETATION_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as
@@ -610,18 +607,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="VEGETATION_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="VEGETATION_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as
 						vegetation
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="NOT_VEGETATED_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="NOT_VEGETATED_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as bare
@@ -629,15 +623,13 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="NOT_VEGETATED_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="NOT_VEGETATED_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as bare
 						soils
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
 			<xs:element name="WATER_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
@@ -646,17 +638,14 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="WATER_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="WATER_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as water
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="UNCLASSIFIED_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="UNCLASSIFIED_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as low
@@ -664,18 +653,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="UNCLASSIFIED_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="UNCLASSIFIED_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as low
 						probability clouds
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="MEDIUM_PROBA_CLOUDS_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="MEDIUM_PROBA_CLOUDS_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as medium
@@ -683,18 +669,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="MEDIUM_PROBA_CLOUDS_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="MEDIUM_PROBA_CLOUDS_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as medium
 						probability clouds
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="HIGH_PROBA_CLOUDS_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="HIGH_PROBA_CLOUDS_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as high
@@ -702,18 +685,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="HIGH_PROBA_CLOUDS_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="HIGH_PROBA_CLOUDS_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as high
 						probability clouds
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="THIN_CIRRUS_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="THIN_CIRRUS_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as thin
@@ -721,18 +701,15 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="THIN_CIRRUS_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="THIN_CIRRUS_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as thin
 						cirrus clouds
 					</xs:documentation>
 				</xs:annotation>
-
 			</xs:element>
-			<xs:element name="SNOW_ICE_COUNT"
-				type="misc:A_POSITIVE_INT">
+			<xs:element name="SNOW_ICE_COUNT" type="misc:A_POSITIVE_INT">
 				<xs:annotation>
 					<xs:documentation>
 						Total count of data pixels classified as snow or
@@ -740,8 +717,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SNOW_ICE_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="SNOW_ICE_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of data pixels classified as snow or
@@ -760,7 +736,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-            <xs:element name="L3_TILE_CLASSIFICATION_MASK" type="xs:string">
+			<xs:element name="L3_TILE_CLASSIFICATION_MASK" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>
 						Filename of the classification mask stored in
@@ -768,7 +744,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-            <xs:element name="L3_TILE_MOSAIC_MASK" type="xs:string">
+			<xs:element name="L3_TILE_MOSAIC_MASK" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>
 						Filename of the mosaic mask stored in the QI
@@ -787,7 +763,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="PRODUCT_ID" type="item:Product_ID_2A"></xs:element>
+			<xs:element name="PRODUCT_ID" type="item:Product_ID_2A"/>
 			<xs:element name="TILE_ID" type="item:TILE_ID_2A">
 				<xs:annotation>
 					<xs:documentation>
@@ -795,8 +771,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="TILE_PIXEL_COUNT"
-				type="misc:A_POSITIVE_LONG">
+			<xs:element name="TILE_PIXEL_COUNT" type="misc:A_POSITIVE_LONG">
 				<xs:annotation>
 					<xs:documentation>
 						Count of pixels of tile contributing to mosaic
@@ -804,8 +779,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="TILE_PIXEL_PERCENTAGE"
-				type="misc:A_PERCENTAGE">
+			<xs:element name="TILE_PIXEL_PERCENTAGE" type="misc:A_PERCENTAGE">
 				<xs:annotation>
 					<xs:documentation>
 						Percentage of pixels of tile contributing to
@@ -813,8 +787,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="TILE_DATE_TIME"
-				type="date_time:AN_UTC_DATE_TIME">
+			<xs:element name="TILE_DATE_TIME" type="date_time:AN_UTC_DATE_TIME">
 				<xs:annotation>
 					<xs:documentation>
 						Timestamp of all pxels of tile contributing to
@@ -830,8 +803,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="TILE_SZA_MEAN"
-				type="misc:A_DOUBLE_WITH_DEG_UNIT_ATTR">
+			<xs:element name="TILE_SZA_MEAN" type="misc:A_DOUBLE_WITH_DEG_UNIT_ATTR">
 				<xs:annotation>
 					<xs:documentation>
 						Mean Solar Zenith Angle of tile contributing to
@@ -840,10 +812,8 @@ Examples: EPSG:4326, RAW</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-
-		<xs:attribute name="tileNumber" type="misc:A_POSITIVE_INT"></xs:attribute>
+		<xs:attribute name="tileNumber" type="misc:A_POSITIVE_INT"/>
 	</xs:complexType>
-
 	<xs:complexType name="AN_AUXILIARY_DATA_INFO_USERL3">
 		<xs:annotation>
 			<xs:documentation>Auxiliary Data information L2A on product level</xs:documentation>
@@ -855,8 +825,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="L3_GIPP_LIST"
-							type="dimap:A_GIPP_LIST_3" />
+						<xs:element name="GIPP_LIST" type="dimap:A_GIPP_LIST_3"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -942,10 +911,8 @@ Examples: EPSG:4326, RAW</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="A_L3_MOSAIC_LIST">
 		<xs:sequence>
-			<xs:element name="L3_Mosaic_Content" type="dimap:A_L3_MOSAIC_CONTENT_QI" minOccurs="0" maxOccurs="unbounded"></xs:element>
+			<xs:element name="Mosaic_Content" type="dimap:A_L3_MOSAIC_CONTENT_QI" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
-		<xs:attribute name="resolution"
-			type="image:A_BAND_RESOLUTION">
-		</xs:attribute>
+		<xs:attribute name="resolution" type="image:A_BAND_RESOLUTION"/>
 	</xs:complexType>
 </xs:schema>

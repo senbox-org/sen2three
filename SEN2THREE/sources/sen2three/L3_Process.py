@@ -2,9 +2,9 @@
 # -*- coding: iso-8859-15 -*-
 
 processorName = 'Sentinel-2 Level 3 Processor (Sen2Three)'
-processorVersion = '1.1.0'
-processorDate = '2017.07.01'
-productVersion = '14'
+processorVersion = '1.1.1'
+processorDate = '2018.08.20'
+productVersion = '14.5'
 
 from tables import *
 import sys, os
@@ -169,7 +169,7 @@ def doTheLoop(config):
         if not config.checkTimeRange(L2A_UP_ID):
             continue
         product.updateUserProduct(L2A_UP_ID)
-        if config.namingConvention == 'SAFE_STANDARD':
+        if config.productVersion == 13.1:
             Tile_mask = '*L2A_*'
         else:
             Tile_mask = 'L2A_*'
@@ -219,7 +219,7 @@ def main(args=None):
     '''
     import argparse
     descr = processorName +', '+ processorVersion +', created: '+ processorDate + \
-        ', supporting Level-1C product version: ' + productVersion + '.'
+        ', supporting Level-2A product version: ' + productVersion + '.'
      
     parser = argparse.ArgumentParser(description=descr)
     parser.add_argument('directory', help='Directory where the Level-2A input files are located')
