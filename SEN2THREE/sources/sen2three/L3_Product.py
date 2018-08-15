@@ -266,8 +266,11 @@ class L3_Product(object):
         pi.PRODUCT_START_TIME = tmin[:4]+'-'+tmin[4:6]+'-'+tmin[6:11]+':'+tmin[11:13]+':'+tmin[13:15]+'.000Z'
         pi.PRODUCT_STOP_TIME = tmax[:4]+'-'+tmax[4:6]+'-'+tmax[6:11]+'-'+tmax[11:13]+':'+tmax[13:15]+'.000Z'
         # update L2A and L3 entries from L2A_UP_MTD_XML:
-        pi.PRODUCT_URI_2A = self.config.L2A_UP_ID
-        pi.PRODUCT_URI_3 = self.config.L3_TARGET_ID
+        try:
+            del pi.PRODUCT_URI_1C
+        except:
+            pass
+        pi.PRODUCT_URI = self.config.L3_TARGET_ID
         pi.PROCESSING_LEVEL = 'Level-3p'
         pi.PRODUCT_TYPE = 'S2MSI3p'
         pi.PROCESSING_ALGORITHM = self.config.algorithm
@@ -275,28 +278,51 @@ class L3_Product(object):
         dt = datetime.utcnow()
         pi.GENERATION_TIME = strftime('%Y-%m-%dT%H:%M:%SZ', dt.timetuple())
         if self.config.namingConvention == 'SAFE_STANDARD':
-            qo = pi.Query_Options
-            del qo[:]
-            qo = objectify.Element('Query_Options')
-            qo.attrib['completeSingleTile'] = "false"
-            qo.append(objectify.Element('PRODUCT_FORMAT'))
-            qo.PRODUCT_FORMAT = 'SAFE_COMPACT'
-            pi.append(qo)
-
-        gl = pi.Product_Organisation.Granule_List
-        del gl[:]
-        aux = xp.getRoot('Auxiliary_Data_Info')
-        del aux[:]
-        #l3auxData = xp.getTree('Auxiliary_Data_Info', 'Aux_Data')
-        #l3auxData.clear()
-        qii = xp.getRoot('Quality_Indicators_Info')
-        #del qii[:]
-        #l3icqi = xp.getTree('Quality_Indicators_Info', 'Image_Content_QI')
-        #del l3icqi[:]
-        l3qii = xp.getRoot('Quality_Indicators_Info')
-        tree = objectify.Element('Classification_QI')
-        tree.attrib['resolution'] = str(self.config.resolution)
-        l3qii.append(tree)
+            try:
+                qo = pi.Query_Options
+                del qo[:]
+                qo = objectify.Element('Query_Options')
+                qo.attrib['completeSingleTile'] = "false"
+                qo.append(objectify.Element('PRODUCT_FORMAT'))
+                qo.PRODUCT_FORMAT = 'SAFE_COMPACT'
+                pi.append(qo)
+            except:
+                pass
+        try:
+            gl = pi.Product_Organisation.Granule_List
+            del gl[:]
+        except:
+            pass
+        try:
+            pic = xp.getTree('General_Info', 'Product_Image_Characteristics')
+            del pic.QUANTIFICATION_VALUES_LIST.L1C_TOA_QUANTIFICATION_VALUE
+        except:
+            pass
+        try:
+            aux = xp.getRoot('L2A_Auxiliary_Data_Info')
+            del aux[:]
+        except:
+            pass
+        try:
+            aux = xp.getRoot('Auxiliary_Data_Info')
+            aux.clear()
+            node = objectify.Element('GIPP_LIST')
+            aux.append(node)
+        except:
+            pass
+        try:
+            qii = xp.getRoot('L2A_Quality_Indicators_Info')
+            del qii[:]
+        except:
+            pass
+        try:
+            qii = xp.getRoot('Quality_Indicators_Info')
+            qii.clear()
+            node = objectify.Element('Classification_QI')
+            node.attrib['resolution'] = str(self.config.resolution)
+            qii.append(node)
+        except:
+            pass
         xp.export()
 
         #create datastrip ID:
@@ -382,6 +408,7 @@ class L3_Product(object):
         xp = L3_XmlParser(self.config, 'UP03')
         l3qii = xp.getRoot('Quality_Indicators_Info')
         node = objectify.Element('Classification_QI')
+        node.attrib['resolution'] = str(self.config.resolution)
         if self.insert(l3qii, node):
             xp.export()
 
@@ -466,16 +493,34 @@ class L3_Product(object):
             self.exitError()
         xp = L3_XmlParser(self.config, 'T03')
         try:
+            tree = xp.getTree('General_Info', 'L1C_TILE_ID')
+            del tree[:]
+        except:
+            pass
+        try:
             # remove all QI items from the past, as they will be calculated
             # directly from contents of images
+            tree = xp.getTree('Quality_Indicators_Info', 'L1C_Image_Content_QI')
+            del tree[:]
             tree = xp.getTree('Quality_Indicators_Info', 'L2A_Image_Content_QI')
+            del tree[:]
+            tree = xp.getTree('Quality_Indicators_Info', 'L1C_Pixel_Level_QI')
             del tree[:]
             tree = xp.getTree('Quality_Indicators_Info', 'L2A_Pixel_Level_QI')
             del tree[:]
             tree = xp.getTree('Quality_Indicators_Info', 'PVI_FILENAME')
             del tree[:]
         except:
-            pass
+            try:
+                # test on version 14.5 data:
+                tree = xp.getTree('Quality_Indicators_Info', 'Image_Content_QI')
+                del tree[:]
+                tree = xp.getTree('Quality_Indicators_Info', 'Pixel_Level_QI')
+                del tree[:]
+                tree = xp.getTree('Quality_Indicators_Info', 'PVI_FILENAME')
+                del tree[:]
+            except:
+                pass
         xp.export()
 
         # read updated file and append new items:
@@ -509,7 +554,7 @@ class L3_Product(object):
             except: # it's a boring old 13.1 product:
                 gr2a = pi.L2A_Product_Organisation.Granule_List.Granules
         gi2a = gr2a.attrib['granuleIdentifier']
-        gi03 = gi2a.replace('L2A_', '')
+        gi03 = gi2a.replace('L2A_', 'L03_')
         xp = L3_XmlParser(self.config, 'DS03')
         ti = xp.getTree('Image_Data_Info', 'Tiles_Information')
         ti.Tile_List.append(objectify.Element('Tile', tileId = gi03))
@@ -654,16 +699,11 @@ class L3_Product(object):
 
         self.updateProductMetadata()
         xp = L3_XmlParser(self.config, 'UP03')
-        auxdata = xp.getTree('Auxiliary_Data_Info', 'Aux_Data')
-        auxdata.clear()
-        dirname, basename = os.path.split(self.config.L3_TILE_MTD_XML)
-        fn1r = basename.replace('_MTD_', '_GIP_')
-        fn2r = fn1r.replace('.xml', '')
-        gippFn = etree.Element('GIPP_FILENAME', type='GIP_Level-3p', version=self.config.processorVersion)
-        gippFn.text = fn2r
-        gippList = objectify.Element('GIPP_LIST')
-        gippList.append(gippFn)
-        auxdata.append(gippList)
+        gipp = xp.getTree('Auxiliary_Data_Info', 'GIPP_LIST')
+        filename = 'L3_GIPP'
+        gippFn = etree.Element('GIPP_FILENAME', type='GIP_L3', version='%04d' % long(self.config.processorVersion.replace('.', '')))
+        gippFn.text = filename
+        gipp.append(gippFn)
         xp.export()
 
         dirname, basename = os.path.split(self.config.L3_TILE_MTD_XML)

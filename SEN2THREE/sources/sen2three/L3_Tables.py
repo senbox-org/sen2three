@@ -736,7 +736,7 @@ class L3_Tables(object):
                 self.importBand(channel, os.path.join(sourceDir, filename))
                 return
 
-    def getBand(self, productLevel, bandIndex, dataType=uint16):
+    def getBand(self, productLevel, bandIndex):
         ''' Get a single band from database.
 
             :param productLevel: [ L2A | L3].
@@ -754,12 +754,7 @@ class L3_Tables(object):
         try:
             h5file = open_file(self._imageDatabase)
             node = h5file.get_node('/' + productLevel, bandName)
-            if (node.dtype != dataType):
-                self.config.logger.fatal('Wrong data type, must be: ' + str(node.dtype))
-                result = False
-                self.config.exitError()
-            else:
-                result = node.read()
+            result = node.read()
         except NoSuchNodeError:
             self.config.logger.debug('%s: Band %s is missing', productLevel, self.getBandNameFromIndex(bandIndex))
             result = False
@@ -898,15 +893,12 @@ class L3_Tables(object):
             else:
                 filename = self._L3_Tile_BND_File.replace('BXX', bandName)
             if self.testBand(productLevel, index):
-                if (index == self.SCL) or (index == self.MSC):
-                    band = self.getBand(productLevel, index, uint8)
-                else:
-                    band = self.getBand(productLevel, index)
+                band = self.getBand(productLevel, index)
             else:
                 # create mosaic map if first tile:
-                scl = self.getBand(productLevel, self.SCL, uint8)
+                scl = self.getBand(productLevel, self.SCL)
                 scl[scl > 0] = 1
-                self.setBand(productLevel, self.MSC, scl.astype(uint8))
+                self.setBand(productLevel, self.MSC)
             # Median Filter:
             mf = self.config.medianFilter
             if(mf > 0):
@@ -928,7 +920,7 @@ class L3_Tables(object):
         self.createTci('L3')
         xp = L3_XmlParser(self.config, 'UP03')
         pi = xp.getTree('General_Info', 'Product_Info')
-        po = pi.L3_Product_Organisation
+        po = pi.Product_Organisation
         po.append(gl)
         xp.export()
         
@@ -945,8 +937,8 @@ class L3_Tables(object):
         pxlQI.append(objectify.Element('TILE_CLASSIFICATION_MASK'))
         pxlQI.append(objectify.Element('TILE_MOSAIC_MASK'))
 
-        pxlQI.L3_TILE_CLASSIFICATION_MASK = os.path.basename(self._L3_Tile_SCL_File).replace('.jp2', '')
-        pxlQI.L3_TILE_MOSAIC_MASK = os.path.basename(self._L3_Tile_MSC_File).replace('.jp2', '')
+        pxlQI.TILE_CLASSIFICATION_MASK = os.path.basename(self._L3_Tile_SCL_File).replace('.jp2', '')
+        pxlQI.TILE_MOSAIC_MASK = os.path.basename(self._L3_Tile_MSC_File).replace('.jp2', '')
 
         qiiL3 = xp.getTree('Quality_Indicators_Info', 'Pixel_Level_QI')
         qiiL3Len = len(qiiL3)

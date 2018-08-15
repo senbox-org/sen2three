@@ -64,8 +64,8 @@ class L3_Display(object):
               [1.0, 0.5, 1.0]]  # 11: SNOW, Pink
         c2 = cl.ListedColormap(C2)
 
-        mosaic = tables.getBand('L3', tables.MSC, uint8)
-        scenec = tables.getBand('L3', tables.SCL, uint8)
+        mosaic = tables.getBand('L3', tables.MSC)
+        scenec = tables.getBand('L3', tables.SCL)
         fig = self._plot.figure()
         fig.canvas.set_window_title(self._config.L2A_TILE_ID)
         ax1 = self._plot.subplot2grid((2,2), (0,0)) 

@@ -62,7 +62,7 @@
 								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="IMAGE_FILE_3" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="IMAGE_FILE" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="item:IMAGE_FILE_3"/>
@@ -214,7 +214,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 								<xs:documentation>Relation between product image channels and on board spectral bands</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="L1C_L2A_Quantification_Values_List" type="dimap:A_L1C_L2A_QUANTIFICATION_VALUES_LIST">
+						<xs:element name="QUANTIFICATION_VALUES_LIST" type="dimap:A_L2A_QUANTIFICATION_VALUES_LIST">
 							<xs:annotation>
 								<xs:documentation>A list of L1C, L2A quantification values for digital counts on pixel level</xs:documentation>
 							</xs:annotation>
@@ -284,7 +284,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 													</xs:complexType>
 												</xs:element>
 											</xs:sequence>
-											<xs:attribute name="physicalBand" type="image:A_PHYSICAL_BAND_NAME_AND_TCI" use="required"/>
+											<xs:attribute name="physicalBand" type="image:A_PHYSICAL_BAND_NAME" use="required"/>
 											<xs:attribute name="bandId" type="image:A_BAND_NUMBER" use="required"/>
 										</xs:complexType>
 									</xs:element>
@@ -318,8 +318,8 @@ Examples: EPSG:4326, RAW</xs:documentation>
 								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="REFERENCE_BAND" type="xs:int"/>
-						<xs:element name="Scene_Classification_List" type="dimap:A_L3_SCENE_CLASSIFICATION_LIST"/>
+						<xs:element name="REFERENCE_BAND" type="xs:int" minOccurs="0"/>
+						<xs:element name="Scene_Classification_List" type="dimap:A_L2A_SCENE_CLASSIFICATION_LIST"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -342,7 +342,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			<xs:documentation>Pixel values assigned to L3 Scene Classification Image Data </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="L3_SCENE_CLASSIFICATION_TEXT">
+			<xs:element name="SCENE_CLASSIFICATION_TEXT">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="SC_NODATA"/>
@@ -360,7 +360,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="L3_SCENE_CLASSIFICATION_INDEX" type="xs:int"/>
+			<xs:element name="SCENE_CLASSIFICATION_INDEX" type="xs:int"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="A_QUALITY_INDICATORS_INFO_USERL3">
@@ -383,7 +383,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			<xs:documentation>General information on L3 Tile</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="TILE_ID_3">
+			<xs:element name="TILE_ID">
 				<xs:annotation>
 					<xs:documentation>Unique Tile Identifier</xs:documentation>
 				</xs:annotation>
@@ -395,7 +395,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="DATASTRIP_ID_3">
+			<xs:element name="DATASTRIP_ID">
 				<xs:annotation>
 					<xs:documentation>Unique Identifier of a Sentinel2 datastrip</xs:documentation>
 					<xs:appinfo>
@@ -736,7 +736,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="L3_TILE_CLASSIFICATION_MASK" type="xs:string">
+			<xs:element name="TILE_CLASSIFICATION_MASK" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>
 						Filename of the classification mask stored in
@@ -744,7 +744,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="L3_TILE_MOSAIC_MASK" type="xs:string">
+			<xs:element name="TILE_MOSAIC_MASK" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>
 						Filename of the mosaic mask stored in the QI
@@ -819,16 +819,7 @@ Examples: EPSG:4326, RAW</xs:documentation>
 			<xs:documentation>Auxiliary Data information L2A on product level</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Aux_Data">
-				<xs:annotation>
-					<xs:documentation>References to the AUX_DATA items</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="GIPP_LIST" type="dimap:A_GIPP_LIST_3"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
+			<xs:element name="GIPP_LIST" type="dimap:A_GIPP_LIST_3"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="AN_IMAGE_DATA_INFO_DSL1C_DSL3">

@@ -219,9 +219,10 @@ class L3_XmlParser():
                 return 0
         elif '03' in self._productStr:
             outstr = outstr.replace('Level-2A', 'Level-3')
+            outstr = outstr.replace('psd-12', 'psd-14')
             outstr = outstr.replace('psd-13', 'psd-14')
+            outstr = outstr.replace('/DICO/12', 'DICO/')
             outstr = outstr.replace('L2A_Product_Info>', 'Product_Info>')
-            outstr = outstr.replace('PRODUCT_URI_2A>', 'PRODUCT_URI>')
             outstr = outstr.replace('Granules', 'Granule')
             outstr = outstr.replace('IMAGE_ID_2A', 'IMAGE_FILE')
             outstr = outstr.replace('L2A_SCENE', 'SCENE')
@@ -229,13 +230,14 @@ class L3_XmlParser():
             outstr = outstr.replace('L2A_Product_Organisation>', 'Product_Organisation>')
             outstr = outstr.replace('L2A_Product_Image_Characteristics>', 'Product_Image_Characteristics>')
             outstr = outstr.replace('TILE_ID_2A', 'TILE_ID')
-            outstr = outstr.replace('L2A_Auxiliary_Data_Info', 'Auxiliary_Data_Info')
-            outstr = outstr.replace('L2A_Quality_Indicators_Info', 'Quality_Indicators_Info')
             outstr = outstr.replace('DATASTRIP_ID_2A', 'DATASTRIP_ID')
-
+            outstr = outstr.replace('L1C_L2A_Quantification_Values_List', 'QUANTIFICATION_VALUES_LIST')
+            outstr = outstr.replace('L2A_BOA_QUANTIFICATION_VALUE', 'BOA_QUANTIFICATION_VALUE')
+            outstr = outstr.replace('L2A_AOT_QUANTIFICATION_VALUE', 'AOT_QUANTIFICATION_VALUE')
+            outstr = outstr.replace('L2A_WVP_QUANTIFICATION_VALUE', 'WVP_QUANTIFICATION_VALUE')
             if self._productStr == 'UP03':
-                outstr = outstr.replace('</PROCESSING_BASELINE>', '</PROCESSING_BASELINE><PROCESSING_ALGORITHM/><RADIOMETRIC_PREFERENCE/>')
                 outstr = outstr.replace('PRODUCT_URI_2A', 'PRODUCT_URI')
+                outstr = outstr.replace('</PROCESSING_BASELINE>', '</PROCESSING_BASELINE><PROCESSING_ALGORITHM/><RADIOMETRIC_PREFERENCE/>')
 
         outfile = codecs.open(self._xmlFn, 'w', 'utf-8')
         outfile.write('<?xml version="1.0"  encoding="UTF-8"?>')
