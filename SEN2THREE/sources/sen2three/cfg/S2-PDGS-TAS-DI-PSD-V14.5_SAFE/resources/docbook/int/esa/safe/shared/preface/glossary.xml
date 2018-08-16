@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+   Copyright (C) 2011 European Space Agency (ESA)
+   Copyright (C) 2011 GAEL Consultant
+   
+   Permission is granted to copy, distribute and/or modify this document
+   under the terms of the GNU Free Documentation License, Version 1.3
+   or any later version published by the Free Software Foundation;
+   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+   A copy of the license is included in the section entitled "GNU
+   Free Documentation License".
+-->
+
+
+<glosslist>
+   <glossentry id="abstract-schema">
+      <glossterm>Additional abstract XML Schema</glossterm>
+      <glossdef>
+         <para>
+         An additional abstract XML Schema is not the XML Schema which
+         describes a <xref linkend="data-component"/> or a <xref
+         linkend="metadata-component"/>, but is included by the XML Schema
+         which describes a <xref linkend="data-component"/> or a <xref
+         linkend="metadata-component"/>.
+         </para>
+         <para>
+         An additional abstract XML Schema is a <xref linkend="component"/> of
+         a <xref linkend="sentinel-safe-product"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="association">
+      <glossterm>Association</glossterm>
+      <glossdef>
+         <para>
+         Refers to a relationship between <xref linkend="component"/>s
+         in a <xref linkend="collection"/>, or other <xref
+         linkend="metadata"/> related to a <xref linkend="component"/>
+         or the <xref linkend="collection"/> <xref
+         linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="collection">
+      <glossterm>Collection</glossterm>
+      <glossdef>
+         <para>
+         Refers to <xref linkend="component"/>s that are gathered
+         together along with a <xref linkend="manifest"/>. This is
+         analogous to files on a file system <xref
+         linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="component">
+      <glossterm>Component</glossterm>
+      <glossdef>
+         <para>
+         Refers to a file that can be grouped together to be part of a
+         <xref linkend="collection"/>, or <xref
+         linkend="xfdu-package"/> <xref linkend="xfdu-biblio"/>, or <xref
+         linkend="sentinel-safe-product"/>.
+         </para>
+         <para>
+         A Component may be a <xref linkend="data-component"/>, a <xref
+         linkend="metadata-component"/>, an <xref
+         linkend="xml-schema-component"/>, etc.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="content-unit">
+      <glossterm>Content Unit</glossterm>
+      <glossdef>
+         <para>
+         XML Structure that contains pointers to <xref
+         linkend="data-object"/>s and associated <xref
+         linkend="metadata-object"/>s, and possibly other Content Units
+         <xref linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="data">
+      <glossterm>Data</glossterm>
+      <glossdef>
+         <para>
+         A reinterpretable representation of <xref linkend="information"/> in a
+         formalized manner suitable for communication, interpretation, or
+         processing. Examples of data include a sequence of bits, a table of
+         numbers, the characters on a page, the recording of sounds made by a
+         person speaking, or a moon rock specimen <xref linkend="oais-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="data-component">
+      <glossterm>Data Component</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="component"/> holding data.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="data-object">
+      <glossterm>Data Object</glossterm>
+      <glossdef>
+         <para>
+         <quote>An object composed of a set of bit sequences</quote>.  This
+         definition has been inherited from the <xref linkend="oais-biblio"/>
+         discarding the case of Physical Object (e.g. Books, Pen, etc.) that is
+         out of the scope of the present specifications.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="dataObject">
+      <glossterm>dataObject</glossterm>
+      <glossdef>
+         <para>
+         A <classname>dataObject</classname> element of a <xref
+         linkend="sentinel-safe-manifest"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="datatype">
+      <glossterm>Datatype</glossterm>
+      <glossdef>
+         <para>
+         In <xref linkend="xsd-2-biblio"/> specification, a datatype
+         is a 3-tuple, consisting of:
+         <orderedlist>
+            <listitem><para>
+            a set of distinct values, called its <xref
+            linkend="value-space"/>,
+            </para></listitem>
+            <listitem><para>
+            a set of lexical representations, called its <xref
+            linkend="lexical-space"/>,
+            </para></listitem>
+            <listitem><para>
+            a set of <xref linkend="facet"/>s that characterize
+            properties of the <xref linkend="value-space"/>,
+            individual values or lexical items.
+            </para></listitem>
+         </orderedlist>
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="facet">
+      <glossterm>Facet</glossterm>
+      <glossdef>
+         <para>
+         A facet is a single defining aspect of a <xref
+         linkend="value-space"/>. Generally speaking, each facet characterizes
+         a <xref linkend="value-space"/> along independent axes or dimensions.
+         </para>
+         <para>
+         The <xref linkend="datatype"/> of a <xref linkend="datatype"/> serves
+         to distinguish those aspects of one <xref linkend="datatype"/> which
+         differ from other <xref linkend="datatype"/>s. Rather than being
+         defined solely in terms of a prose description the <xref
+         linkend="datatype"/>s in this specification are defined in terms of
+         the synthesis of facet values which together determine the <xref
+         linkend="value-space"/> and properties of the <xref
+         linkend="datatype"/> <xref linkend="xsd-2-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="fixity">
+      <glossterm>Fixity Information</glossterm>
+      <glossdef>
+         <para>
+         The <xref linkend="information"/> which documents the authentication
+         mechanisms and provides authentication keys to ensure that the [...]
+         object has not been altered in an undocumented manner. An example is a
+         Cyclical Redundancy Check (CRC) code for a file <xref
+         linkend="oais-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="information">
+      <glossterm>Information</glossterm>
+      <glossdef>
+         <para>
+         Any type of knowledge that can be exchanged. In an exchange, it is
+         represented by data. An example is a string of bits (the data)
+         accompanied by a description of how to interpret a string of bits as
+         numbers representing temperature observations measured in degrees
+         Celsius (the <xref linkend="oais-rep"/>) <xref linkend="oais-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="lexical-space">
+      <glossterm>Lexical Space</glossterm>
+      <glossdef>
+         <para>
+         A lexical space is the set of valid
+         <emphasis>literals</emphasis> for a datatype <xref
+         linkend="xsd-2-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="manifest">
+      <glossterm>Manifest</glossterm>
+      <glossdef>
+         <para>
+         A document containing <xref linkend="metadata"/> about <xref
+         linkend="component"/>s, and the <xref
+         linkend="association"/>s between them. This <xref
+         linkend="information"/> is stored as a
+         <xref linkend="component"/>, using an <xref linkend="xml"/>
+         language designed just for this purpose <xref
+         linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="manifest-type">
+      <glossterm>Manifest Type</glossterm>
+      <glossdef>
+         <para>
+         Any type provided by <xref linkend="sentinel-safe"/> and
+         contained in a <xref linkend="sentinel-safe-manifest"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="metadata">
+      <glossterm>Metadata</glossterm>
+      <glossdef>
+         <para>
+         <xref linkend="data"/> about other <xref linkend="data"/>
+         <xref linkend="oais-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="metadata-component">
+      <glossterm>Metadata Component</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="component"/> holding <xref linkend="data"/> about
+         other <xref linkend="data"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="metadata-object">
+      <glossterm>Metadata Object</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="sentinel-safe-object"/> that is a <xref
+         linkend="metadata"/> for another <xref
+         linkend="sentinel-safe-object"/> within the same <xref
+         linkend="sentinel-safe-product"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="metadataObject">
+      <glossterm>metadataObject</glossterm>
+      <glossdef>
+         <para>
+         A <classname>metadataObject</classname> element of a <xref
+         linkend="sentinel-safe-manifest"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="package">
+      <glossterm>Package</glossterm>
+      <glossdef>
+         <para>
+         A collection that is bundled together, or packaged, into one file
+         using a defined packaging scheme. All Packages are Collections, but
+         not all Collections have been packaged, so they are not all Packages
+         <xref linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="oais-rep">
+      <glossterm>Representation Information</glossterm>
+      <glossdef>
+         <para>
+         The information that maps a <xref linkend="data-object"/> into more
+         meaningful concepts. An example is the ASCII definition that describes
+         how a sequence of bits (i.e. a <xref linkend="data-object"/>) is
+         mapped into a symbol <xref linkend="oais-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="pkg-interchange-file">
+      <glossterm>Package Interchange File</glossterm>
+      <glossdef>
+         <para>
+         A collection of files that have been bundled together into a single
+         container that also contains a manifest describing the contained files
+         and the relationships among those files <xref linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <!-- DO NOT remove the empty following para markups -->
+   <glossentry id="referenced-metadata-object">
+      <glossterm>Referenced Metadata Object</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="metadata-object"/> stored inside
+         <emphasis>and</emphasis> outside the <xref
+         linkend="sentinel-safe-manifest"/>. 
+         </para>
+         <para>  
+         </para>
+         <para>  
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="safe-format">
+      <glossterm>SAFE</glossterm>
+      <glossdef>
+         <para>
+         The Standard Archive Format for Europe.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="safe-specialisation">
+      <glossterm>SAFE Specialisation</glossterm>
+      <glossdef>
+         <para>
+         A SAFE Specialisation is a restriction of the <xref
+         linkend="safe"/> Core specifications for a more specific type
+         of data.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel">
+      <glossterm>Sentinel</glossterm>
+      <glossdef>
+         <para>
+         A series of platform launched or to be launched by European Space
+         Agency.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel-safe">
+      <glossterm>Sentinel SAFE</glossterm>
+      <glossdef>
+         <para>
+         The format conforming the present specifications.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel-safe-manifest">
+      <glossterm>Sentinel SAFE Manifest</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="manifest"/> conforming the present
+         specifications.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel-safe-object">
+      <glossterm>Sentinel SAFE Object</glossterm>
+      <glossdef>
+         <para>
+         Either a <xref linkend="data-object"/> or a <xref
+         linkend="metadata-object"/> defined by <xref linkend="sentinel-safe"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel-safe-product">
+      <glossterm>Sentinel SAFE Product</glossterm>
+      <glossdef>
+         <para>
+         An <xref linkend="xfdu-package"/> specialised for the specific use of
+         Sentinel data. The term of <emphasis>Product</emphasis> has been
+         selected for historical reason but matches exactly the definition of
+         an <xref linkend="xfdu-package"/> introduced above.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel-safe-specialisation">
+      <glossterm>Sentinel SAFE Specialisation</glossterm>
+      <glossdef>
+         <para>
+         A Sentinel SAFE Specialisation is a restriction of the <xref
+         linkend="sentinel-safe"/> Core specifications for a more specific type
+         of data.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="sentinel-safe-types">
+      <glossterm>Sentinel SAFE Types</glossterm>
+      <glossdef>
+         <para>
+         Types defined in the
+         <quote>http://www.esa.int/safe/sentinel-1.0</quote> namespace and part
+         of <xref linkend="sentinel-safe"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="value-space">
+      <glossterm>Value Space</glossterm>
+      <glossdef>
+         <para>
+          A value space is the set of values for a given <xref
+          linkend="datatype"/>. Each value in the value space of a <xref
+          linkend="datatype"/> is denoted by one or more literals in its <xref
+          linkend="lexical-space"/> <xref linkend="xsd-2-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <!-- DO NOT remove the empty following para markups -->
+   <glossentry id="wrapped-metadata-object">
+      <glossterm>Wrapped Metadata Object</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="metadata-object"/> wrapped inside the <xref
+         linkend="sentinel-safe-manifest"/>.
+         </para>
+         <para>  
+         </para>
+         <para>  
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="xfdu-package">
+      <glossterm>XFDU Package</glossterm>
+      <glossdef>
+         <para>
+         A Package Interchange File that contains an XFDU Manifest and is
+         conformant to the semantics specified in the XFDU Specifications. An
+         XFDU Package is a specialization of Package Interchange File <xref
+         linkend="xfdu-biblio"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="xfdu-type">
+      <glossterm>XFDU Type</glossterm>
+      <glossdef>
+         <para>
+         Type defined in the
+         <quote>urn:ccsds:schema:xfdu:1</quote> namespace and
+         part of <xref linkend="sentinel-safe"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="xml-schema-component">
+      <glossterm>XML Schema Component</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="component"/> holding part or the entire <xref
+         linkend="oais-rep"/> of another <xref linkend="component"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+   <glossentry id="xml-schema-object">
+      <glossterm>XML Schema Object</glossterm>
+      <glossdef>
+         <para>
+         A <xref linkend="metadata-object"/> holding part or the entire <xref
+         linkend="oais-rep"/> of another <xref linkend="sentinel-safe-object"/>.
+         </para>
+      </glossdef>
+   </glossentry>
+</glosslist>

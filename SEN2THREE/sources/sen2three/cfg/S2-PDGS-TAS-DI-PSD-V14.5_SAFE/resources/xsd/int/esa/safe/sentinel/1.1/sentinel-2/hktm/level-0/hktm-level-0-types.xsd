@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SAFE SENTINEL_1 HKTM Level 0 Specific Types (XML Schema document).
+   The present document defines the Sentinel-2 HKTM Level 0 specific types that are not
+   part of the SAFE core. -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   		xmlns:s2="http://www.esa.int/safe/sentinel/1.1/sentinel-2"
+   		xmlns:s2hktm="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm"
+   		targetNamespace="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm"
+   		elementFormDefault="qualified">
+
+   <xs:annotation>
+      <xs:documentation>Types for Sentinel-2 HKTM Level 0 products.</xs:documentation>
+   </xs:annotation>
+
+   <xs:import namespace="http://www.esa.int/safe/sentinel/1.1/sentinel-2"
+                 schemaLocation="../../level-0/s2-level-0-types.xsd" />
+
+   <xs:element name="standAloneProductInformation"
+               type="s2hktm:standAloneProductInformationType">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+         Information on the stand-alone product.
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+
+   	<xs:complexType name="standAloneProductInformationType">
+      	<xs:annotation>
+         	<xs:documentation>
+            	Information  related to the data segment included in the HKTM L0 product
+         	</xs:documentation>
+      	</xs:annotation>
+      	<xs:sequence>
+         		<xs:element name="content" type="xs:string" />
+         		<xs:element name="contentType" type="xs:string"/>
+         		<xs:element name="byteOrder" type="s2:byteOrderIDType" minOccurs="0" maxOccurs="2"/>
+         		<xs:element name="averageBitRate" type="s2:averageBitRateType" minOccurs="0" maxOccurs="1"/>
+      	</xs:sequence>
+   	</xs:complexType>
+
+</xs:schema>

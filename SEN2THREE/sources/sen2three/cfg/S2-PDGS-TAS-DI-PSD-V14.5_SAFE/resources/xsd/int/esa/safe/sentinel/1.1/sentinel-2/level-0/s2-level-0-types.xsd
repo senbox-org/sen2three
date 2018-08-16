@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SAFE SENTINEL-2 Level 0 Specific Types (XML Schema document). -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:s2="http://www.esa.int/safe/sentinel/1.1/sentinel-2"
+   targetNamespace="http://www.esa.int/safe/sentinel/1.1/sentinel-2"
+   elementFormDefault="qualified">
+
+   <xs:annotation>
+      <xs:documentation>
+         SENTINEL-2 types for Level 0
+      </xs:documentation>
+   </xs:annotation>
+
+   <xs:element name="timeANX" type="s2:timeANXType" />
+
+   <xs:complexType name="timeANXType">
+      <xs:annotation>
+         <xs:documentation>Delta time of start and stop orbit w.r.t. ascending node time</xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+   		<xs:element name="startTimeANX" type="xs:double" />
+   		<xs:element name="stopTimeANX" type="xs:double" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:element name="leapSecondInformation" type="s2:leapSecondInformationType" />
+
+   <xs:complexType name="leapSecondInformationType">
+	<xs:annotation>
+		<xs:documentation>
+            	The information about time of occurrence of leap second (if leap second occurred in the 
+			product time window of interest)
+         	</xs:documentation>
+	</xs:annotation>
+	<xs:sequence>
+		<xs:element name="utcTimeOfOccurrence" type="xs:dateTime"/>
+		<xs:element name="sign" type="s2:signType"/>
+	</xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="signType">
+	<xs:annotation>
+		<xs:documentation>
+            	sign of leap second
+         	</xs:documentation>
+	</xs:annotation>
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="+"/>
+		<xs:enumeration value="-"/>
+	</xs:restriction>
+   </xs:simpleType>
+
+   <xs:element name="orbitProperties" type="s2:orbitPropertiesType" />
+
+   <xs:complexType name="orbitPropertiesType">
+	<xs:annotation>
+		<xs:documentation>
+            	Additional information about the orbit for Sentinel-2         	</xs:documentation>
+	</xs:annotation>
+	<xs:sequence>
+		<xs:element name="pass" type="s2:passType"/>
+		<xs:element name="ascendingNodeTime" type="xs:dateTime"/>
+	</xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="passType">
+	<xs:annotation>
+		<xs:documentation>
+            	direction of the orbit for the oldest ISP in the product
+         	</xs:documentation>
+	</xs:annotation>
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="ASCENDING"/>
+		<xs:enumeration value="DESCENDING"/>
+		<xs:enumeration value="UNKNOWN"/>
+	</xs:restriction>
+   </xs:simpleType>
+
+   <xs:element name="qualityProperties" type="s2:qualityPropertiesType" />
+
+   <xs:complexType name="qualityPropertiesType">
+	<xs:annotation>
+		<xs:documentation>
+            	Additional information about the product quality for Sentinel-2         	</xs:documentation>
+	</xs:annotation>
+	<xs:sequence>
+		<xs:element name="dataObjectID" type="xs:string" minOccurs="0"/>
+		<xs:element name="numOfElements" type="xs:nonNegativeInteger" minOccurs="0"/>
+		<xs:element name="numOfMissingElements" type="xs:nonNegativeInteger" minOccurs="0"/>
+		<xs:element name="numOfCorruptedElements" type="xs:nonNegativeInteger" minOccurs="0"/>
+		<xs:element name="numOfRSIncorrigibleElements" type="xs:nonNegativeInteger" minOccurs="0"/>
+		<xs:element name="numOfRSCorrectedElements" type="xs:nonNegativeInteger" minOccurs="0"/>
+		<xs:element name="numOfRSCorrectedSymbols" type="xs:nonNegativeInteger" minOccurs="0"/>
+	</xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="byteOrderType">
+	<xs:annotation>
+		<xs:documentation>
+            byte ordering used to represent the data in a Data Component
+         </xs:documentation>
+	</xs:annotation>
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="LITTLE_ENDIAN"/>
+		<xs:enumeration value="BIG_ENDIAN"/>
+	</xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="byteOrderIDType">
+      <xs:annotation>
+      	<xs:documentation>
+			byte ordering used to represent the data in a Data Component
+         	</xs:documentation>
+      </xs:annotation>
+   	<xs:simpleContent>
+		<xs:extension base="s2:byteOrderType">
+            	<xs:attribute name="dataObjectID" type="xs:string" use="required"/>
+		</xs:extension>
+   	</xs:simpleContent>
+   </xs:complexType>
+
+   <xs:complexType name="averageBitRateType">
+      <xs:annotation>
+      	<xs:documentation>
+			byte ordering used to represent the data in a Data Component
+         	</xs:documentation>
+      </xs:annotation>
+   	<xs:simpleContent>
+		<xs:extension base="xs:long">
+            	<xs:attribute name="dataObjectID" type="xs:string" use="required"/>
+		</xs:extension>
+   	</xs:simpleContent>
+   </xs:complexType>
+
+   <xs:simpleType name="boolean">
+	<xs:annotation>
+		<xs:documentation>
+            	used instead of XSD type xs:boolean (that accepts only 0,1 or false,true)
+         	</xs:documentation>
+	</xs:annotation>
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="TRUE"/>
+		<xs:enumeration value="FALSE"/>
+	</xs:restriction>
+   </xs:simpleType>
+
+</xs:schema>

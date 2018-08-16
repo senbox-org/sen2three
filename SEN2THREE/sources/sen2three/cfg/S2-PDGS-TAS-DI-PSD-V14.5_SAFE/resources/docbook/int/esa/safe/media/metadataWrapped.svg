@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="8.75cm" height="9cm" viewBox="565 3 35 36">
+  <rect style="fill: #ffffff" x="566" y="3.985" width="34.15" height="35.05"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="566" y="3.985" width="34.15" height="35.05"/>
+  <rect style="fill: #ffffff" x="567.78" y="5.885" width="30.6" height="30.775"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="567.78" y="5.885" width="30.6" height="30.775"/>
+  <rect style="fill: #ffffff" x="583.18" y="8.985" width="11.78" height="12.615"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="583.18" y="8.985" width="11.78" height="12.615"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 2; font-family: sans; font-style: normal; font-weight: normal" x="576.88" y="7.735">MANIFEST FILE</text>
+  <rect style="fill: #ffffff" x="570.58" y="11.735" width="8.9" height="8.3"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="570.58" y="11.735" width="8.9" height="8.3"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="572.53" y="13.535">contentUnit</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="573.43" y="18.185">@dmdID</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="585.63" y="10.385">metadataObject</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="587.93" y="11.935">@ID</text>
+  <rect style="fill: #ffffff" x="583.2" y="23.035" width="11.78" height="12.615"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="583.2" y="23.035" width="11.78" height="12.615"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="585.73" y="24.485">metadataObject</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="588.23" y="26.085">@ID</text>
+  <rect style="fill: #ffffff" x="583.95" y="27.185" width="10.15" height="7.315"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="583.95" y="27.185" width="10.15" height="7.315"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1; font-family: sans; font-style: normal; font-weight: normal" x="573.43" y="16.135">@pdiID</text>
+  <rect style="fill: #ffffff" x="584.75" y="29.185" width="8.4" height="4.465"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="584.75" y="29.185" width="8.4" height="4.465"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="587.43" y="30.435">xmlData</text>
+  <rect style="fill: #ffffff" x="585.5" y="31.085" width="7.05" height="2.165"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="585.5" y="31.085" width="7.05" height="2.165"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="585.98" y="32.435">safe elements</text>
+  <rect style="fill: #ffffff" x="583.93" y="13.185" width="10.15" height="7.315"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="583.93" y="13.185" width="10.15" height="7.315"/>
+  <rect style="fill: #ffffff" x="584.78" y="15.135" width="8.4" height="4.465"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="584.78" y="15.135" width="8.4" height="4.465"/>
+  <rect style="fill: #ffffff" x="585.48" y="16.785" width="7.05" height="2.165"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" x="585.48" y="16.785" width="7.05" height="2.165"/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="585.93" y="14.485">metadataWrap</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="587.28" y="16.295">xmlData</text>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="585.78" y="18.145">safe:processing</text>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 576.35 15.735 C 579.985,15.735 583.665,11.685 586.813,11.685"/>
+  <polygon style="fill: #e03434" points="587.188,11.685 586.688,11.935 586.813,11.685 586.688,11.435 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="587.188,11.685 586.688,11.935 586.813,11.685 586.688,11.435 "/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" d="M 576.65 17.835 C 580.335,17.835 584.065,25.785 587.263,25.785"/>
+  <polygon style="fill: #e03434" points="587.638,25.785 587.138,26.035 587.263,25.785 587.138,25.535 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #e03434" points="587.638,25.785 587.138,26.035 587.263,25.785 587.138,25.535 "/>
+  <text style="fill: #000000; text-anchor:start; font-size: 1.3; font-family: sans; font-style: normal; font-weight: normal" x="585.78" y="28.37">metadataWrap</text>
+</svg>

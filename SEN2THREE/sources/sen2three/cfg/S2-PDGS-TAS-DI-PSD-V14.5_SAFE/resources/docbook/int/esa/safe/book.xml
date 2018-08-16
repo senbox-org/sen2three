@@ -1,0 +1,3139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+   Copyright (C) 2011 European Space Agency (ESA)
+   Copyright (C) 2011 Consultant
+   
+   Permission is granted to copy, distribute and/or modify this document
+   under the terms of the GNU Free Documentation License, Version 1.3
+   or any later version published by the Free Software Foundation;
+   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+   A copy of the license is included in the section entitled "GNU
+   Free Documentation License".
+-->
+
+
+<book status="final" id="GAEL-P264-DOC-0001-01-01"
+      xmlns:safe="http://www.esa.int/safe/xsl-utils-200805">
+
+   <bookinfo>
+      <title>Sentinel Standard Archive Format for Europe</title>
+      <abbrev>Sentinel-SAFE-CORE</abbrev>
+      <subtitle>Core Specifications</subtitle>
+      <titleabbrev>Sentinel SAFE Core Specifications</titleabbrev>
+
+      <orgname>European Space Agency (ESA)</orgname>
+
+      <authorgroup>
+         <author>
+            <firstname>Mathias</firstname>
+            <surname>Moucha</surname>
+            <affiliation>
+               <orgname>GAEL Consultant</orgname>
+            </affiliation>
+         </author>
+
+         <editor>
+            <firstname>Nuno</firstname>
+            <surname>Miranda</surname>
+            <affiliation>
+               <orgname>European Space Agency (ESA)</orgname>
+            </affiliation>
+         </editor>
+
+         <othercredit>
+            <surname>Stephane Mbaye</surname>
+            <affiliation>
+               <orgname>GAEL Consultant</orgname>
+            </affiliation>
+            <contrib>Reviewer</contrib>
+         </othercredit>
+      </authorgroup>
+
+      <volumenum>1</volumenum>
+      <seriesvolnums>1</seriesvolnums>
+
+      <invpartnumber>GAEL-P264-DOC-0001-01-01</invpartnumber>
+
+      <issuenum>1</issuenum>
+
+      <revhistory>
+         <revision>
+            <revnumber>0</revnumber>
+            <author>
+               <firstname>Mathias</firstname>
+               <surname>Moucha</surname>
+               <affiliation>
+                  <orgname>GAEL Consultant</orgname>
+               </affiliation>
+            </author>
+            <date>25/07/2011</date>
+            <revremark>
+               Creation of the document
+            </revremark>
+         </revision>
+      </revhistory>
+
+      <publisher>
+         <publishername>ESRIN</publishername>
+         <address>
+            <affiliation>
+               <orgname>European Space Agency (ESA)</orgname>
+            </affiliation>
+
+            <street>Via Galileo Galilei</street>
+            <pob>Casella Postale 64</pob>
+            <postcode>00044</postcode>
+            <city>Frascati</city>
+            <country>Italy</country>
+
+            <phone>(39) 06 941801</phone>
+            <fax>(39) 06 94180 280</fax>
+         </address>
+      </publisher>
+
+      <copyright>
+         <year>2011</year>
+         <holder>European Space Agency (ESA)</holder>
+         <holder>GAEL Consultant</holder>
+      </copyright>
+
+      <legalnotice>
+         <para>
+            Permission is granted to copy, distribute and/or modify this
+            document under the terms of the GNU Free Documentation License,
+            Version 1.3 or any later version published by the Free Software
+            Foundation; with no Invariant Sections, no Front-Cover Texts, and
+            no Back-Cover Texts. A copy of the license is included in <xref
+            linkend="license-gfdl-appendix"/>.
+         </para>
+      </legalnotice>
+      <legalnotice>
+         <para>
+            Disclaimer: All information is provided &quot;as is&quot;, there is
+            no warranty that the information is correct or suitable for any
+            purpose, neither implicit nor explicit. This information does not
+            necessarily reflect the policy of the European Space Agency.
+         </para>
+      </legalnotice>
+      <productname>
+         <para>
+            All other product names mentioned herein are trademarks, registered
+            trademarks, or servicemarks of their respective owners.
+         </para>
+      </productname>
+   </bookinfo>
+
+   <preface>
+      <title>Preface</title>
+      <para>
+         The present document provides the specifications of the Sentinel
+         Standard Archive Format for Europe (<xref linkend="sentinel-safe"/>)
+         developed by the European Space Agency in the framework of its Earth
+         Observation ground segment activities.
+      </para>
+      <para>
+         Based on <xref linkend="safe"/>, <xref linkend="sentinel-safe"/> is
+         designed to act as a standard format for <xref linkend="sentinel"/>
+         platforms data. It is important to understand that <xref
+         linkend="sentinel-safe"/> is not a <xref
+         linkend="safe-specialisation"/> but is most like a
+         <emphasis>SAFE-like</emphasis> format.
+      </para>
+      <section>
+         <title>This Book Audience</title>
+         <para>
+            It is expected that most readers will have some familiarity with
+            <xref linkend="xfdu"/>) concepts as well as with <xref
+            linkend="xml"/> technologies. As <xref linkend="sentinel-safe"/> is
+            a <emphasis>SAFE-like</emphasis> format, readers who are familiar
+            with <xref linkend="safe"/> should be more confortable with this
+            present format. 
+         </para>
+         <para>
+            Thus, it is recommended to reach at least a basic skill with
+            respect to <xref linkend="safe"/> from the <xref
+            linkend="safe-biblio-core"/>, <xref
+            linkend="safe-biblio-specialisations"/> and, especially, the <xref
+            linkend="safe-biblio-tutorial"/> document before reading this book.
+         </para>
+      </section>
+      <section>
+         <title>Organisation of This Book</title>
+         <para>
+            The <xref linkend="sentinel-safe"/> Core Format Specifications are
+            broken down as follows:
+         </para>
+         <variablelist>
+            <varlistentry>
+               <term><xref linkend="structures-part"/>:</term>
+               <listitem>
+                  <para>
+                     Provides the information, the logical and the physical
+                     model of all <xref linkend="sentinel-safe-product"/>s.
+                     This part provides a normative definition of the <xref
+                     linkend="sentinel-safe-manifest"/> file, the <xref
+                     linkend="metadata-object"/>s and <xref
+                     linkend="data-object"/>s that may be part of a <xref
+                     linkend="sentinel-safe-product"/>. Descriptive and
+                     informative sections also provide guidance for
+                     understanding how the objects composing a <xref
+                     linkend="sentinel-safe-product"/> interact each other
+                     according to <xref linkend="xfdu"/> and <xref
+                     linkend="sentinel-safe"/> rules.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="manifest-reference-part"/>:
+               </term>
+               <listitem>
+                  <para>
+                     The reference sections governing all type definitions of
+                     the <xref linkend="sentinel-safe"/> specifications. They
+                     provide detailed and normative specifications for each
+                     type that may be used in the <xref
+                     linkend="sentinel-safe-manifest"/> or within <xref
+                     linkend="component"/>s at the Core level.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="sentinel-xfdu-xsd-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     The normative XML Schema controlling the XFDU types
+                     <emphasis>restricted</emphasis> for the specific purpose
+                     of <xref linkend="sentinel-safe-product"/>s.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="sentinel-safe-xsd-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     The normative XML Schema controlling the <xref
+                     linkend="sentinel-safe-types"/> of the <xref
+                     linkend="sentinel-safe-manifest"/>.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="sentinel-active-sensor-xsd-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     The normative XML Schema controlling the <xref
+                     linkend="sentinel-safe-types"/> of <xref
+                     linkend="sentinel-safe-manifest"/> that are dedicated to
+                     the specific purpose of data originating from
+                     <emphasis>active sensors</emphasis>.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="sdf-xsd-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     The normative XML Schema controlling the <xref
+                     linkend="sdf"/> types dedicated to
+                     <emphasis>annotate</emphasis> XML Schemas for providing
+                     <xref linkend="oais-rep"/> to binary, XML or ASCII <xref
+                     linkend="component"/>s.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="sentinel-index-xsd-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     The normative <emphasis>annotated</emphasis> XML Schema
+                     controlling the binary format of <quote>Indexes</quote>
+                     potentially attached to Binary <xref
+                     linkend="component"/>s.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="sentinel-manifest-example-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     A complete example of <xref
+                     linkend="sentinel-safe-manifest"/> document.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="do-xsd-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     A complete example of <emphasis>annotated</emphasis> XML
+                     Schema providing <xref linkend="oais-rep"/> to a binary,
+                     XML or ASCII <xref linkend="component"/>.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="license-gfdl-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     GNU Free Documentation License.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="dip-appendix"/>:</term>
+               <listitem>
+                  <para>
+                     A standard form for proposing improvements to the present
+                     book. This form complies with and has been inherited from
+                     the <xref linkend="ecss"/> documentation.
+                  </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+               <term><xref linkend="document-index"/>:</term>
+               <listitem>
+                  <para>
+                     An alphabetical list of the specific information included
+                     in the book. It is prepared to help the reader find
+                     information quickly and easily.
+                  </para>
+               </listitem>
+            </varlistentry>
+         </variablelist>
+      </section>
+
+      <section>
+         <title>Bibliography</title>
+
+         <bibliodiv>
+
+            <biblioentry id="iana-biblio">
+               <abbrev>IANA MIME Media Types</abbrev>
+               <title>
+                  Internet Assigned Numbers Authority - MIME Media Types
+               </title>
+               <pubdate>2007-03-06</pubdate>
+               <copyright>
+                  <year>2007</year>
+                  <holder>
+                     The Internet Engineering Task Force (IETF)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="oais-biblio">
+               <abbrev>OAIS RM</abbrev>
+               <title>
+                  Reference Model for an Open Archival Information System (OAIS)
+               </title>
+               <invpartnumber>650.0-B-1</invpartnumber>
+               <pubdate>January 2002</pubdate>
+               <issuenum>Blue Book</issuenum>
+               <copyright>
+                  <year>2002</year>
+                  <holder>
+                     Consultative Committee for Space Data Systems (CCSDS)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="safe-biblio-core">
+               <abbrev>SAFE Core</abbrev>
+               <title>
+                  Standard Archive Format for Europe - Control Book Volume 1 -
+                  Core Specifications
+               </title>
+               <invpartnumber>PGSI-GSEG-EOPG-FS-05-0001</invpartnumber>
+               <pubdate>November, 16, 2010</pubdate>
+               <issuenum>Issue 1 Revision 14</issuenum>
+               <copyright>
+                  <year>2010</year>
+                  <holder>European Space Agency (ESA)</holder>
+                  <holder>GAEL Consultant</holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="safe-biblio-specialisations">
+               <abbrev>SAFE Specialisations</abbrev>
+               <title>
+                  Standard Archive Format for Europe - Control Book Volume 2 -
+                  Recommendation for Specialisations
+               </title>
+               <invpartnumber>PGSI-GSEG-EOPG-FS-05-0002</invpartnumber>
+               <pubdate>November, 16, 2010</pubdate>
+               <issuenum>Issue 1 Revision 11</issuenum>
+               <copyright>
+                  <year>2010</year>
+                  <holder>European Space Agency (ESA)</holder>
+                  <holder>GAEL Consultant</holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="safe-biblio-tutorial">
+               <abbrev>SAFE Tutorial</abbrev>
+               <title>
+                  Standard Archive Format for Europe - Primer
+               </title>
+               <invpartnumber>PGSI-GSEG-EOPG-FS-010-0001</invpartnumber>
+               <pubdate>June, 23, 2010</pubdate>
+               <issuenum>Issue 1 Revision 1</issuenum>
+               <copyright>
+                  <year>2010</year>
+                  <holder>European Space Agency (ESA)</holder>
+                  <holder>GAEL Consultant</holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="si-biblio">
+               <abbrev>SI</abbrev>
+               <title>
+                  The International System of Units (SI)
+               </title>
+               <pubdate>1998</pubdate>
+               <issuenum>7th edition</issuenum>
+               <publisher>
+                  <publishername>
+                     Bureau International des Poids et Mesures
+                  </publishername>
+               </publisher>
+               <copyright>
+                  <year>1998</year>
+                  <holder>
+                     Organisation Intergouvernementale de la Convention du Mètre
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="si-sup2000-biblio">
+               <abbrev>SI-SUP2000</abbrev>
+               <title>The International System of Units (SI)</title>
+               <subtitle>
+                  Supplement 2000: addenda and corrigenda of the 7th edition
+                  (1998)
+               </subtitle>
+               <pubdate>1998</pubdate>
+               <issuenum>7th edition</issuenum>
+               <publisher>
+                  <publishername>
+                     Bureau International des Poids et Mesures
+                  </publishername>
+               </publisher>
+               <copyright>
+                  <year>1998</year>
+                  <holder>
+                     Organisation Intergouvernementale de la Convention du Mètre
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="xfdu-biblio">
+               <abbrev>XFDU</abbrev>
+               <title>
+                  XML Formatted Data Unit (XFDU) - Structure and Construction
+                  Rules
+               </title>
+               <invpartnumber>661.0-B-1</invpartnumber>
+               <pubdate>September 2008</pubdate>
+               <issuenum>Blue Book </issuenum>
+               <copyright>
+                  <year>2008</year>
+                  <holder>
+                     Consultative Committee for Space Data Systems (CCSDS)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="xml-biblio">
+               <abbrev>XML</abbrev>
+               <title>
+                  eXtensible Markup Language (XML) 1.0 (Fifth Edition)
+               </title>
+               <subtitle>W3C Recommendation</subtitle>
+               <pubdate>November 26, 2008</pubdate>
+               <issuenum>Version 1.0</issuenum>
+               <copyright>
+                  <year>2008</year>
+                  <holder>
+                     World Wide Web Consortium (W3C)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="xsd-0-biblio">
+               <abbrev>XML-SCHEMA</abbrev>
+               <title>
+                  XML Schema: Primer Second Edition
+               </title>
+               <subtitle>W3C Recommendation</subtitle>
+               <pubdate>October 28, 2004</pubdate>
+               <issuenum>Version 1.0</issuenum>
+               <copyright>
+                  <year>2004</year>
+                  <holder>
+                     World Wide Web Consortium (W3C)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="xsd-1-biblio">
+               <abbrev>XML-SCHEMA-STRUCT</abbrev>
+               <title>
+                  XML Schema: Structures Second Edition
+               </title>
+               <subtitle>W3C Recommendation</subtitle>
+               <pubdate>October 28, 2004</pubdate>
+               <issuenum>Version 1.0</issuenum>
+               <copyright>
+                  <year>2004</year>
+                  <holder>
+                     World Wide Web Consortium (W3C)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+            <biblioentry id="xsd-2-biblio">
+               <abbrev>XML-SCHEMA-TYPES</abbrev>
+               <title>
+                  XML Schema: Data Types Second Edition
+               </title>
+               <subtitle>W3C Recommendation</subtitle>
+               <pubdate>October 28, 2004</pubdate>
+               <issuenum>Version 1.0</issuenum>
+               <copyright>
+                  <year>2004</year>
+                  <holder>
+                     World Wide Web Consortium (W3C)
+                  </holder>
+               </copyright>
+            </biblioentry>
+
+         </bibliodiv>
+
+      </section>
+
+      <section>
+         <title>Glossary of Terms</title>
+         <section>
+            <title>Definitions</title>
+
+            <xi:include href="shared/preface/glossary.xml" parse="xml"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+         </section>
+         <section>
+            <title>Acronyms and Abbreviations</title>
+            <glosslist>
+               <glossentry id="bipm">
+                  <glossterm>BIPM</glossterm>
+                  <glossdef>
+                     <para>Bureau International des Poids et Mesures</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="ccsds">
+                  <glossterm>CCSDS</glossterm>
+                  <glossdef>
+                     <para>Consultative Committe for Space Data Systems</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="ecss">
+                  <glossterm>ECSS</glossterm>
+                  <glossdef>
+                     <para>European Committe for Space Standardization</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="esa">
+                  <glossterm>ESA</glossterm>
+                  <glossdef>
+                     <para>European Space Agency</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="nima">
+                  <glossterm>NIMA</glossterm>
+                  <glossdef>
+                     <para>National Imagery and Mapping Agency</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="oais">
+                  <glossterm>OAIS</glossterm>
+                  <glossdef>
+                     <para>
+                        Reference Model for an Open Archival Information System
+                     </para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="safe">
+                  <glossterm>SAFE</glossterm>
+                  <glossdef>
+                     <para>Standard Archive Format for Europe</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="sdf">
+                  <glossterm>SDF</glossterm>
+                  <glossdef>
+                     <para>Strutured Data File Markup Language</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="si">
+                  <glossterm>SI</glossterm>
+                  <glossdef>
+                     <para>The International System of Units</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="dod">
+                  <glossterm>US-DoD</glossterm>
+                  <glossdef>
+                     <para>United State Department of Defense</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="uml">
+                  <glossterm>UML</glossterm>
+                  <glossdef>
+                     <para>Unified Modeling Language</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="utc">
+                  <glossterm>UTC</glossterm>
+                  <glossdef>
+                     <para>Universal Time Coordinated</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="xfdu">
+                  <glossterm>XFDU</glossterm>
+                  <glossdef>
+                     <para>XML Formatting Data Unit</para>
+                  </glossdef>
+               </glossentry>
+               <glossentry id="xml">
+                  <glossterm>XML</glossterm>
+                  <glossdef>
+                     <para>eXtensible Markup Language</para>
+                  </glossdef>
+               </glossentry>
+            </glosslist>
+         </section>
+      </section>
+
+      <section>
+         <title>Conventions Used in This Book</title>
+
+         <section>
+            <title>System of Units</title>
+            <para>
+               The present book assumes that all physical quantities
+               <indexterm>
+                  <primary>Physical Quantity</primary>
+               </indexterm>
+               are expressed according to a standard system of units.
+               <indexterm>
+                  <primary>System of Units</primary>
+               </indexterm>
+               The selected standard is the SI defined by the
+               <emphasis>Bureau International des Poids et Mesures</emphasis>
+               (<xref linkend="bipm"/>) in documents <xref linkend="si-biblio"
+              /> and <xref linkend="si-sup2000-biblio"/> from witch the major
+               quantities listed hereafter have been extracted:
+            </para>
+            <table>
+               <title>System of Units</title>
+               <tgroup cols="4" colsep="1" rowsep="1">
+                  <colspec colname="quantity"/>
+                  <colspec colname="unit"/>
+                  <colspec colname="symbol"/>
+                  <colspec colname="definition" colwidth="4*" align="left"/>
+                  <thead>
+                     <row>
+                        <entry>Quantity</entry>
+                        <entry>Unit</entry>
+                        <entry>Symbol</entry>
+                        <entry>Definition</entry>
+                     </row>
+                  </thead>
+                  <tbody>
+                     <row>
+                        <entry>Length</entry>
+                        <entry>metre</entry>
+                        <entry>m</entry>
+                        <entry>The <emphasis>metre</emphasis> is the length of
+                        the path traveled by light in vacuum during a time
+                        interval of 1/299792458 of a second.</entry>
+                     </row>
+                     <row>
+                        <entry>Mass</entry>
+                        <entry>kilogram</entry>
+                        <entry>kg</entry>
+                        <entry>The <emphasis>kilogram</emphasis> is the unit of
+                        mass; it is equal to the mass of the international
+                        prototype of the <emphasis>kilogram</emphasis>.</entry>
+                     </row>
+                     <row>
+                        <entry>Time</entry>
+                        <entry>second</entry>
+                        <entry>s</entry>
+                        <entry>The <emphasis>second</emphasis> is the duration
+                        of 9192631770 periods of the radiation corresponding to
+                        the transition between the two-hyperfine levels of the
+                        ground state of the Cesium 133 atom.</entry>
+                     </row>
+                     <row>
+                        <entry>Plane Angle</entry>
+                        <entry>radian</entry>
+                        <entry>rad</entry>
+                        <entry>The <emphasis>radian</emphasis> is a SI derived
+                        units that can be expressed in terms of SI base units
+                        as <emphasis>m.m<superscript>-1</superscript> =
+                        1</emphasis>.</entry>
+                     </row>
+                  </tbody>
+               </tgroup>
+            </table>
+         </section>
+         <section>
+            <title>Co-ordinate Reference Systems</title>
+            <para>
+               It is also assumed that without a special prompt all physical
+               values shall be expressed in the following reference systems:
+            </para>
+            <table>
+               <title>Reference Systems</title>
+               <tgroup cols="3" colsep="1" rowsep="1">
+                  <colspec colname="name" colwidth="2*"/>
+                  <colspec colname="identifier"/>
+                  <colspec colname="definition" colwidth="3*" align="left"/>
+                  <thead>
+                     <row>
+                        <entry>System name</entry>
+                        <entry>Identifier</entry>
+                        <entry>Description</entry>
+                     </row>
+                  </thead>
+                  <tbody>
+                     <row id="wgs84" xreflabel="WGS84">
+                        <entry>
+                           World Geodetic System (1984)
+                           <indexterm>
+                              <primary>World Geodetic System (1984)</primary>
+                           </indexterm>
+                        </entry>
+                        <entry><xref linkend="wgs84"/></entry>
+                        <entry><xref linkend="wgs84"/>is an international
+                           <emphasis>geodetic reference system</emphasis>
+                           <indexterm>
+                              <primary>Geodetic Reference System</primary>
+                           </indexterm>
+                           for the Earth. It is mainly used for practical
+                           application of mapping, charting, geopositioning and
+                           navigation. It defines a coordinate system,
+                           fundamental and derived constants, the ellipsoidal
+                           (normal) gravity model and lists transformations to
+                           current local datum.
+                           <xref linkend="wgs84"/>
+                           is completely defined in the standard document issued
+                           by the <emphasis>National Imagery and Mapping
+                           Agency</emphasis> (<xref linkend="nima"/>) of the
+                           <emphasis>United State Department of
+                           Defense</emphasis> (<xref linkend="dod"/>).</entry>
+                     </row>
+                     <row>
+                        <entry>
+                           Universal Time Coordinated
+                           <indexterm>
+                              <primary>Universal Time Coordinated</primary>
+                           </indexterm>
+                        </entry>
+                        <entry><xref linkend="utc"/></entry>
+                        <entry><xref linkend="utc"/>is a time scale maintained
+                        by the <emphasis>Bureau International des Poids et
+                        Mesures</emphasis> (<xref linkend="bipm"/>) that forms
+                        the basis of a coordinated dissemination of standard
+                        frequencies and time signals.</entry>
+                     </row>
+                  </tbody>
+               </tgroup>
+            </table>
+            <para>
+               The WGS84 reference system is not an inertial reference system.
+               Vectors (in particular velocities) have to be transformed if they
+               are expressed in inertial reference systems. The transformation
+               may be more or less complex according to the expected accuracy.
+            </para>
+            <indexterm>
+               <primary>Reference Systems</primary>
+            </indexterm>
+         </section>
+
+         <xi:include href="shared/preface/type-reference-conventions.xml"
+            parse="xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+      </section>
+
+   </preface>
+
+
+
+   <part id="structures-part">
+      <title>Structures</title>
+
+      <chapter>
+         <title>Conformance with XFDU</title>
+
+         <section>
+            <title>Preamble</title>
+            <para>
+            A critical characteristic of <xref linkend="sentinel-safe"/> is that
+            <quote>any <emphasis><xref
+            linkend="sentinel-safe-product"/></emphasis> is an <emphasis><xref
+            linkend="xfdu-package"/></emphasis></quote>.
+            </para>
+            <para>
+               Actually, as introduced in earlier sections,
+               <xref linkend="sentinel-safe"/> has been designed with respect to
+               several co-related studies, reference models and technologies.
+            </para>
+            <para>
+               <xref linkend="xfdu"/> provides an abstract mechanism to hold,
+               hook or refer to content units to form a consistent package. The
+               content units can be interrelated and may represent embedded,
+               local or remote <xref linkend="data-object"/> that may be
+               connected to various kind of Metadata Objects.
+            </para>
+            <para>
+               However, XFDU is a generic system that needs to be restricted for
+               environments requiring higher level of control of the package
+               content.
+            </para>
+            <para>
+               Therefore, <xref linkend="sentinel-safe"/> has been designed to
+               &quot;be&quot; an instance of XFDU, restricting the generic
+               areas of XFDU to the specific needs of Sentinel platforms data.
+            </para>
+         </section>
+
+         <section>
+            <title>How does Sentinel-SAFE Restricts XFDU?</title>
+            <para>
+               During the redefinition or restriction, some features of XFDU are
+               discarded or constrained according to the specific needs of
+               <xref linkend="sentinel-safe"/>. <xref linkend="sentinel-safe"/>
+               may constrain values of particular attributes, occurrences of
+               elements, and especially add rules of consistence, mechanisms of
+               connection between the various components of a <xref
+               linkend="sentinel-safe-product" /> (Manifest file, components,
+               etc.)
+            </para>
+         </section>
+         <!-- TODO: To be verified page break -->
+         <?pagebreak?>
+         <section>
+            <title>New Specific Types</title>
+            <para>
+               <xref linkend="sentinel-safe"/> introduces
+               <emphasis>new</emphasis> types, defining and organizing the
+               product data. These may be complex types as
+               <classname>platformType</classname> gathering all data related
+               to the flying acquisition system, or simple types as
+               <classname>platformFamilyNameType</classname> defining the
+               platform name.
+            </para>
+            <example>
+               <title>A platform designation introduced by Sentinel-SAFE</title>
+               <programlisting>
+                  <![CDATA[
+   <!-- Platform description -->
+   <metadataObject ID="platform"
+                   classification="DESCRIPTION" category="DMD">
+      <metadataWrap textInfo="Platform Description"
+                    vocabularyName="Sentinel-SAFE" mimeType="text/xml">
+         <xmlData>
+            <safe:platform>
+               <!-- Platform identification -->
+               <safe:nssdcIdentifier>2011-TBD</safe:nssdcIdentifier>
+               <safe:familyName>SENTINEL-1</safe:familyName>
+               <safe:number>A</safe:number>
+               <!-- Instrument identification -->
+               <safe:instrument>
+                  <safe:familyName
+                  abbreviation="SAR">Synthetic Aperture Radar</safe:familyName>
+               </safe:instrument>
+            </safe:platform>
+         </xmlData>
+      </metadataWrap>
+   </metadataObject>
+]]>
+               </programlisting>
+            </example>
+         </section>
+
+      </chapter>
+
+      <chapter>
+         <title>Information Model</title>
+
+         <para>
+            A <xref linkend="sentinel-safe-product"/> gathers product basic
+            information, such as the processing history, the
+            platform/instrument identification and the acquisition period of
+            the EO data.
+         </para>
+         <para>
+            The EO data is completed by <xref linkend="fixity"/>; it may be
+            completed by <xref linkend="oais-rep"/>, orbital metadata, frame
+            Sets, grid references, quality information and indexes for access
+            efficiency. Plus any needed other metadata.
+         </para>
+         <para>
+         </para>
+
+         <mediaobject>
+            <imageobject role="fo">
+               <imagedata fileref=
+                  "media/model/Sentinel-SAFE-Information-Model.svg"
+                          format="SVG" align="center"/>
+            </imageobject>
+            <imageobject>
+               <imagedata fileref=
+                  "media/model/Sentinel-SAFE-Information-Model.png"
+                          format="PNG" align="center"/>
+            </imageobject>
+            <caption>
+               <para/>
+               <para/>
+               <para>Information Model</para>
+            </caption>
+         </mediaobject>
+
+      </chapter>
+
+      <chapter>
+         <title>Logical Model</title>
+
+         <para>
+            The hierarchic structure of a <xref
+            linkend="sentinel-safe-product"/> (with nested content units),
+            defines the relationship between the <xref
+            linkend="data-object"/>(s) and its (their) associated metadata.
+         </para>
+         <para/>
+         <para/>
+         <para/>
+
+         <mediaobject>
+            <imageobject role="fo">
+               <imagedata fileref="media/model/Sentinel-SAFE-Logical-Model.svg"
+                          format="SVG" align="center"/>
+            </imageobject>
+            <imageobject>
+               <imagedata fileref="media/model/Sentinel-SAFE-Logical-Model.png"
+                          format="PNG" align="center"/>
+            </imageobject>
+            <caption>
+               <para>Logical Model</para>
+            </caption>
+         </mediaobject>
+
+      </chapter>
+
+      <chapter>
+         <title>Physical Model</title>
+
+         <mediaobject>
+            <imageobject role="fo">
+               <imagedata fileref="media/model/Sentinel-SAFE-Physical-Model.svg"
+                          format="SVG" align="center"/>
+            </imageobject>
+            <imageobject>
+               <imagedata fileref="media/model/Sentinel-SAFE-Physical-Model.png"
+                          format="PNG" align="center"/>
+            </imageobject>
+            <caption>
+               <para>Physical Model</para>
+            </caption>
+         </mediaobject>
+
+         <section>
+            <title>Physical Components</title>
+            <para>
+               <indexterm>
+                  <primary>manifest file</primary>
+               </indexterm>
+               A <xref linkend="sentinel-safe-product"/> is composed of three
+               types of physical components:
+               <itemizedlist>
+                  <listitem>
+                     a &quot;manifest&quot; file, that is capable of holding
+                     all types of information supported by <xref
+                     linkend="sentinel-safe"/>;
+                  </listitem>
+                  <listitem>
+                     a collection of data/metadata files;
+                  </listitem>
+                  <listitem>
+                     a set of relevant XML Schemas (data <xref
+                     linkend="oais-rep"/>).
+                  </listitem>
+               </itemizedlist>
+            </para>
+         </section>
+
+         <section>
+            <title>Hard Disk Organization (normative)</title>
+            <para>
+               <xref linkend="sentinel-safe"/> is primarily designed to be
+               stored on hard disk or any other file system device. One <xref
+               linkend="sentinel-safe-product"/> is nominally composed of
+               several files: one <xref linkend="sentinel-safe-manifest"/> file
+               and its optionally accompanying <xref linkend="component"/>
+               files. Files composing a <xref linkend="sentinel-safe-product"/>
+               are gathered and saved on the file system through a folder. A
+               single package can contain one and only one <xref
+               linkend="sentinel-safe-product"/>. The file names of a <xref
+               linkend="sentinel-safe-product"/> are not supposed to identify
+               the package content (e.g. platform name, period of acquisition
+               etc.): the name of file system directory or any other means
+               uncontrolled by the present document is to be used if an
+               identification other than the one included in the <xref
+               linkend="sentinel-safe-manifest"/> file is required.
+            </para>
+         </section>
+
+         <section>
+            <title>Manifest File Physical Model</title>
+
+            <mediaobject>
+               <imageobject role="fo">
+                  <imagedata fileref=
+                  "media/model/Sentinel-SAFE-Manifest-File-Physical-Model.svg"
+                             format="SVG" align="center"/>
+               </imageobject>
+               <imageobject>
+                  <imagedata fileref=
+                  "media/model/Sentinel-SAFE-Manifest-File-Physical-Model.png"
+                             format="PNG" align="center"/>
+               </imageobject>
+               <caption>
+                  <para/>
+                  <para/>
+                  <para>Manifest File Physical Model</para>
+               </caption>
+            </mediaobject>
+
+            <para>
+               <itemizedlist>
+                  <listitem>
+                     Information Package Map:
+                     <para>
+                     <indexterm>
+                        <primary>informationPackageMap</primary>
+                     </indexterm>
+                     This section describes hierarchic structure of the
+                     product. Nested content units reference <classname><xref
+                     linkend="metadataObject"/></classname>s and
+                     <classname><xref linkend="dataObject"/></classname>s.
+                     </para>
+                  </listitem>
+
+                  <listitem>
+                     Metadata Section:
+                     <para>
+                     <indexterm>
+                        <primary>metadataSection</primary>
+                     </indexterm>
+                     This section gathers a large part of product metadata.
+                     <xref linkend="sentinel-safe"/> enable several metadata
+                     types including unknown types but requires some
+                     specific ones.
+                     </para>
+                     <para>
+                     This section gathers all references to
+                     <xref linkend="xml-schema-component"/>s.
+                     </para>
+                  </listitem>
+
+                  <listitem>
+                     Data Section:
+                     <para>
+                     <indexterm>
+                        <primary>dataObjectSection</primary>
+                     </indexterm>
+                     This section gathers all references to <xref
+                     linkend="component"/>s (<xref linkend="data-component"/>s
+                     and <xref linkend="metadata-component"/>s).
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </para>
+
+         </section>
+
+         <section>
+            <title>Sentinel-SAFE Objects Physical Model</title>
+
+            <para>
+               A <xref linkend="sentinel-safe-product"/> gathers
+               <emphasis><xref linkend="sentinel-safe-object"/>s</emphasis>.
+               There are two kinds of <emphasis><xref
+               linkend="sentinel-safe-object"/>s</emphasis>: <xref
+               linkend="data-object"/>s and <emphasis><xref
+               linkend="metadata-object"/>s</emphasis>.
+            </para>
+            <para>
+               A <xref linkend="data-object"/> is composed of:
+               <itemizedlist>
+                  <listitem>
+                     a <classname><xref linkend="dataObject"/></classname>
+                     element of the <xref linkend="sentinel-safe-manifest"/>;
+                  </listitem>
+                  <listitem>
+                     a <xref linkend="data-component"/>.
+                  </listitem>
+               </itemizedlist>
+            </para>
+            <para>
+               A <emphasis><xref linkend="metadata-object"/></emphasis> may be:
+               <itemizedlist>
+                  <listitem>
+                     a <emphasis><xref
+                     linkend="wrapped-metadata-object"/></emphasis>: a
+                     <classname><xref linkend="metadataObject"/></classname>
+                     element of the <xref linkend="sentinel-safe-manifest"/>;
+                  </listitem>
+                  <listitem>
+                     a <emphasis><xref
+                     linkend="referenced-metadata-object"/></emphasis>, which
+                     may be:
+                     <itemizedlist>
+                        <listitem>
+                           an <xref linkend="xml-schema-object"/>, composed of:
+                           <itemizedlist>
+                              <listitem>
+                                 a <classname><xref
+                                 linkend="metadataObject"/></classname> element
+                                 of the <xref
+                                 linkend="sentinel-safe-manifest"/>;
+                              </listitem>
+                              <listitem>
+                                 an <xref linkend="xml-schema-component"/>.
+                              </listitem>
+                           </itemizedlist>
+                        </listitem>
+                        <listitem>
+                           a <xref linkend="metadata-object"/>, composed of:
+                           <itemizedlist>
+                              <listitem>
+                                 a <classname><xref
+                                 linkend="metadataObject"/></classname> element
+                                 of the <xref
+                                 linkend="sentinel-safe-manifest"/>;
+                              </listitem>
+                              <listitem>
+                                 a <classname><xref
+                                 linkend="dataObject"/></classname> element of
+                                 the <xref linkend="sentinel-safe-manifest"/>;
+                              </listitem>
+                              <listitem>
+                                 a <xref linkend="metadata-component"/>.
+                              </listitem>
+                           </itemizedlist>
+                        </listitem>
+                     </itemizedlist>
+                  </listitem>
+               </itemizedlist>
+            </para>
+
+            <mediaobject>
+               <imageobject role="fo">
+                  <imagedata
+                  fileref="media/model/Sentinel-SAFE-Objects-Physical-Model.svg"
+                             format="SVG" align="center"/>
+               </imageobject>
+               <imageobject>
+                  <imagedata
+                  fileref="media/model/Sentinel-SAFE-Objects-Physical-Model.png"
+                             format="PNG" align="center"/>
+               </imageobject>
+               <caption>
+                  <para>Sentinel-SAFE Objects Physical Model</para>
+               </caption>
+            </mediaobject>
+
+         </section>
+
+         <section>
+            <title>File naming and location (normative)</title>
+            <section>
+               <title>Manifest file (normative)</title>
+               <para>
+                  <xref linkend="sentinel-safe-manifest"/> file name must
+                  conform to the following grammatical rules:
+               </para>
+               <programlisting>
+               filename = <quote>manifest.safe</quote> |
+                          <quote>MANIFEST.SAFE</quote>  <co id="uppercase-co"
+                          linkends="uppercase"/>
+               </programlisting>
+               <calloutlist>
+                  <callout arearefs="uppercase-co" id="uppercase">
+                     The uppercase notation is to be used only if the supporting
+                     file system does not support lower case notation.
+                  </callout>
+               </calloutlist>
+
+               <para>
+                  A fixed form of <xref linkend="sentinel-safe-manifest"/> file
+                  name has been selected to assure its univocal identification
+                  among <xref linkend="component"/>s or those files not wrapped
+                  by the product.
+               </para>
+               <para>
+                  The only exception to this mandatory file naming is the case a
+                  <xref linkend="sentinel-safe-product"/> is constituted
+                  <emphasis>only</emphasis> by the <xref
+                  linkend="sentinel-safe-manifest"/>. The naming is in this
+                  only case free.
+               </para>
+            </section>
+            <section>
+               <title>Components (normative)</title>
+               <para>
+                  <xref linkend="sentinel-safe"/> allows any type of file as a
+                  <xref linkend="component"/>. Netherveless, it is recommended
+                  to follow two main rules while naming a <xref
+                  linkend="component"/>:
+                  <itemizedlist>
+                     <listitem>
+                        <para>
+                        The <emphasis>name</emphasis> part of the filename
+                        should use only lowercase characters and numbers, plus
+                        character <quote>-</quote>:
+                     <programlisting>
+               filename = <quote>[a-z,0-9,-].XXX</quote>
+                     </programlisting>
+                        </para>
+                     </listitem>
+                     <listitem>
+                        <para>
+                        The <emphasis>extention</emphasis> part of the filename
+                        should follow the standard provided by <xref
+                        linkend="iana-biblio"/>.  
+                        </para>
+                     </listitem>
+                  </itemizedlist>
+               </para>
+               <para>
+                  The file name and location of the other files part of a
+                  <xref linkend="sentinel-safe-product"/> shall be defined in
+                  their corresponding specifications.
+               </para>
+               <para>
+                  Here are some examples of naming convention for <xref
+                  linkend="component"/>s:
+               </para>
+               <itemizedlist>
+
+                  <listitem>
+                     <para>
+                        Binary <xref linkend="component"/>s should be named:
+                     </para>
+                     <programlisting>
+               filename = <quote>[a-z,0-9,-].dat</quote>
+                     </programlisting>
+                     <example>
+                        <title>Binary Components</title>
+                        <programlisting>
+                           <quote>transmission-measurement.dat</quote>
+                           <quote>measurement.dat</quote>
+                           <quote>summary-quality.dat</quote>
+                           <quote>occultation.dat</quote>
+                        </programlisting>
+                     </example>
+                  </listitem>
+
+                  <listitem>
+                     <para>
+                        ASCII <xref linkend="component"/>s should be named:
+                     </para>
+                     <programlisting>
+               filename = <quote>[a-z,0-9,-].txt</quote>
+                     </programlisting>
+                     <example>
+                        <title>ASCII Components</title>
+                        <programlisting>
+                           <quote>transmission-measurement.txt</quote>
+                           <quote>measurement.txt</quote>
+                           <quote>summary-quality.txt</quote>
+                           <quote>occultation.txt</quote>
+                        </programlisting>
+                     </example>
+                  </listitem>
+
+                  <listitem>
+                     <para>
+                        XML <xref linkend="component"/>s should be named:
+                     </para>
+                     <programlisting>
+               filename = <quote>[a-z,0-9,-].xml</quote>
+                     </programlisting>
+                     <example>
+                        <title>XML Components</title>
+                        <programlisting>
+                           <quote>transmission-measurement.xml</quote>
+                           <quote>measurement.xml</quote>
+                           <quote>summary-quality.xml</quote>
+                           <quote>occultation.xml</quote>
+                        </programlisting>
+                     </example>
+                  </listitem>
+
+                  <listitem>
+                     <para>
+                        Tag Image File Format <xref linkend="component"/>s
+                        should be named:
+                     </para>
+                     <programlisting>
+               filename = <quote>[a-z,0-9,-].tiff</quote>
+                     </programlisting>
+                     <example>
+                        <title>Tag Image File Format Components</title>
+                        <programlisting>
+                           <quote>transmission-measurement.tiff</quote>
+                           <quote>measurement.tiff</quote>
+                        </programlisting>
+                     </example>
+                  </listitem>
+
+                  <listitem>
+                     <para>
+                        XML schemas describing <xref linkend="component"/>s
+                        should be named:
+                     </para>
+                     <programlisting>
+               filename = <quote>[a-z,0-9,-].xsd</quote>
+                     </programlisting>
+                     <example>
+                        <title>
+                           XML schemas describing <xref linkend="component"/>s
+                        </title>
+                        <programlisting>
+                           <quote>transmission-measurement.xsd</quote>
+                           <quote>measurement.xsd</quote>
+                           <quote>summary-quality.xsd</quote>
+                           <quote>occultation.xsd</quote>
+                        </programlisting>
+                     </example>
+                  </listitem>
+
+                  <listitem>
+                     <para>
+                        <xref linkend="abstract-schema"/>s should be named:
+                     </para>
+                     <programlisting>
+               filename = <quote>[a-z,-]-object-types.xsd</quote>
+                     </programlisting>
+                     <example>
+                        <title><xref linkend="abstract-schema"/>s</title>
+                        <programlisting>
+                           <quote>sentinel-1-object-types.xsd</quote>
+                           <quote>sar-object-types.xsd</quote>
+                           <quote>level-0-object-types.xsd</quote>
+                        </programlisting>
+                     </example>
+                  </listitem>
+
+               </itemizedlist>
+            </section>
+         </section>
+         <section>
+            <title>File System Limitations (informative)</title>
+            <para>
+               Many operating systems do not manage files bigger than 2
+               Gigabytes. For this reason, when the maximum file size of the
+               destination facility is unknown, it is recommended to remain
+               under the 2 Gigabytes limit and to partition files as necessary.
+               This mechanism is automatically supported by the
+               <classname>byteStream</classname> markup of the
+               <classname>dataObjectSection</classname> defined in the <xref
+               linkend="manifest-chapter"/>.
+            </para>
+         </section>
+      </chapter>
+
+      <chapter id="manifest-chapter" xreflabel="Manifest File Chapter">
+         <title>Manifest File (normative)</title>
+
+         <para>
+            <indexterm>
+               <primary>Manifest File</primary>
+            </indexterm>
+            The <xref linkend="sentinel-safe-manifest"/> of a <xref
+            linkend="sentinel-safe-product"/> complies with the XFDU Manifest
+            rules and, therefore, contains information related to the product
+            data.  It describes and interconnects all objects of the product,
+            identifies the physical components involved, such as the
+            acquisition sensor or platform and provides administrative
+            information regarding the processing history and facilities.
+         </para>
+         <para>
+            The <xref linkend="sentinel-safe-manifest"/> is the <emphasis>center
+            piece</emphasis> from which almost all starts.
+         </para>
+
+         <section>
+            <title>File Format</title>
+            <para>
+               <xref linkend="sentinel-safe-manifest"/> is an XML document
+               which compies with the <xref linkend="xml-biblio"/>
+               recommendation and to the XML Schema provided in <xref
+               linkend="sentinel-xfdu-xsd-appendix"/>.
+            </para>
+               This latest schema is a strict <emphasis>restriction</emphasis>
+               (i.e. in the sense of XML Schema recommendation <xref
+               linkend="xsd-1-biblio"/>) of the XML Schema provided in the <xref
+               linkend="xfdu-biblio"/> document.
+         </section>
+
+         <section>
+            <title>Namespaces</title>
+            <indexterm>
+               <primary>Namespaces</primary>
+            </indexterm>
+
+            <section>
+               <title>Bundle of Namespaces in Use for Sentinel-SAFE Manifest</title>
+               <para>
+                  The <xref linkend="sentinel-safe-manifest"/> makes use of the
+                  following namespaces:
+               </para>
+               <itemizedlist>
+                  <xi:include href="shared/namespace/xfdu.xml" parse="xml"
+                     xmlns:xi="http://www.w3.org/2001/XInclude"/>
+                  <xi:include href="shared/namespace/sentinel-safe.xml"
+                     parse="xml"
+                     xmlns:xi="http://www.w3.org/2001/XInclude"/>
+                  <xi:include href="shared/namespace/gml.xml" parse="xml"
+                     xmlns:xi="http://www.w3.org/2001/XInclude"/>
+               </itemizedlist>
+            </section>
+
+            <section>
+               <title>Qualified and Unqualified Elements</title>
+               <para>
+                  Inheriting most of the features from top level structure of
+                  <xref linkend="xfdu"/>, the
+                  <emphasis>qualification</emphasis> (i.e. explicit declaration
+                  of namespaces) policy is as complex. Actually, dues to the
+                  use of <classname>substitutionGroup</classname>s in XFDU, the
+                  XFDU Manifests are interlaced of
+                  <emphasis>qualified</emphasis> and
+                  <emphasis>unqualified</emphasis> elements.
+               </para>
+               <para>
+                  Because XFDU node qualification rules are difficult to figure
+                  out, they are repeated through the following example.
+                  <quote>
+                     All elements of the <xref
+                     linkend="sentinel-safe-manifest"/> are unqualified
+                  </quote>
+                  except:
+               </para>
+               <example>
+                  <title>
+                     Qualified and Unqualified elements of a <xref
+                     linkend="sentinel-safe-manifest"/>
+                  </title>
+                  <programlisting>
+&lt;xfdu:XFDU xmlns:xfdu   ="urn:ccsds:schema:xfdu:1" <co id=
+   "qual-root-co" linkends="qual-root"/>
+           xmlns:sentinel-safe="http://www.esa.int/safe/sentinel-1.0"
+           xmlns:xs ="http://www.w3.org/2001/XMLSchema"
+           xmlns:gml="http://www.opengis.net/gml"
+
+           version  ="esa/safe/sentinel-1.0/sentinel-1/sar/sm/level-1/slcd">
+
+&lt;informationPackageMap>
+   &lt;xfdu:contentUnit unitType="Sentinel-SAFE Package" <co
+   id="qual-cu-co" linkends="qual-cu"/>
+                     textInfo="SENTINEL-1 SAR SM Level 1 SLCD"
+                     pdiID="processing"
+                     dmdID="acquisitionPeriod platform">
+      &lt;xfdu:contentUnit unitType="Measurement Data Unit" <co
+   id="qual-cu1-co" linkends="qual-cu"/>
+                        textInfo="Measurement Data Unit"
+                        dmdID="measurementQualityInformation
+                               measurementOrbitReference"
+                        repID="measurementSchema">
+         &lt;dataObjectPtr dataObjectID="measurementData"/>
+      &lt;/xfdu:contentUnit>
+   &lt;/xfdu:contentUnit>
+&lt;/informationPackageMap>
+
+&lt;metadataSection>
+
+   &lt;metadataObject ID="platform"
+                      classification="DESCRIPTION" category="DMD">
+      &lt;metadataWrap textInfo="Platform Description"
+                 vocabularyName="Sentinel-SAFE" mimeType="text/xml">
+         &lt;xmlData>
+
+            &lt;safe:platform> <co id="qual-xml-data-co"
+   linkends="qual-xml-data"/>
+               &lt;safe:nssdcIdentifier>2011-TBDA&lt;/safe:nssdcIdentifier>
+               &lt;safe:familyName>SENTINEL-1&lt;/safe:familyName>
+               &lt;safe:number>A&lt;/safe:number>
+               &lt;safe:instrument>
+                  &lt;safe:familyName abbreviation="SAR"
+         >Synthetic Aperture Radar&lt;/safe:familyName>
+               &lt;/safe:instrument>
+            &lt;/safe:platform>
+         &lt;/xmlData>
+      &lt;/metadataWrap>
+   &lt;/metadataObject>
+
+[...]
+
+&lt;/metadataSection>
+
+[...]
+
+&lt;/xfdu:XFDU
+                  </programlisting>
+                  <calloutlist>
+                     <callout arearefs="qual-root-co" id="qual-root">
+                        <para>
+                           The Root node of the Manifest file is bound to
+                           <constant>urn:ccsds:schema:xfdu:1</constant>
+                           namespace. This is typical because root node type is
+                           always a global type which have to be qualified
+                           according the XML Schema recommendation.
+                        </para>
+                     </callout>
+                     <callout arearefs="qual-cu-co qual-cu1-co" id="qual-cu">
+                        <para>
+                           <classname>contentUnit</classname> elements are
+                           bound to
+                           <constant>urn:ccsds:schema:xfdu:1</constant>
+                           namespace. This is due to the fact that XFDU
+                           <classname>contentUnit</classname> s are part of a
+                           <classname>substitutionGroup</classname> which are
+                           necessarilly global and therefore qualified.
+                        </para>
+                     </callout>
+                     <callout arearefs="qual-xml-data-co" id="qual-xml-data">
+                        <para>
+                           All elements wrapped into an
+                           <classname>xmlData</classname>
+                           element of the Manifest file are qualified. There can
+                           be more than one namespace
+                           <emphasis>inside</emphasis>
+                           a single <classname>xmlData</classname>
+                           element, as far as they belong to the following list:
+                           <itemizedlist>
+                              <listitem>
+      <constant>http://www.esa.int/safe/sentinel-1.0</constant>;
+                              </listitem>
+                              <listitem>
+      <constant>http://www.esa.int/safe/sentinel-1.0/active-sensor</constant>;
+                              </listitem>
+                              <listitem>
+      <constant>http://www.opengis.net/gml</constant>;
+                              </listitem>
+                              <listitem>
+                                 namespaces defined in the specialisations (for
+                                 example
+      <constant>http://www.esa.int/safe/sentinel-1.0/sar</constant>
+                                 etc.).
+                              </listitem>
+                           </itemizedlist>
+                        </para>
+                     </callout>
+                  </calloutlist>
+               </example>
+            </section>
+         </section>
+
+         <section>
+            <title>XML Schemas</title>
+            <indexterm>
+               <primary>XML Schemas</primary>
+            </indexterm>
+            <para>
+               For definition and validation purposes, three XML Schemas have
+               been defined:
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        An XML Schema redefining <xref linkend="xfdu"/> for
+                        <xref linkend="sentinel-safe"/> (available in <xref
+                        linkend="sentinel-xfdu-xsd-appendix"/>. It redefines
+                        the target namespace
+                        <constant>urn:ccsds:schema:xfdu:1</constant>.
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        An XML Schema defining <xref
+                        linkend="sentinel-safe-types"/> (available in <xref
+                        linkend="sentinel-safe-xsd-appendix"/>). It defines the
+                        target namespace
+      <constant>http://www.esa.int/safe/sentinel-1.0</constant>.
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        An XML Schema defining <xref
+                        linkend="sentinel-safe-types"/> dedicated to
+                        <quote>Active Sensors</quote> (available in
+                        <xref linkend="sentinel-active-sensor-xsd-appendix"/>).
+                        It defines the target namespace
+      <constant>http://www.esa.int/safe/sentinel-1.0/active-sensor</constant>.
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </para>
+         </section>
+
+         <section>
+            <title>Identification of the Sentinel-SAFE product type</title>
+            <para>
+               The root node of the Manifest has an attribute named
+               <classname>version</classname>. This attribute value is the
+               relative path for the xfdu.xsd XML schema corresponding to the
+               product (e.g.
+         &quot;esa/safe/sentinel-1.0/sentinel-1/sar/sm/level-1/slcd&quot;)
+            </para>
+            <example>
+               <title>Identification of a Sentinel-SAFE Product type</title>
+               <programlisting>
+&lt;xfdu:XFDU xmlns:xfdu="urn:ccsds:schema:xfdu:1"
+        xmlns:sentinel-safe="http://www.esa.int/safe/sentinel-1.0"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:gml="http://www.opengis.net/gml"
+        version="esa/safe/sentinel-1.0/sentinel-1/sar/sm/level-1/slcd"> <co
+   id="root-version-co" linkends="root-version"/>
+
+[...]
+
+&lt;/xfdu:XFDU>
+               </programlisting>
+               <calloutlist>
+                  <callout arearefs="root-version-co" id="root-version">
+                     <para>
+                        The <classname>version</classname> attribute identifies
+                        univocally the Sentinel-SAFE Specialisation (i.e. Core
+                        product level or more restricted products). In the
+                        example, the
+      <constant>esa/safe/sentinel-1.0/sentinel-1/sar/sm/level-1/slcd</constant>
+                        matches a Level 1 Sentinel-1 SAR SM SLCD product.
+                     </para>
+                  </callout>
+               </calloutlist>
+            </example>
+         </section>
+
+         <section>
+            <title>Identification of the Manifest Content</title>
+            <para>
+               The content of the <xref linkend="sentinel-safe-product"/> is
+               described in the Information Package Map. The
+               <classname>informationPackageMap</classname> element provides a
+               hierarchical view of the entire product content, using a series
+               of nested Content Units (<classname>contentUnit</classname>
+               elements). Actually, the Information Package Map is equivalent
+               to the highest-level Content Unit included in the product.
+            </para>
+            <para>
+               A Content Unit is an XML Structure (the
+               <classname>contentUnit</classname> element) that contains
+               pointers to Data Objects and associated Metadata Objects
+               (<classname>dataObject</classname> and
+               <classname>metadataObject</classname> elements); it may also
+               contain other Content Units.
+            </para>
+            <para>
+               <xref linkend="sentinel-safe"/> allows perfectly identify each
+               <classname>contentUnit</classname>, using its
+               <classname>ID</classname> attribute. <xref
+               linkend="sentinel-safe"/> doesn't define any constraint about
+               their use. Nevertheless, if used, the <classname>ID</classname>
+               attribute of the highest-level
+               <classname>contentUnit</classname> (the
+               <emphasis>root</emphasis> <classname>contentUnit</classname>)
+               shall have the following value:
+               <programlisting>
+                  <classname>
+      <quote>packageUnit</quote>
+                  </classname>
+               </programlisting>
+            </para>
+            <para>
+               Value of all other <classname>contentUnit</classname>
+               <classname>ID</classname> attributes is not constrained.
+            </para>
+         </section>
+
+         <section>
+            <title>Manifest File Internal References</title>
+
+            <para>
+               This part is dedicated to the mechanisms of internal links.
+            </para>
+
+            <!-- ========================================================== -->
+            <!-- The Mechanisms                                             -->
+            <!-- ========================================================== -->
+
+            <section>
+               <title>The Mechanisms</title>
+
+               <section>
+                  <title>Data</title>
+
+                  <mediaobject>
+                     <imageobject role="fo">
+                        <imagedata fileref="media/Sentinel-SAFE-Data-Object.svg"
+                                   format="SVG" align="center"/>
+                     </imageobject>
+                     <imageobject>
+                        <imagedata fileref="media/Sentinel-SAFE-Data-Object.png"
+                                   format="PNG" align="center"/>
+                     </imageobject>
+                     <caption>
+                        <para>
+                           Data Component and its optional Representation
+                           Information
+                        </para>
+                     </caption>
+                  </mediaobject>
+
+                  <section>
+                     <title>Data Component</title>
+
+                     <para>
+                        A <xref linkend="data-component"/> shall be referenced
+                        by:
+                        <programlisting>
+                           <classname>
+      dataObjectSection/dataObject/byteStream/fileLocation/@href
+                           </classname>
+                        </programlisting>
+                     </para>
+
+                     <para>
+                        An <classname>xfdu:contentUnit</classname> shall
+                        reference this <classname><xref linkend="dataObject"
+                       /></classname> through an <emphasis>ID/IDREF
+                        relationship</emphasis>:
+                        <programlisting>
+            <classname>
+      informationPackageMap/xfdu:contentUnit/dataObjectPointer/@dataObjectID
+            </classname>
+            shall point on:
+            <classname>
+      dataObjectSection/dataObject/@ID
+            </classname>
+                        </programlisting>
+                     </para>
+
+                     <example>
+                        <title>From Manifest File to measurement.dat</title>
+                        <programlisting>
+                           [...]
+                           <![CDATA[
+
+      <xfdu:contentUnit unitType="Measurement Data Unit"
+                        dmdID="measurementOrbitReference"
+                        repID="measurementSchema">
+
+         <dataObjectPointer dataObjectID="measurementData"/>
+
+      [...]
+
+      <dataObject ID="measurementData"
+                  repID="measurementSchema">
+         <byteStream mimeType="application/octet-stream">
+            <fileLocation locatorType="URL" href="measurement.dat"
+                    textInfo="Measurement Data Set File"/>
+            <checksum checksumName="MD5">
+               e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+
+]]>
+                           [...]
+                        </programlisting>
+                     </example>
+
+                     <para>
+                        Each <xref linkend="data-component"/>
+                        <emphasis>may</emphasis> have a representation
+                        information.
+                     </para>
+
+                  </section>
+
+                  <section>
+                     <title>
+                        XML schema Component (Describing Data Component)
+                     </title>
+
+                     <para>
+                        If present, an XML schema describing a
+                        <xref linkend="data-component"/> shall be referenced
+                        by:
+                        <programlisting>
+                           <classname>
+      metadataSection/metadataObject/metadataReference/@href
+                           </classname>
+                        </programlisting>
+                     </para>
+
+                     <para>
+                        The <classname>xfdu:contentUnit</classname> which
+                        references the <classname><xref
+                        linkend="dataObject"/></classname> shall reference this
+                        <classname><xref linkend="metadataObject"/></classname>
+                        through an <emphasis>ID/IDREF relationship</emphasis>:
+                        <programlisting>
+            <classname>
+      informationPackageMap/xfdu:contentUnit/@repID
+            </classname>
+            shall point on:
+            <classname>
+      metadataSection/metadataObject/@ID
+            </classname>
+                        </programlisting>
+                     </para>
+
+                     <example>
+                        <title>From Manifest File to measurement.xsd</title>
+                        <programlisting>
+                           <![CDATA[
+      [...]
+
+      <xfdu:contentUnit unitType="Measurement Data Unit"
+                        dmdID="measurementOrbitReference"
+                        repID="measurementSchema">
+
+         <dataObjectPointer dataObjectID="measurementData"/>
+
+      [...]
+
+      <metadataObject ID="measurementSchema"
+                      classification="SYNTAX" category="REP">
+         <metadataReference locatorType="URL" href="measurement.xsd"
+                            vocabularyName="SDF" mimeType="text/xml"/>
+      </metadataObject>
+
+      [...]
+]]>
+                        </programlisting>
+                     </example>
+
+                     <para>
+                        The <classname><xref linkend="dataObject"/></classname>
+                        and the <classname><xref
+                        linkend="metadataObject"/></classname> dedicated to its
+                        representation information are linked together not only
+                        through their Content Units, but also by themselves:
+                        <programlisting>
+            <classname>
+      dataObjectSection/dataObject/@repID
+            </classname>
+            shall point on:
+            <classname>
+      metadataSection/metadataObject/@ID
+            </classname>
+                        </programlisting>
+                     </para>
+
+                     <example>
+                        <title>
+                           Inside Manifest File: from measurement.dat to
+                           measurement.xsd
+                        </title>
+                        <programlisting>
+                           <![CDATA[
+      [...]
+
+      <xfdu:contentUnit unitType="Measurement Data Unit"
+                        dmdID="measurementOrbitReference"
+                        repID="measurementSchema">
+
+         <dataObjectPointer dataObjectID="measurementData"/>
+
+      [...]
+
+      <metadataObject ID="measurementSchema"
+                      classification="SYNTAX" category="REP">
+         <metadataReference locatorType="URL" href="measurement.xsd"
+                            vocabularyName="SDF" mimeType="text/xml"/>
+      </metadataObject>
+
+      [...]
+
+      <dataObject ID="measurementData"
+                  repID="measurementSchema">
+         <byteStream mimeType="application/octet-stream">
+            <fileLocation locatorType="URL" href="measurement.dat"
+                    textInfo="Measurement Data Set File"/>
+            <checksum checksumName="MD5">
+               e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+
+      [...]
+]]>
+                        </programlisting>
+                     </example>
+
+                  </section>
+
+               </section>
+
+               <section id="manifest-index-section">
+                  <title>Index or Metadata</title>
+
+                  <mediaobject>
+                     <imageobject role="fo">
+                        <imagedata
+                           fileref="media/Sentinel-SAFE-Metadata-Object.svg"
+                           format="SVG" align="center"/>
+                     </imageobject>
+                     <imageobject>
+                        <imagedata
+                           fileref="media/Sentinel-SAFE-Metadata-Object.png"
+                           format="PNG" align="center"/>
+                     </imageobject>
+                     <caption>
+                        <para>
+                           Index or Metadata Component and their optional
+                           Representation Information
+                        </para>
+                     </caption>
+                  </mediaobject>
+
+                  <para>
+                     A <xref linkend="data-component"/> may have an index,
+                     and/or some external metadata.
+                  </para>
+                  <para>
+                     In all cases, the
+                     <xref linkend="metadata-component"/>
+                     (index or metadata) <emphasis>may </emphasis> be
+                     referenced by a <classname><xref
+                     linkend="dataObject"/></classname> (A):
+                     <programlisting>
+         <classname>
+   dataObjectSection/dataObject/byteStream/fileLocation/@href
+         </classname>
+                     </programlisting>
+                  </para>
+
+                  <para>
+                     An <classname>xfdu:contentUnit</classname> (A) shall
+                     reference this <classname><xref
+                     linkend="dataObject"/></classname> (A) through an
+                     <emphasis>ID/IDREF relationship</emphasis>:
+                     <programlisting>
+         <classname>
+   informationPackageMap/xfdu:contentUnit/dataObjectPointer/@dataObjectID
+         </classname>
+         shall point on:
+         <classname>
+   dataObjectSection/dataObject/@ID
+         </classname>
+         </programlisting>
+         In order to define clearly that this <xref linkend="component"/> is an
+         Index or a Metadata Component, the <classname><xref
+         linkend="dataObject"/></classname> (A) is also pointed by a
+         <classname><xref linkend="metadataObject"/></classname>:
+                     <programlisting>
+         <classname>
+   metadataSection/metadataObject/dataObjectPointer/@dataObjectID
+         </classname>
+         shall point on:
+         <classname>
+   dataObjectSection/dataObject/@ID
+         </classname>
+                     </programlisting>
+                     As <emphasis> an object may have a representation
+                     information </emphasis>, the mechanism of association
+                     between the component and its XML schema(s) applies
+                     (<classname> <xref linkend="metadataObject"/></classname>
+                     (B) in the diagram).
+                  </para>
+
+                  <para>
+                     The Index or the Metadata Component is metadata of data.
+                     Thus, the <quote>data <classname><xref
+                     linkend="dataObject"/></classname></quote> shall have an
+                     association with its metadata.
+                  </para>
+                  <para>
+                     An <classname>xfdu:contentUnit</classname> (C), which
+                     references the <classname><xref linkend="dataObject"
+                    /></classname> (C) shall reference the <classname><xref
+                     linkend="metadataObject"/></classname> (A) through an
+                     <emphasis>ID/IDREF relationship</emphasis>:
+                     <programlisting>
+         <classname>
+   informationPackageMap/xfdu:contentUnit/@dmdID
+         </classname>
+         shall point on:
+         <classname>
+   metadataSection/metadataObject/dataObject/@ID
+         </classname>
+                     </programlisting>
+                  </para>
+
+                  <example>
+                     <title></title>
+                     <programlisting>
+                        <![CDATA[
+      [...]
+
+      <xfdu:contentUnit unitType="Measurement Data Unit"
+                        textInfo="Measurement Data Unit"
+                        dmdID="occultationAnnotation
+                               measurementIndex"
+                        repID="measurementSchema">
+
+         <dataObjectPointer dataObjectID="measurementData"/>
+
+      </xfdu:contentUnit>
+
+      [...]
+
+      <xfdu:contentUnit unitType="Measurement Data Index"
+                        textInfo="Measurement Data Index"
+                        repID="measurementIndexSchema">
+
+         <dataObjectPointer dataObjectID="measurementIndexData"/>
+
+      </xfdu:contentUnit>
+
+      [...]
+
+      <xfdu:contentUnit unitType="Metadata Unit"
+                        textInfo="Metadata Unit"
+                        repID="occultationAnnotationSchema">
+
+         <dataObjectPointer dataObjectID="occultationAnnotationData"/>
+
+      </xfdu:contentUnit>
+
+      [...]
+
+      <metadataObject ID="measurementSchema"
+                      classification="SYNTAX" category="REP">
+         <metadataReference locatorType="URL" href="measurement.xsd"
+                            vocabularyName="SDF" mimeType="text/xml"/>
+      </metadataObject>
+
+      [...]
+
+      <metadataObject ID="measurementIndex"
+                      classification="DESCRIPTION" category="DMD">
+         <dataObjectPointer
+                      dataObjectID="measurementIndexData"/>
+      </metadataObject>
+
+      [...]
+
+      <metadataObject ID="measurementIndexSchema"
+                      classification="SYNTAX" category="REP">
+         <metadataReference locatorType="URL" href="index.xsd"
+                            vocabularyName="SDF" mimeType="text/xml"/>
+      </metadataObject>
+
+      [...]
+
+      <metadataObject ID="occultationAnnotation"
+                      classification="DESCRIPTION" category="DMD">
+         <dataObjectPointer
+                      dataObjectID="occultationAnnotationData"/>
+      </metadataObject>
+
+      [...]
+
+      <metadataObject ID="occultationAnnotationSchema"
+                      classification="SYNTAX" category="REP">
+         <metadataReference locatorType="URL" href="occultation.xsd"
+                            vocabularyName="SDF" mimeType="text/xml"/>
+      </metadataObject>
+
+      [...]
+
+      <dataObject ID="measurementData"
+                  repID="measurementSchema">
+         <byteStream mimeType="application/octet-stream">
+            <fileLocation locatorType="URL" href="measurement.dat"
+                    textInfo="Measurement Data Set File"/>
+            <checksum checksumName="MD5">
+               e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+
+      [...]
+
+      <dataObject ID="measurementIndexData"
+                  repID="measurementIndexSchema">
+         <byteStream mimeType="application/octet-stream">
+            <fileLocation locatorType="URL" href="measurement-index.dat"
+                    textInfo="Measurement Data Set Index File"/>
+            <checksum checksumName="MD5">
+               e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+
+      [...]
+
+      <dataObject ID="occultationAnnotationData"
+                  repID="occultationAnnotationSchema">
+         <byteStream mimeType="application/octet-stream">
+            <fileLocation locatorType="URL" href="occultation.dat"
+                    textInfo= "Additional Platform Data Set File"/>
+            <checksum checksumName="MD5">
+               e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+
+      [...]
+]]>
+                     </programlisting>
+                  </example>
+
+
+               </section>
+
+               <section>
+                  <title>Wrapped XML Metadata</title>
+
+                  <mediaobject>
+                     <imageobject role="fo">
+                        <imagedata
+                           fileref=
+                           "media/Sentinel-SAFE-Wrapped-Metadata-Object.svg"
+                           format="SVG" align="center"/>
+                     </imageobject>
+                     <imageobject>
+                        <imagedata
+                           fileref=
+                           "media/Sentinel-SAFE-Wrapped-Metadata-Object.png"
+                           format="PNG" align="center"/>
+                     </imageobject>
+                     <caption>
+                        <para>Wrapped XML Metadata</para>
+                     </caption>
+                  </mediaobject>
+
+                  <para>
+                     A <xref linkend="sentinel-safe-manifest"/> file holds
+                     <xref linkend="wrapped-metadata-object"/>, such as
+                     platform information, processing log, etc.
+                  </para>
+
+                  <para>
+                     The processing log, history of the product is defined by a
+                     <classname>safe:processing</classname> element. The
+                     processing concerns the entire Sentinel-SAFE product.
+                     Thus, only the root Content Unit, first and unique
+                     <classname>informationPackageMap</classname> sub-element
+                     shall reference the Processing <xref
+                     linkend="wrapped-metadata-object"/> through an
+                     <emphasis>ID/IDREF relationship</emphasis>:
+                     <programlisting>
+         <classname>
+   informationPackageMap/xfdu:contentUnit/@pdiID
+         </classname>
+         shall point on:
+         <classname>
+   metadataSection/metadataObject/@ID
+         </classname>
+                     </programlisting>
+                  </para>
+
+                  <para>
+                     All the other <xref linkend="wrapped-metadata-object"/>,
+                     concerning the entire Sentinel-SAFE product shall be
+                     referenced by the root Content Unit too through an
+                     <emphasis>ID/IDREF relationship</emphasis>:
+                     <programlisting>
+         <classname>
+   informationPackageMap/xfdu:contentUnit/@dmdID
+         </classname>
+         shall point on:
+         <classname>
+   metadataSection/metadataObject/@ID
+         </classname>
+                     </programlisting>
+                  </para>
+
+                  <example>
+                     <title>Processing and Other Wrapped Metadata</title>
+                     <programlisting>
+                        <![CDATA[
+   [...]
+
+   <informationPackageMap>
+
+      <xfdu:contentUnit unitType="Sentinel-SAFE Archive Information Package"
+                   textInfo="ENVISAT AATSR NL Level 0"
+                   pdiID="processing"
+                   dmdID="acquisitionPeriod platform">
+
+      [...]
+
+      </xfdu:contentUnit>
+
+   </informationPackageMap>
+
+   [...]
+
+      <metadataObject ID="processing"
+                      classification="PROVENANCE" category="PDI">
+         <metadataWrap textInfo="Processing"
+                 vocabularyName="Sentinel-SAFE" mimeType="text/xml">
+            <xmlData>
+               <safe:processing name="Level 0 processing">
+
+               [...]
+
+               </safe:processing>
+            </xmlData>
+         </metadataWrap>
+      </metadataObject>
+
+   [...]
+
+      <metadataObject ID="platform"
+                      classification="DESCRIPTION" category="DMD">
+         <metadataWrap textInfo="Platform Description"
+                 vocabularyName="Sentinel-SAFE" mimeType="text/xml">
+            <xmlData>
+               <safe:platform>
+
+               [...]
+
+               </safe:platform>
+            </xmlData>
+         </metadataWrap>
+      </metadataObject>
+
+   [...]
+]]>
+                     </programlisting>
+                  </example>
+
+               </section>
+
+            </section><!-- The Mechanisms -->
+
+            <!-- =========================================================== -->
+            <!-- List of pointing attributes                                 -->
+            <!-- =========================================================== -->
+
+            <section>
+               <title>List of pointing attributes</title>
+
+               <para>
+                  Here are listed all the pointing (xs:IDREFS) and pointed
+                  (xs:ID) attributes.
+               </para>
+
+               <!-- informationPackageMap -->
+
+               <section>
+                  <title>Information Package Map Section</title>
+
+                  <para>
+                     The Information Package Map, through Content Units points
+                     on <classname><xref linkend="metadataObject"
+                    /></classname>s and <classname><xref linkend="dataObject"
+                    /></classname>s.
+                  </para>
+
+                  <!-- Content unit attributes -->
+                  <section>
+                     <title>contentUnit attributes</title>
+
+                     <para>
+                        <itemizedlist>
+
+                           <listitem>
+                              <para>
+                                 <classname>pdiID</classname>
+                                 (xs:IDREFS):
+                              </para>
+                              <para>
+                                 <classname>pdiID</classname>
+                                 is always an attribute of the &quot;root&quot;
+                                 Content Unit; it points on the <xref
+                                 linkend="wrapped-metadata-object"/> dedicated
+                                 to the processing log
+                                 (<classname>&lt;metadataObject ID =
+                                 &quot;processing&quot;&gt;</classname>). This
+                                 <xref linkend="wrapped-metadata-object"/> is
+                                 mandatory, and this attribute is required only
+                                 on the Content Unit first sub-element of the
+                                 Information Package Map (i. e.
+                                 &quot;root&quot; Content Unit).
+                              </para>
+                           </listitem>
+
+                           <listitem>
+                              <para>
+                                 <classname>dmdID</classname>
+                                 (xs:IDREFS):
+                                 <itemizedlist>
+                                    <listitem>
+                                       <para>
+                                          &quot;root&quot; Content Unit:
+                                       </para>
+                                       <para>
+                                          <classname>dmdID</classname>
+                                          points on <xref
+                                          linkend="wrapped-metadata-object"/>.
+                                       </para>
+                                    </listitem>
+                                    <listitem>
+                                       <para>
+                                          not &quot;root&quot; Content Units:
+                                       </para>
+                                       <para>
+                                          <classname>dmdID</classname>
+                                          shall always be an attribute of a
+                                          Content Unit representing a <xref
+                                          linkend="data-object"/> or <xref
+                                          linkend="metadata-object"/>. It may
+                                          point on a <xref
+                                          linkend="wrapped-metadata-object"/>
+                                          or any <classname><xref
+                                          linkend="metadataObject"/></classname>.
+                                       </para>
+                                    </listitem>
+                                 </itemizedlist>
+                              </para>
+                           </listitem>
+
+                           <listitem>
+                              <para>
+                                 <classname>repID</classname>
+                                 (xs:IDREFS):
+                              </para>
+                              <para>
+                                 <classname>repID</classname>
+                                 always points on a
+                                 <classname>
+                                    <xref linkend="metadataObject"/>
+                                 </classname>
+                                 which references an XML schema. If
+                                 <classname>repID</classname>
+                                 present, the Content Unit must have a
+                                 <classname>dataObjectPointer</classname>
+                                 sub-element pointing a
+                                 <classname><xref
+                                 linkend="dataObject"/></classname> which
+                                 references the <xref linkend="component"/>
+                                 described by this XML schema.
+                              </para>
+                           </listitem>
+
+                        </itemizedlist>
+                     </para>
+
+                  </section><!-- Content unit attributes -->
+
+                  <!-- dataObjectPointer (contentUnit sub-element) attributes -->
+                  <section>
+                     <title>dataObjectPointer (contentUnit sub-element)
+                     attributes</title>
+
+                     <para>
+                        <classname>dataObjectID</classname> (xs:IDREFS) always
+                        points on a <classname><xref
+                        linkend="dataObject"/></classname> which references a
+                        <xref linkend="component"/> (data, index or metadata).
+                        If present the parent Content Unit must have an
+                        attribute repID pointing on a <classname><xref
+                        linkend="metadataObject"/></classname> which references
+                        the XML schema describing this <xref
+                        linkend="component"/>.
+                     </para>
+
+                  </section>
+                  <!-- dataObjectPointer (contentUnit sub-element)
+                     attributes -->
+
+               </section><!-- Information package map section -->
+
+               <section>
+                  <title>Metadata Section</title>
+
+                  <para>
+                     A <classname><xref linkend="metadataObject"/></classname>
+                     may have multiple <emphasis>ID/IDREF
+                     relationship</emphasis> and may reference an external XML
+                     schema.
+                  </para>
+
+                  <!-- Metadata Object attributes -->
+
+                  <section>
+                     <title>metadataObject attributes</title>
+
+                     <para>
+                        <itemizedlist>
+                           <listitem>
+                              <para>
+                                 <classname>ID</classname> (xs:ID): may have an
+                                 <emphasis>ID/IDREF relationship</emphasis>
+                                 with:
+
+                                 <itemizedlist>
+                                    <listitem>
+                                       <para>
+                                          A Content Unit attribute
+                                          <classname>dmdID</classname>
+                                          if the <classname><xref
+                                          linkend="metadataObject"
+                                         /></classname> is a <xref
+                                          linkend="wrapped-metadata-object"/>
+                                          (except the one dedicated to the
+                                          product processing) or if the
+                                          <classname><xref
+                                          linkend="metadataObject"
+                                         /></classname> is dedicated to a
+                                          <xref linkend="metadata-component"/>
+                                          (index or metadata).
+                                       </para>
+                                    </listitem>
+                                    <listitem>
+                                       <para>
+                                          A Content Unit attribute
+                                          <classname>pdiID</classname> if the
+                                          <classname><xref
+                                          linkend="metadataObject"
+                                         /></classname> is the <xref
+                                          linkend="wrapped-metadata-object"/>
+                                          dedicated to product processing.
+                                       </para>
+                                    </listitem>
+                                    <listitem>
+                                       <para>
+                                          A Content Unit attribute
+                                          <classname>repID</classname>
+                                          if the <classname><xref
+                                          linkend="metadataObject"/></classname>
+                                          is dedicated to an <xref
+                                          linkend="xml-schema-component"/>.
+                                       </para>
+                                    </listitem>
+                                    <listitem>
+                                       <para>
+                                          A <classname><xref
+                                          linkend="dataObject"/></classname>
+                                          attribute
+                                          <classname>repID</classname> if the
+                                          <classname><xref
+                                          linkend="metadataObject"/></classname>
+                                          is dedicated to be the <xref
+                                          linkend="oais"/> of the <xref
+                                          linkend="data-component"/> pointed to
+                                          by the <classname><xref
+                                          linkend="dataObject"/></classname>.
+                                       </para>
+                                    </listitem>
+                                 </itemizedlist>
+
+                              </para>
+                           </listitem>
+                        </itemizedlist>
+                     </para>
+
+                  </section><!-- Metadata Object attributes -->
+
+                  <section>
+                     <title>metadataObject/dataObjectPointer attributes</title>
+
+                     <para>
+                        <classname>dataObjectID</classname> (xs:IDREF) may have
+                        an <emphasis>ID/IDREF relationship</emphasis> with a
+                        <classname><xref linkend="dataObject"/></classname>
+                        which references a <xref linkend="metadata-component"/>
+                        (metadata or index).
+                     </para>
+
+                  </section>
+                  <!-- dataObjectPointer (metadataObject sub-element)
+                     attributes -->
+
+                  <!-- Metadata Object / metadataReference attributes -->
+
+                  <section>
+                     <title>metadataObject/metadataReference attributes</title>
+
+                     <para>
+                        <classname>href</classname>
+                        always references an
+                        <xref linkend="xml-schema-component"/>.
+                     </para>
+
+                  </section>
+
+               </section><!-- Metadata section -->
+
+               <!-- Data Object attributes -->
+               <section>
+                  <title>Data Section</title>
+
+                  <section>
+                     <title>dataObject attributes</title>
+
+                     <para>
+                        <classname><xref linkend="dataObject"/></classname>s
+                        may reference <xref linkend="data-component"/> or
+                        <xref linkend="metadata-component"/> (metadata or
+                        index). ID/IDREF relationships are different for <xref
+                        linkend="data-component"/>s and <xref
+                        linkend="metadata-component"/>s.
+                     </para>
+                     <para>
+                        The <classname><xref linkend="dataObject"/></classname>
+                        which references a <xref linkend="data-component"/>
+                        is always pointed to by a
+                        <classname>dataObjectID</classname> (attribute of
+                        <classname>dataObjectPointer</classname> element).
+                     </para>
+                     <para>
+                        The <classname><xref linkend="dataObject"/></classname>
+                        which references a <xref linkend="metadata-component"/>
+                        (metadata or index) is always pointed to by two
+                        different <classname>dataObjectID</classname>s
+                        (attribute of <classname>dataObjectPointer</classname>
+                        element). One is a Content Unit sub-element, the other
+                        is a <classname><xref linkend="metadataObject"
+                        /></classname> sub-element.
+                     </para>
+
+                     <para>
+                        <itemizedlist>
+                           <listitem>
+                              <classname>ID</classname> (xs:ID) may have an
+                              <emphasis>ID/IDREF relationship</emphasis> with
+                              <classname>@dataObjectID</classname>
+                              (<classname>dataObjectPointer</classname>
+                              attribute).
+                           </listitem>
+                        </itemizedlist>
+                     </para>
+
+                     <para>
+                        <itemizedlist>
+                           <listitem>
+                              <classname>repID</classname> (xs:IDREFS) may have
+                              an <emphasis>ID/IDREF relationship</emphasis>
+                              with a <classname><xref
+                              linkend="metadataObject"/></classname> which
+                              references an <xref
+                              linkend="xml-schema-component"/>. Note that the
+                              repID (xs:IDREFS) may point on more than one
+                              <classname><xref
+                              linkend="metadataObject"/></classname> if the
+                              <xref linkend="oais-rep"/> of a <xref
+                              linkend="data-component"/> gathers more than one
+                              <xref linkend="xml-schema-component"/> (i.e. if
+                              one or more <xref linkend="abstract-schema"/>(s)
+                              is present).
+                           </listitem>
+                        </itemizedlist>
+                     </para>
+
+                  </section><!-- Data Object attributes -->
+
+                  <!-- Data Object / byteStream / fileLocation attributes -->
+
+                  <section>
+                     <title>dataObject/byteStream/fileLocation
+                     attributes</title>
+
+                     <para>
+                        <classname>href</classname> may have an
+                        <emphasis>ID/IDREF relationship</emphasis> with:
+                        <itemizedlist>
+                           <listitem>
+                              a <xref linkend="data-component"/>;
+                           </listitem>
+                           <listitem>
+                              a <xref linkend="metadata-component"/>.
+                           </listitem>
+                        </itemizedlist>
+                     </para>
+
+                  </section>
+
+               </section><!-- Data section -->
+
+            </section>
+
+         </section>
+      </chapter>
+
+      <chapter>
+         <title>Components (normative)</title>
+         <section>
+            <title>Introduction</title>
+            <para>
+               The <xref linkend="component"/>s are files part of a <xref
+               linkend="sentinel-safe-product"/> different from the <xref
+               linkend="sentinel-safe-manifest"/>. A <xref
+               linkend="component"/> may hold data information, metadata
+               information or <xref linkend="oais-rep"/>. The format/type of
+               the <xref linkend="component"/>s has no particular meaning of
+               their role in a <xref linkend="sentinel-safe-product"/>.
+            </para>
+            <para>
+               According to the physical model specified previously, all <xref
+               linkend="component"/>s are to be referenced from the <xref
+               linkend="sentinel-safe-manifest"/>. Refer to the previous
+               chapter for additional information about how <xref
+               linkend="component"/>s may be referenced from the <xref
+               linkend="sentinel-safe-manifest"/>.
+            </para>
+         </section>
+
+         <section>
+            <title>XML Components</title>
+            <para>
+               Any <xref linkend="component"/> (<xref linkend="data-component"
+              /> or <xref linkend="metadata-component"/>) may be formatted in
+               XML.
+            </para>
+
+            <section>
+               <title>File Format</title>
+               <para>
+                  The format of these <xref linkend="component"/> shall follow
+                  the <xref linkend="xml-biblio"/> recommendation.
+               </para>
+            </section>
+
+            <section>
+               <title>Optional Representation Information</title>
+               <para>
+                  The <xref linkend="oais-rep"/> of XML <xref
+                  linkend="component"/> are standard XML Schemas that shall
+                  follow the recommendations <xref linkend="xsd-0-biblio"/>,
+                  <xref linkend="xsd-1-biblio"/> and <xref
+                  linkend="xsd-2-biblio"/>.
+               </para>
+            </section>
+         </section>
+
+         <section id="xml-component-section"
+            xreflabel="XML Schema Components section">
+            <title>XML Schema Components</title>
+            <para>
+               Although XML Schemas <emphasis>are</emphasis> XML documents,
+               they are considered different from XML <xref
+               linkend="component"/>s. This behavior is due to the particular
+               role of <xref linkend="oais-rep"/> they may have in a <xref
+               linkend="sentinel-safe-product"/>.
+            </para>
+            <section>
+               <title>File Format</title>
+               <para>
+                  The format of these <xref linkend="component"/> shall follow
+                  the <xref linkend="xsd-0-biblio"/>, <xref
+                  linkend="xsd-1-biblio"/> and <xref linkend="xsd-2-biblio"/>
+                  recommendations.
+               </para>
+            </section>
+
+            <section>
+               <title>Representation Information</title>
+               <para>
+                  In order to avoid circular definition of <xref
+                  linkend="oais-rep"/> (i.e. <xref linkend="oais-rep"/> of
+                  <xref linkend="oais-rep"/> of <xref linkend="oais-rep"/>,
+                  etc.) the XML Schema <xref linkend="oais-rep"/> is
+                  considered <emphasis>well known</emphasis> by the <xref
+                  linkend="sentinel-safe"/> specifications and is, therefore,
+                  <emphasis>not</emphasis> to be provided in a <xref
+                  linkend="sentinel-safe-product"/>.
+               </para>
+               <para>
+                  The considered <xref linkend="oais-rep"/> for XML Schemas is
+                  provided as normative part of the <xref
+                  linkend="xsd-1-biblio"/>. This <xref linkend="oais-rep"/>
+                  is usually known as the <quote>XML Schema of the XML
+                  Schemas</quote>.
+               </para>
+            </section>
+         </section>
+
+         <section>
+            <title>Binary Components</title>
+            <para>
+               The binary <xref linkend="component"/>s may be considered as
+               any regular files of a file system. For example, video data,
+               image, raw text, etc. may be referenced as binary <xref
+               linkend="component"/>s of any <xref
+               linkend="sentinel-safe-product"/>.
+            </para>
+
+            <section>
+               <title>File Format</title>
+               <para>
+                  Any ordered sequence of <emphasis>bytes</emphasis>.
+               </para>
+               <para>
+                  The sequence of bytes may be structured in a first physical
+                  level of atomic data types (e.g. integers, floating points,
+                  characters, arry of bytes, etc.). These data types may be
+                  organized to provide hierarchical or complex structures.
+               </para>
+            </section>
+
+            <section>
+               <title>Optional Representation Information</title>
+               <para>
+                  <xref linkend="oais-rep"/> of every <xref
+                  linkend="component"/> <emphasis>may</emphasis> be described
+                  by an XML Schema following the rules defined in <xref
+                  linkend="xml-component-section"/>,
+                  <emphasis>annotated</emphasis> with <xref linkend="sdf"/>
+                  markups for providing the binary physical attributes of the
+                  file.
+               </para>
+               <example>
+                  <title>
+                     Sample of a Representation Information of a Binary Object
+                  </title>
+                  <programlisting>
+[...]
+
+&lt;xs:element name="tangentAltitudeError" type="xs:unsignedInt"
+            minOccurs="2" maxOccurs="2"> <co id="rep-std-xsd-decl-co"
+            linkends="rep-std-xsd-decl"/>
+   &lt;xs:annotation>
+      &lt;xs:documentation xml:lang="en">
+         Error on the altitude of the tangent point
+         2 values provided at the beginning and during the measurement,
+         generaly at half-measurement (the temporal shift is given by the
+         "time shift for the ray tracing" - see the Occultation data GADS.
+      &lt;/xs:documentation>
+   &lt;xs:appinfo>
+      &lt;sdf:block> <co id="rep-block-co" linkends="rep-block"/>
+         &lt;sdf:encoding>BINARY&lt;/sdf:encoding>
+         &lt;sdf:length>4&lt;/sdf:length>
+         &lt;sdf:occurrence>2&lt;/sdf:occurrence>
+      &lt;/sdf:block>
+   &lt;/xs:appinfo>
+   &lt;/xs:annotation>
+&lt;/xs:element>
+
+[...]
+                  </programlisting>
+                  <calloutlist>
+                     <callout arearefs="rep-std-xsd-decl-co"
+                        id="rep-std-xsd-decl">
+                        <para>
+                           Standard declaration of an element in a standard XML
+                           Schema document. This declaration provides the
+                           logical/structural definition of the data.
+                        </para>
+                     </callout>
+                     <callout arearefs="rep-block-co" id="rep-block">
+                        <para>
+                           <xref linkend="sdf"/> annotation markups providing
+                           physical description of the binary element. Here,
+                           for example, the length is fixed to 4 bytes and the
+                           element appears 2 times in the binary stream.
+                        </para>
+                     </callout>
+                  </calloutlist>
+               </example>
+               <para>
+                  A complete description of the <xref linkend="sdf"/>
+                  markup and their use is provided in the next section.
+               </para>
+            </section>
+
+            <section id="sdf-section" xreflabel="SDF Markups Section">
+               <title>SDF Markups</title>
+               <para>
+                  XML Schema has been selected as <xref linkend="oais-rep"/>
+                  language to avoid re-engineering of proprietary language. XML
+                  Schema recommendations <xref linkend="xsd-0-biblio"/>, <xref
+                  linkend="xsd-1-biblio"/> and <xref linkend="xsd-2-biblio"/>
+                  provides an integrated set of markups that describes simple
+                  or complex types. However, because it has been designed for
+                  XML documents <xref linkend="xml-biblio"/> to which the
+                  format is predefined, XML Schema does not provide any support
+                  for the physical description of binary files.
+               </para>
+               <para>
+                  It is therefore necessary to specify additional markups
+                  dedicated to the physical description of the logical elements
+                  described by XML Schema. These markups, deriving from the
+                  Structured Data file language (<xref linkend="sdf"/>) should
+                  be inserted in the <classname>appInfo</classname> element
+                  allowed in many areas of the XML Schema documents.
+               </para>
+
+               <section>
+                  <title>Concept of Binary Blocks</title>
+                  <para>
+                     A binary file is usually defined as a set of adjacent
+                     blocks with various lengths. A Structured Data file is a
+                     data source containing TEXT and/or BINARY data that can be
+                     described as a hierarchy of data blocks. These blocks are
+                     organized in a "tree model" as a file system does with
+                     directories and files.
+                  </para>
+                  <para>
+
+                  <mediaobject>
+                     <imageobject role="fo">
+                        <imagedata
+                           fileref="media/SDF-Markups-1-bis.svg"
+                           format="SVG" align="center"/>
+                     </imageobject>
+                     <imageobject>
+                        <imagedata
+                           fileref="media/SDF-Markups-1.png"
+                           format="PNG" align="center"/>
+                     </imageobject>
+                     <caption>
+                        <para>Example of Hierarchical Binary Data Blocks</para>
+                     </caption>
+                  </mediaobject>
+
+<!--
+                     <mediaobject>
+                        <imageobject>
+                           <imagedata fileref="media/sdf-block-tree.png"
+                              format="PNG" width="9cm" scalefit="1"
+                              align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>
+                              Example of Hierarchical Binary Data Blocks
+                           </para>
+                        </caption>
+                     </mediaobject>
+                     -->
+                  </para>
+                  <para>
+                     A block is identified by its absolute offset and length
+                     within the data source. It is assumed that there is no
+                     overlapping between the blocks.
+                  </para>
+                  <para>
+                     <mediaobject>
+                        <imageobject role="fo">
+                           <imagedata
+                              fileref="media/SDF-Markups-2-bis.svg"
+                              format="SVG" align="center"/>
+                        </imageobject>
+                        <imageobject>
+                           <imagedata
+                              fileref="media/SDF-Markups-2.png"
+                              format="PNG" align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>Location of a Block within The Stream</para>
+                        </caption>
+                     </mediaobject>
+
+                     <!--
+                     <mediaobject>
+                        <imageobject>
+                           <imagedata fileref="media/sdf-block-location.png"
+                              format="PNG" width="5cm" scalefit="1"
+                              align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>Location of a Block within The Stream</para>
+                        </caption>
+                     </mediaobject>
+                     -->
+                  </para>
+                  <para>
+                     The block content may be surrounded by
+                     <emphasis>header</emphasis>
+                     or
+                     <emphasis>footer</emphasis>
+                     paddings:
+                  </para>
+                  <para>
+                     <mediaobject>
+                        <imageobject role="fo">
+                           <imagedata
+                              fileref="media/SDF-Markups-3-bis.svg"
+                              format="SVG" align="center"/>
+                        </imageobject>
+                        <imageobject>
+                           <imagedata
+                              fileref="media/SDF-Markups-3.png"
+                              format="PNG" align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>Physical Representation of a Node</para>
+                        </caption>
+                     </mediaobject>
+
+                     <!--
+                     <mediaobject>
+                        <imageobject>
+                           <imagedata fileref="media/sdf-block-content.png"
+                              format="PNG" width="6cm" scalefit="1"
+                              align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>Physical Representation of a Node</para>
+                        </caption>
+                     </mediaobject>
+                     -->
+                  </para>
+                  <para>
+                     A complex content is encoded as a sequence of blocks in the
+                     same order than the node list.
+                  </para>
+                  <para>
+                     <mediaobject>
+                        <imageobject role="fo">
+                           <imagedata
+                              fileref="media/SDF-Markups-4-bis.svg"
+                              format="SVG" align="center"/>
+                        </imageobject>
+                        <imageobject>
+                           <imagedata
+                              fileref="media/SDF-Markups-4.png"
+                              format="PNG" align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>Physical Representation of a Complex Content
+                           (e.g. a sequence nodes)</para>
+                        </caption>
+                     </mediaobject>
+
+                     <!--
+                     <mediaobject>
+                     <mediaobject>
+                        <imageobject>
+                           <imagedata
+                              fileref="media/sdf-block-complex-content.png"
+                              format="PNG" width="8cm" scalefit="1"
+                              align="center"/>
+                        </imageobject>
+                        <caption>
+                           <para>
+                              Physical Representation of a Complex Content (e.g.
+                              a sequence nodes)
+                           </para>
+                        </caption>
+                     </mediaobject>
+                     -->
+                  </para>
+               </section>
+
+               <section>
+                  <title>Syntax Specifications</title>
+                  <para>
+                     <xref linkend="sdf"/> breaks down any binary data into a
+                     tree of nodes thanks to an external description. The
+                     internal description is an XML Schema with a few
+                     additional markups providing the physical description of
+                     the binary file components.
+                  </para>
+                  <para>
+                     The complete list of markups defined by <xref
+                     linkend="sdf"/> as well as their respective roles is
+                     provided in the <xref linkend="sdf-reference-part"/>
+                     part of the present book.
+                  </para>
+                  <para>
+                     An XML Schema is also provided in <xref
+                     linkend="sdf-xsd-appendix"/> for helping in validating
+                     <xref linkend="sdf"/> markups with an XML Schema.
+                  </para>
+                  <para>
+                     Finally, a complete example of <xref linkend="sdf"/>
+                     <emphasis>annotated</emphasis> XML Schema is provided in
+                     <xref linkend="do-xsd-appendix"/>. This example is a
+                     typical case of Earth Observation binary data.
+                  </para>
+                  <!-- TODO: insert table of sdf markups !-->
+               </section>
+
+               <!-- TODO: TBC
+                  <section>
+                  <title>Block Definition</title>
+                  <para>
+                  A data file is usually defined as a set of adjacent ...
+                  </para>
+                  </section>
+                  
+                  <section>
+                  <title>Physical Attributes</title>
+                  <para>
+                  A data file is usually defined as a set of adjacent ...
+                  </para>
+                  </section>
+                  
+                  <section>
+                  <title>Block Length</title>
+                  <para>
+                  A data file is usually defined as a set of adjacent ...
+                  </para>
+                  </section>
+                  
+                  <section>
+                  <title>Block Paddings</title>
+                  <para>
+                  A data file is usually defined as a set of adjacent ...
+                  </para>
+                  </section>
+                  
+                  <section>
+                  <title>XQuery for Dynamic Resolutions</title>
+                  <para>
+                  A data file is usually defined as a set of adjacent ...
+                  </para>
+                  </section>
+               -->
+            </section>
+         </section>
+
+         <section>
+            <title>Index Components</title>
+            <para>
+               The Indexes are <emphasis>Binary</emphasis> <xref
+               linkend="component"/>s attached to other
+               <emphasis>Binary</emphasis> <xref linkend="component"/>s. The
+               indexes content provides a quick way to find the elements within
+               the attached Binary <xref linkend="component"/> using the
+               <quote>indexed</quote> value(s).
+            </para>
+            <para>
+               Indexes can be seen has a sub-sampled view of the Binary <xref
+               linkend="component"/> they are attached to. Indexed values may
+               be extracted from the attached Binary <xref linkend="component"
+              /> but also be computed or acquired values not included in the
+               attached Binary <xref linkend="component"/>. As an example, in
+               an Earth Observation environment, the indexed values may be time
+               stamps originating from the acquisition system whether the
+               telemetry (i.e. the attached Binary <xref linkend="component"
+              />) may not provide any timing information.
+            </para>
+            <para>
+               Indexes are particularly efficient for
+               <emphasis>large</emphasis> Binary <xref linkend="component"/>s
+               with internal block sizes varying among occurrences (e.g. 
+               telemetry source packets of variable lengths).
+            </para>
+
+            <safe:xsd-tabular-section schemaLocation=
+               "xsd-component/int/esa/safe/sentinel-1.0/index.xsd"/>
+
+            <section>
+               <title>Representation Information</title>
+               <para>
+                  As all Sentinel-SAFE Indexes follow the same format, the <xref
+                  linkend="oais-rep"/> is the <emphasis>annotated</emphasis>
+                  XML Schema provided in <xref linkend="sdf-xsd-appendix"/>.
+               </para>
+               <para>
+                  A file containing this XML Schema content is to be provided
+                  and referenced as <xref linkend="oais-rep"/> of any <xref
+                  linkend="sentinel-safe-product"/> containing an Index file. The way
+                  of linking this file in the <xref linkend="sentinel-safe-manifest"/>
+                  is described in section <xref
+                  linkend="manifest-index-section"/>.
+               </para>
+               <para>
+                  It is not an error to include a single copy of the Index
+                  <xref linkend="oais-rep"/> schema, although several indexes
+                  are contained in the same <xref linkend="sentinel-safe-product"/>.
+               </para>
+            </section>
+         </section>
+
+      </chapter>
+   </part>
+
+   <part id="manifest-reference-part">
+      <title>Manifest Type Reference</title>
+      <safe:xsd-reference-section
+         schemaLocation="xsd/int/esa/safe/sentinel-1.0/xfdu.xsd"/>
+      <safe:xsd-reference-section
+         schemaLocation="xsd/int/esa/safe/sentinel-1.0/safe.xsd"/>
+      <safe:xsd-reference-section
+         schemaLocation="xsd/int/esa/safe/sentinel-1.0/active-sensor-types.xsd"/>
+      <!--
+      <safe:xsd-reference-section
+         schemaLocation="xsd/fr/gael/drb/impl/sdf/sdf-20020222.xsd"/>
+         -->
+   </part>
+
+   <part id="sdf-reference-part">
+      <title>SDF Type Reference</title>
+      <safe:xsd-reference-section
+         schemaLocation="xsd/fr/gael/drb/impl/sdf/sdf-2_3.xsd"/>
+   </part>
+
+   <appendix id="sentinel-xfdu-xsd-appendix">
+      <title>XML Schema restricting XFDU Types (normative)</title>
+      <safe:include-resource location="xsd/int/esa/safe/sentinel-1.0/xfdu.xsd"/>
+   </appendix>
+
+   <appendix id="sentinel-safe-xsd-appendix">
+      <title>XML Schema of Sentinel-SAFE Manifest Types (normative)</title>
+      <safe:include-resource location="xsd/int/esa/safe/sentinel-1.0/safe.xsd"/>
+   </appendix>
+
+   <appendix id="sentinel-active-sensor-xsd-appendix">
+      <title>XML Schema of Sentinel-SAFE Active Sensor Types (normative)</title>
+      <safe:include-resource
+            location="xsd/int/esa/safe/sentinel-1.0/active-sensor-types.xsd"/>
+   </appendix>
+
+   <appendix id="sdf-xsd-appendix">
+      <title>XML Schema of SDF Markups (normative)</title>
+      <safe:include-resource
+            location="xsd/fr/gael/drb/impl/sdf/sdf-2_3.xsd"/>
+   </appendix>
+
+   <appendix id="sentinel-index-xsd-appendix">
+      <title>XML Schema of Sentinel-SAFE Data Component Indexes (normative)</title>
+      <safe:include-resource
+            location="xsd-component/int/esa/safe/sentinel-1.0/index.xsd"/>
+   </appendix>
+
+   <appendix id="sentinel-manifest-example-appendix">
+      <title>Example of Sentinel-SAFE Manifest document (informative)</title>
+      <safe:include-resource
+            location="docbook/int/esa/safe/example/manifest.safe"/>
+   </appendix>
+
+   <appendix id="do-xsd-appendix">
+      <title>
+         Example of XML Schema for binary Data Components (informative)
+      </title>
+      <safe:include-resource
+            location="docbook/int/esa/safe/example/s1-level-0.xsd"/>
+   </appendix>
+
+   <!-- The included document is an appendix -->
+   <xi:include href="shared/appendix/fdl-1.3.xml" parse="xml"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+   <appendix id="dip-appendix">
+      <title>Sentinel-SAFE Document Improvement Proposal</title>
+      <?insert-dip-form?>
+   </appendix>
+
+   <index id="document-index" xreflabel="Index"/>
+
+</book>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xfdu:XFDU version="esa/safe/sentinel/1.1/sentinel-2/hktm/level-0" 
+xmlns:xfdu="urn:ccsds:schema:xfdu:1" 
+xmlns:s2="http://www.esa.int/safe/sentinel/1.1/sentinel-2" 
+xmlns:s2hktm="http://www.esa.int/safe/sentinel/1.1/sentinel-2/hktm" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<informationPackageMap>
+		<xfdu:contentUnit unitType="SAFE Archive Information Package" textInfo="Sentinel-2 HKTM Level 0 Package" dmdID="acquisitionPeriod platform" pdiID="processing">
+			<xfdu:contentUnit unitType="Measurement Data Unit" repID="measurementSchema" dmdID="measurementOrbitReference measurementQualityInformation measurementAnnotation">
+				<dataObjectPointer dataObjectID="measurementData"/>
+			</xfdu:contentUnit>
+			<xfdu:contentUnit unitType="Metadata Unit" textInfo="Annotation for Measurement Data" repID="measurementAnnotationSchema">
+				<dataObjectPointer dataObjectID="measurementAnnotData"/>
+			</xfdu:contentUnit>
+		</xfdu:contentUnit>
+	</informationPackageMap>
+	<metadataSection>
+		<metadataObject ID="acquisitionPeriod" classification="DESCRIPTION" category="DMD">
+			<metadataWrap mimeType="text/xml" vocabularyName="SAFE" textInfo="Acquisition Period">
+				<xmlData>
+					<acquisitionPeriod xmlns="http://www.esa.int/safe/sentinel/1.1">
+						<startTime>2013-03-26T10:37:04.000000Z</startTime>
+						<stopTime>2013-03-26T10:38:04.690000Z</stopTime>
+					</acquisitionPeriod>
+				</xmlData>
+			</metadataWrap>
+		</metadataObject>
+		<metadataObject ID="platform" classification="DESCRIPTION" category="DMD">
+			<metadataWrap mimeType="text/xml" vocabularyName="SAFE" textInfo="Platform Description">
+				<xmlData>
+					<platform xmlns="http://www.esa.int/safe/sentinel/1.1">
+						<nssdcIdentifier>0000-000A</nssdcIdentifier>
+						<familyName>SENTINEL-2</familyName>
+						<number>A</number>
+					</platform>
+				</xmlData>
+			</metadataWrap>
+		</metadataObject>
+		<metadataObject ID="generalProductInformation" classification="DESCRIPTION" category="DMD">
+			<metadataWrap mimeType="text/xml" vocabularyName="SAFE" textInfo="General product information">
+				<xmlData>
+					<s2hktm:standAloneProductInformation xmlns="http://www.esa.int/safe/sentinel/1.1">
+						<s2hktm:content>X-Band Recorded HKTM transfer frames</s2hktm:content>
+						<s2hktm:contentType>Transfer Frames</s2hktm:contentType>
+						<s2hktm:byteOrder dataObjectID="measurementData">BIG_ENDIAN</s2hktm:byteOrder>
+						<s2hktm:averageBitRate dataObjectID="measurementData">87706</s2hktm:averageBitRate>
+					</s2hktm:standAloneProductInformation>
+				</xmlData>
+			</metadataWrap>
+		</metadataObject>
+		<metadataObject ID="measurementOrbitReference" classification="DESCRIPTION" category="DMD">
+			<metadataWrap mimeType="text/xml" vocabularyName="SAFE" textInfo="Orbit Reference">
+				<xmlData>
+					<orbitReference xmlns="http://www.esa.int/safe/sentinel/1.1">
+						<orbitNumber type="start">27297</orbitNumber>
+						<orbitNumber type="stop">27297</orbitNumber>
+						<relativeOrbitNumber type="start">161</relativeOrbitNumber>
+						<relativeOrbitNumber type="stop">161</relativeOrbitNumber>
+						<cycleNumber>32</cycleNumber>
+						<phaseIdentifier>2</phaseIdentifier>
+					</orbitReference>
+				</xmlData>
+			</metadataWrap>
+		</metadataObject>
+		<metadataObject ID="processing" classification="PROVENANCE" category="PDI">
+			<metadataWrap mimeType="text/xml" vocabularyName="SAFE" textInfo="Processing">
+				<xmlData>
+					<processing name="Generation of Sample Sentinel-2 HKTM L0 Product" start="2013-03-27T11:02:12.473843Z" stop="2013-03-27T11:05:33.385927Z" xmlns="http://www.esa.int/safe/sentinel/1.1">
+						<facility country="Italy" name="ESRIN" organisation="ESA" site="Frascati">
+						</facility>
+						<resource name="S2A_OPER_PRD_HKTM___20130326T121020_20130326T121042_0001.SAFE" role="Level 0 data">
+							<processing name="HKTM Level 0 processing">
+								<resource name="UNKNOWN" role="HKTM Telemetry">
+									<processing name="Downlink">
+										<facility country="Italy" name="ACS" organisation="ACS" site="Rome"/>
+									</processing>
+								</resource>
+							</processing>
+						</resource>
+					</processing>
+				</xmlData>
+			</metadataWrap>
+		</metadataObject>
+		<metadataObject ID="measurementQualityInformation" classification="DESCRIPTION" category="DMD">
+			<metadataWrap mimeType="text/xml" vocabularyName="SAFE" textInfo="Quality Information">
+				<xmlData>
+					<qualityInformation xmlns="http://www.esa.int/safe/sentinel/1.1">
+						<missingElements>
+							<location>
+								<path following="160">measurements/tp</path>
+							</location>
+							<count value="3"/>
+							<cause type="UNKNOWN"/>
+						</missingElements>
+						<missingElements>
+							<location>
+								<path following="181">measurements/tp</path>
+							</location>
+							<count value="3"/>
+							<cause type="UNKNOWN"/>
+						</missingElements>
+						<extension>
+							<s2:qualityProperties>
+								<s2:dataObjectID>measurementData</s2:dataObjectID>
+								<s2:numOfElements>345</s2:numOfElements>
+								<s2:numOfMissingElements>6</s2:numOfMissingElements>
+								<s2:numOfRSCorrectedElements>0</s2:numOfRSCorrectedElements>
+								<s2:numOfRSCorrectedSymbols>0</s2:numOfRSCorrectedSymbols>
+							</s2:qualityProperties>
+						</extension>
+					</qualityInformation>
+				</xmlData>
+			</metadataWrap>
+		</metadataObject>
+		<metadataObject ID="measurementSchema" classification="SYNTAX" category="REP">
+			<metadataReference mimeType="text/xml" vocabularyName="SDF" locatorType="URL" href="./rep-info/s2-level-0.xsd"/>
+		</metadataObject>
+		<metadataObject ID="measurementAnnotation" classification="DESCRIPTION" category="DMD">
+			<dataObjectPointer dataObjectID="measurementAnnotData"/>
+		</metadataObject>
+		<metadataObject ID="measurementAnnotationSchema" classification="SYNTAX" category="REP">
+			<metadataReference mimeType="text/xml" vocabularyName="SDF" locatorType="URL" href="./rep-info/s2-level-0-annot.xsd"/>
+		</metadataObject>
+	</metadataSection>
+	<dataObjectSection>
+		<dataObject ID="measurementData" repID="measurementSchema">
+			<byteStream mimeType="application/octetstream" size="378178">
+				<fileLocation locatorType="URL" href="./s2a-oper-prd-hktm-20130326t103704-20130326t103804-0001-measurement.dat"/>
+				<checksum checksumName="MD5">16f2a7e9adcda96170bc1fa873e275c1</checksum>
+			</byteStream>
+		</dataObject>
+		<dataObject ID="measurementAnnotData" repID="measurementAnnotationSchema">
+			<byteStream mimeType="application/octetstream" size="3096">
+				<fileLocation locatorType="URL" textInfo="Annotation for Measurement File" href="./s2a-oper-prd-hktm-20130326t103704-20130326t103804-0001-annotation.dat"/>
+				<checksum checksumName="MD5">78e55fff5a10ec1129949a367e888379</checksum>
+			</byteStream>
+		</dataObject>
+	</dataObjectSection>
+</xfdu:XFDU>

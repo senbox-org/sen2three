@@ -238,6 +238,8 @@ class L3_XmlParser():
             if self._productStr == 'UP03':
                 outstr = outstr.replace('PRODUCT_URI_2A', 'PRODUCT_URI')
                 outstr = outstr.replace('</PROCESSING_BASELINE>', '</PROCESSING_BASELINE><PROCESSING_ALGORITHM/><RADIOMETRIC_PREFERENCE/>')
+            if self._productStr == 'DS03':
+                outstr = outstr.replace('QUANTIFICATION_VALUE', 'QUANTIFICATION_VALUES_LIST')
 
         outfile = codecs.open(self._xmlFn, 'w', 'utf-8')
         outfile.write('<?xml version="1.0"  encoding="UTF-8"?>')

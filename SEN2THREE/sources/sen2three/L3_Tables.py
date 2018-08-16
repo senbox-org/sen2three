@@ -580,7 +580,7 @@ class L3_Tables(object):
         BANDS = bandDir
         L3_TARGET_ID = self.config.L3_TARGET_ID
         strList = L3_TILE_ID.split('_')
-        L3_TILE_ID_SHORT = strList[0] + '_' + strList[1] + '_' + strList[3]
+        L3_TILE_ID_SHORT = strList[1] + '_' + strList[3]
         self.config.reinitTile(L3_TILE_ID)
         L3_TILE_ID = os.path.join(self.config.targetDir, L3_TARGET_ID, GRANULE, L3_TILE_ID)
         self._L3_ImgDataDir = os.path.join(L3_TILE_ID, IMG_DATA)
@@ -876,7 +876,8 @@ class L3_Tables(object):
             gi3 = gi3[:41] + l3TileId_split[2] + '_' + l3TileId_split[1] + gi3[-7:]
         else:
             gi3 = gi3[:41] + l3TileId_split[2] + '_' + l3TileId_split[1] + gi3[-7:]
-
+        gi3 = gi3.replace('USER', 'OPER')
+        ds3 = ds3.replace('USER', 'OPER')
         Granule = objectify.Element('Granule')
         Granule.attrib['granuleIdentifier'] = gi3
         Granule.attrib['datastripIdentifier'] = ds3
@@ -995,10 +996,6 @@ class L3_Tables(object):
         arr = clip(arrclip, min_, max_)
         scaledArr = uint8(arr * scale / max_)
         return scaledArr
-
-
-
-
 
     def setBand(self, productLevel, bandIndex, arr):
         ''' Set a single band from numpy array to H5 database.

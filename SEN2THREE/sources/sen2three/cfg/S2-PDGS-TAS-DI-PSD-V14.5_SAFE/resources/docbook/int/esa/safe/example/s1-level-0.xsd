@@ -1,0 +1,731 @@
+<!--
+   Copyright (C) 2011 European Space Agency (ESA)
+   Copyright (C) 2011 Consultant
+
+   Permission is granted to copy, distribute and/or modify this document
+   under the terms of the GNU Free Documentation License, Version 1.3
+   or any later version published by the Free Software Foundation;
+   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+   A copy of the license is included in the section entitled "GNU
+   Free Documentation License".
+-->
+
+<xs:schema xmlns:sdf="http://www.gael.fr/2004/12/drb/sdf"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.esa.int/safe/sentinel-1.0/"
+           targetNamespace="http://www.esa.int/safe/sentinel-1.0/">
+
+   <xs:element name="measurements" type="measurements" maxOccurs="1" minOccurs="1" >
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element> 
+   <xs:complexType name="measurements">
+      <xs:sequence>
+         <xs:element minOccurs="1" name="isp" type="ispType">
+            <xs:annotation>
+               <xs:documentation xml:lang="en">The Data Unit (ISP) has a variable length</xs:documentation>
+               <xs:appinfo>
+                  <sdf:block>
+                     <sdf:encoding>BINARY</sdf:encoding>
+                    <sdf:occurrence>unbounded</sdf:occurrence>
+                  </sdf:block>
+               </xs:appinfo>
+            </xs:annotation>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   
+   <!-- line -->
+   <xs:complexType name="ispType">
+      <xs:sequence>
+          <xs:element name="primaryHeader" type="primaryHeaderType">
+          </xs:element>
+          <xs:element name="secondaryHeader" type="secondaryHeaderType">
+          </xs:element>
+         <xs:element name="userData">
+            <xs:annotation>
+               <xs:documentation xml:lang="en">
+                  Source Data : An array of variable occurrence of
+                  unsigned bytes.
+               </xs:documentation>
+               <xs:appinfo>
+                  <sdf:block>
+                     <sdf:array>
+                        <sdf:occurrence
+                        query="../primaryHeader/packetDataLength - 61"
+                        constant="false"/>
+                        <sdf:length>1</sdf:length>
+                     </sdf:array>
+                  </sdf:block>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:list itemType="xs:unsignedByte"/>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="primaryHeaderType">
+      <xs:sequence>
+          <xs:element name="packetVersionNumber" type="packetVersionNumberType">
+          </xs:element>
+          <xs:element name="packetType" type="packetTypeType">
+          </xs:element>
+          <xs:element name="secondaryHeaderFlag" type="secondaryHeaderFlagType">
+          </xs:element>
+           <xs:element name="PID" type="PIDType">
+          </xs:element>
+           <xs:element name="PCAT" type="PCATType">
+          </xs:element>
+           <xs:element name="sequenceFlag" type="sequenceFlagType" fixed="0">
+          </xs:element>
+          <xs:element name="packetSequenceCount" type="packetSequenceCountType">
+          </xs:element>
+          <xs:element name="packetDataLength" type="us">
+          </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="secondaryHeaderType">
+      <xs:sequence>
+          <xs:element name="coarseTime" type="ul">
+          </xs:element>
+          <xs:element name="fineTime" type="us">
+          </xs:element>
+          <xs:element name="syncMarker">
+             <xs:annotation>
+                <xs:documentation xml:lang="en">
+                  Sync Marker has a constant value 352EF853
+                </xs:documentation>
+                <xs:appinfo>
+                   <sdf:block>
+                      <sdf:array>
+                         <sdf:occurrence>4</sdf:occurrence>
+                         <sdf:length>1</sdf:length>
+                     </sdf:array>
+                   </sdf:block>
+                </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:list itemType="xs:unsignedByte"/>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="dataTakeID" type="ul">
+          </xs:element>
+          <xs:element name="ECCNumber" type="xs:unsignedByte">
+          </xs:element>
+           <xs:element name="spareBit" type="spareBitType">
+          </xs:element>
+           <xs:element name="testMode" type="testModeType">
+          </xs:element>
+          <xs:element name="RXChannelID" type="RXChannelIDType">
+          </xs:element>
+           <xs:element name="instrumentConfigurationID" type="ul">
+          </xs:element>
+           <xs:element name="dataWordIndex" type="xs:unsignedByte">
+          </xs:element>
+            <xs:element name="dataWord" type="us">
+          </xs:element>
+         <xs:element name="spacePacketCount" type="ul">
+          </xs:element>
+          <xs:element name="priCount" type="ul">
+          </xs:element>
+           <xs:element name="spare3Bit" type="spare3BitType">
+          </xs:element>
+           <xs:element name="BAQMode" type="BAQModeType">
+          </xs:element>
+           <xs:element name="BAQBlockLength" type="xs:unsignedByte">
+          </xs:element>
+           <xs:element name="spareByte" type="xs:unsignedByte">
+          </xs:element>
+           <xs:element name="rangeDecimation" type="xs:unsignedByte">
+          </xs:element>
+           <xs:element name="RXGain" type="xs:unsignedByte">
+          </xs:element>
+           <xs:element name="TXRampRate" type="us">
+          </xs:element>
+           <xs:element name="TXPulseStartFrequency" type="us">
+          </xs:element>
+           <xs:element name="TXPulseLength" type="TXPulseLengthType">
+          </xs:element>
+           <xs:element name="spare3Bit" type="spare3BitType">
+          </xs:element>
+           <xs:element name="rank" type="rankType">
+          </xs:element>
+           <xs:element name="PRI" type="PRIType">
+          </xs:element>
+           <xs:element name="SWST" type="SWSTType">
+          </xs:element>
+           <xs:element name="SWL" type="SWLType">
+          </xs:element>
+           <xs:element name="ssbFlag" type="ssbFlagType">
+          </xs:element>
+           <xs:element name="polarisation" type="polarisationType">
+          </xs:element>
+           <xs:element name="temperatureCompensation" type="temperatureCompensationType">
+          </xs:element>
+           <xs:element name="spare4Bit" type="spare4BitType">
+          </xs:element>
+           <xs:element name="elevationBeamAddress" type="elevationBeamAddressType">
+          </xs:element>
+           <xs:element name="beamAddress" type="beamAddressType">
+          </xs:element>
+           <xs:element name="calMode" type="calModeType">
+          </xs:element>
+           <xs:element name="TXPulseNumber" type="TXPulseNumberType">
+          </xs:element>
+           <xs:element name="spare4Bit" type="spare4BitType">
+          </xs:element>
+           <xs:element name="signalType" type="SignalTypeType">
+          </xs:element>
+           <xs:element name="swap" type="SwapType">
+          </xs:element>
+           <xs:element name="swathNumber" type="xs:unsignedByte">
+          </xs:element>
+           <xs:element name="numOfQuads" type="xs:unsignedShort">
+          </xs:element>
+           <xs:element name="fillerOctet" type="xs:unsignedByte">
+          </xs:element>
+     </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="packetVersionNumberType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 000 (3 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="packetTypeType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 0 (1 bit)
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">1</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="secondaryHeaderFlagType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 1 (1 bit)
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">1</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="PIDType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 1000001 (7 bits)
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">7</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="PCATType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 1100 (4 bits)
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="sequenceFlagType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value 11 (2 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">2</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte">
+         <xs:enumeration value="11"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="packetSequenceCountType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value = 0 to 16383 (wraps to 0) (14 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">14</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedShort"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="spareBitType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 0 (1 bit).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">1</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="testModeType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value = 000 to 111 (3 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="RXChannelIDType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value = 0000 or 0001 (4 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="TXPulseLengthType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value = 256 to 8447 
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedInt"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="rankType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value = 0 to 31 (3 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">5</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="PRIType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value >= 0 
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedInt"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="SWSTType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value >= 0 
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedInt"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="SWLType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value >= 0 
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedInt"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="ssbFlagType">
+      <xs:annotation>
+         <xs:documentation>
+         boolean value = 0 or 1 (1 bit).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">1</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="polarisationType">
+      <xs:annotation>
+         <xs:documentation>
+         configuration of Tx/Rx polarisation - variable value = 0 to 7 (3 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="temperatureCompensationType">
+      <xs:annotation>
+         <xs:documentation>
+         activity of temperature compensation in the SAS - variable value = 0
+         to 3 (2 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">2</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="elevationBeamAddressType">
+      <xs:annotation>
+         <xs:documentation>
+         beam excitation coefficients in elevation selected in actual PRI in
+         the SAS - variable value = 0 to 15 (4 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="beamAddressType">
+      <xs:annotation>
+         <xs:documentation>
+         according to value of SSB Flag (0 or 1) it represents either the beam
+         excitation coefficients in azimuth selected in actual PRI in the SAS
+         or the he beam excitation coefficients for a calibration operation
+         selected in actual PRI in the SAS - variable value = 0 to 2047 (10 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">10</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedShort"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="calModeType">
+      <xs:annotation>
+         <xs:documentation>
+         calibration mode - variable value = 0 to 3 (2 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">2</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="TXPulseNumberType">
+      <xs:annotation>
+         <xs:documentation>
+         address of TX Pulse selected in the Chirp Generator of the SES -
+         variable value = 0 to 15 (52 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">5</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="spare2BitType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 00 (2 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">2</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="spare3BitType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 000 (3 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">3</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="spare4BitType">
+      <xs:annotation>
+         <xs:documentation>
+         constant value = 0000 (4 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="BAQModeType">
+      <xs:annotation>
+         <xs:documentation>
+         variable value = 0 to 14 (5 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">5</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+   <xs:simpleType name="SignalTypeType">
+      <xs:annotation>
+         <xs:documentation>
+          kind of signal acquired in the actual PRI (echo, noise, calibration )
+          - value = 0 to 15 (4 bits).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="SwapType">
+      <xs:annotation>
+         <xs:documentation>
+         boolean value = 0 or 1 (1 bit).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length unit="bit">1</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedByte"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="ss">
+      <xs:annotation>
+         <xs:documentation>
+         Signed short (2 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>2</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:short"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="us">
+      <xs:annotation>
+         <xs:documentation>
+         Unsigned short (2 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>2</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedShort">
+         <xs:minInclusive value="0"/>
+         <xs:maxInclusive value="2"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="sl">
+      <xs:annotation>
+         <xs:documentation>
+         Signed int (4 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:int"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="ul">
+      <xs:annotation>
+         <xs:documentation>
+         Unsigned int (4 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedInt"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="fl">
+      <xs:annotation>
+         <xs:documentation>
+         Float (4 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>4</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:float"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="sd">
+      <xs:annotation>
+         <xs:documentation>
+         Signed long (8 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>8</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:long"/>
+   </xs:simpleType>
+
+   <xs:simpleType name="ud">
+      <xs:annotation>
+         <xs:documentation>
+         Unsigned long (8 bytes).
+         </xs:documentation>
+         <xs:appinfo>
+            <sdf:block>
+               <sdf:encoding>BINARY</sdf:encoding>
+               <sdf:length>8</sdf:length>
+            </sdf:block>
+         </xs:appinfo>
+      </xs:annotation>
+      <xs:restriction base="xs:unsignedLong"/>
+   </xs:simpleType>
+
+</xs:schema>

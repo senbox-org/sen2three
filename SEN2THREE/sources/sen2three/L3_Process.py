@@ -2,8 +2,8 @@
 # -*- coding: iso-8859-15 -*-
 
 processorName = 'Sentinel-2 Level 3 Processor (Sen2Three)'
-processorVersion = '1.1.1'
-processorDate = '2018.08.20'
+processorVersion = '1.2.0'
+processorDate = '2018.09.01'
 productVersion = '14.5'
 
 from tables import *

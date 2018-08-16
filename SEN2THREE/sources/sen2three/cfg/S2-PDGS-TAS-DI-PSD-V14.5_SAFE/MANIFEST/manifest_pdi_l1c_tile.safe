@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   SAFE - Standard Archive Format for Europe
+   Copyright (C) 2004,2005,2006,2007,2008,2009,2010 European Space Agency (ESA)
+   Copyright (C) 2004,2005,2006,2007,2008,2009,2010 GAEL Consultant
+   GNU Lesser General Public License (LGPL)
+   
+   This file is part of SAFE
+   
+   SAFE is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   SAFE is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+   
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<!-- Example of SENTINEL-2 MSI Manifest file for a PDI LeveL-1C Product corresponding to a tile -->
+
+<xfdu:XFDU xmlns:xfdu="urn:ccsds:schema:xfdu:1"
+           xmlns:safe="http://www.esa.int/safe/sentinel/1.1"
+           xmlns:gml="http://www.opengis.net/gml"
+           version="esa/safe/sentinel/1.1/sentinel-2/msi/archive_l1c_tile">
+
+   <!-- ===================================================================
+      INFORMATION PACKAGE MAP SECTION
+      =================================================================== -->
+	<informationPackageMap>
+		<xfdu:contentUnit unitType="Product_Level-1C" textInfo="SENTINEL-2 MSI Level-1C Tile PDI" pdiID="processing" dmdID="acquisitionPeriod platform">
+			<xfdu:contentUnit unitType="Metadata Unit" ID="S2_Level-1C_Tile_Metadata_Unit" repID="S2_Level-1C_Tile_Schema">
+				<dataObjectPointer dataObjectID="S2_Level-1C_Tile_Metadata"/>
+			</xfdu:contentUnit>
+			<xfdu:contentUnit unitType="Metadata Unit" ID="Inventory_Metadata_Unit" repID="Inventory_Metadata_Schema">
+				<dataObjectPointer dataObjectID="Inventory_Metadata"/>
+			</xfdu:contentUnit>
+		   	<xfdu:contentUnit ID="IMG_DATA" textInfo="Image Data container">
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_10m_1_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+						<dataObjectPointer dataObjectID="IMG_DATA_Band_10m_1_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_10m_2_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_10m_2_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_10m_3_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_10m_3_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_10m_4_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_10m_4_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_20m_1_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_20m_1_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_20m_2_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_20m_2_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_20m_3_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_20m_3_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_20m_4_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_20m_4_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_20m_5_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_20m_5_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_20m_6_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_20m_6_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_60m_1_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_60m_1_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_60m_2_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_60m_2_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Measurement Data Unit" ID="IMG_DATA_Band_60m_3_Unit" dmdID="measurementOrbitReference measurementFrameSet">
+					<dataObjectPointer dataObjectID="IMG_DATA_Band_60m_3_Data"/>
+				</xfdu:contentUnit>
+			</xfdu:contentUnit>				
+			<xfdu:contentUnit ID="QI_DATA" textInfo="Quality control container">
+				<xfdu:contentUnit unitType="Data Unit" ID="Tile_OLQC_Report" repID="OLQC_Report_Schema">
+					<dataObjectPointer dataObjectID="OLQC_Report_InformationData"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Data Unit" ID="FineCloudMask_Unit">
+					<dataObjectPointer dataObjectID="FineCloudMask_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Data Unit" ID="DefectivePixelsMask_Band_10m_1_Unit">
+					<dataObjectPointer dataObjectID="DefectivePixelsMask_Band_10m_1_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Data Unit" ID="SaturatedPixelsMask_Band_10m_1_Unit">
+					<dataObjectPointer dataObjectID="SaturatedPixelsMask_Band_10m_1_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Data Unit" ID="NodataPixelsMask_Band_10m_1_Unit">
+					<dataObjectPointer dataObjectID="NodataPixelsMask_Band_10m_1_Data"/>
+				</xfdu:contentUnit>
+				<xfdu:contentUnit unitType="Data Unit" ID="TechQualityMask_Band_10m_1_Unit">
+					<dataObjectPointer dataObjectID="TechQualityMask_Band_10m_1_Data"/>
+				</xfdu:contentUnit>
+			</xfdu:contentUnit>
+			<xfdu:contentUnit ID="AUX_DATA" textInfo="Auxiliary Data Container">
+				<xfdu:contentUnit unitType="Data Unit" ID="Tile_ECMWF_Unit">
+					<dataObjectPointer dataObjectID="ECMWF_Data"/>
+				</xfdu:contentUnit>
+			</xfdu:contentUnit>
+		</xfdu:contentUnit>
+	</informationPackageMap>
+   <!-- ===================================================================
+      METADATA OBJECT SECTION
+      =================================================================== -->
+   <metadataSection>
+      <!-- PRODUCT GENERAL METADATA ======================================= -->
+      <!-- Processing -->
+	<metadataObject ID="processing" classification="PROVENANCE" category="PDI">
+		<metadataWrap mimeType="text/xml" vocabularyName="Sentinel-SAFE" textInfo="Processing">
+			<xmlData>
+				<safe:processing name="Archiving of PDI Level-1C Granule Product" start="2014-11-16T16:16:32.309000Z">
+					<safe:facility country="France" name="companyName" organisation="organisationName" site="EPA_"/>
+					<safe:resource name="S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456__T15SWC_N11.11.tar" role="PDI Level-1C Tile Product"/>
+						<safe:processing name="Processing of PDI Level-1C Granule Product" start="2014-11-04T13:40:12.124000Z">
+							<safe:facility country="France" name="companyName" organisation="organisationName" site="EPA_">
+							</safe:facility>
+						</safe:processing>
+				</safe:processing>
+			</xmlData>
+		</metadataWrap>
+	</metadataObject>
+
+      <!-- Acquisition Period -->
+      <metadataObject ID="acquisitionPeriod" classification="DESCRIPTION"
+                      category="DMD">
+         <metadataWrap textInfo="Acquisition Period" vocabularyName="Sentinel-SAFE"
+                       mimeType="text/xml">
+            <xmlData>
+               <safe:acquisitionPeriod>
+				<safe:startTime>2014-11-04T13:32:27.097749Z</safe:startTime>
+               </safe:acquisitionPeriod>
+            </xmlData>
+         </metadataWrap>
+      </metadataObject>
+
+     <!-- Orbit Reference -->
+      <metadataObject ID="measurementOrbitReference" classification="DESCRIPTION"
+                      category="DMD">
+         <metadataWrap textInfo="Orbit Reference" vocabularyName="Sentinel-SAFE"
+                       mimeType="text/xml">
+            <xmlData>
+               <safe:orbitReference>
+               	<safe:orbitNumber type="start">899</safe:orbitNumber>
+               </safe:orbitReference>
+            </xmlData>
+         </metadataWrap>
+      </metadataObject>
+
+      <!-- Platform description -->
+      <metadataObject ID="platform" classification="DESCRIPTION"
+                      category="DMD">
+         <metadataWrap textInfo="Platform Description" vocabularyName="Sentinel-SAFE" mimeType="text/xml">
+            <xmlData>
+               <safe:platform>
+                  <safe:nssdcIdentifier>2012-000A</safe:nssdcIdentifier>
+                  <safe:familyName>SENTINEL</safe:familyName>
+                  <safe:number>2A</safe:number>
+                  <safe:instrument>
+                     <safe:familyName abbreviation="MSI">Multi-Spectral Instrument</safe:familyName>
+                     <safe:mode identifier="INS_NOBS">Nominal_Mode</safe:mode>
+                 </safe:instrument>
+               </safe:platform>
+            </xmlData>
+         </metadataWrap>
+      </metadataObject>
+
+      <!-- Measurement Frame set -->
+      <metadataObject ID="measurementFrameSet" classification="DESCRIPTION"
+                      category="DMD">
+         <metadataWrap textInfo="Frame Set" vocabularyName="Sentinel-SAFE"
+                       mimeType="text/xml">
+            <xmlData>
+               <safe:frameSet>
+					<safe:footPrint srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+						<coordinates xmlns="http://www.opengis.net/gml">45.6,23.4 42.01,12.73 43.28,1.44 46.32,11.33 45.6,23.4</coordinates>
+					</safe:footPrint>
+             	</safe:frameSet>
+            </xmlData>
+         </metadataWrap>
+      </metadataObject>
+
+      <!-- METADATA COMPONENT ============================================= -->
+	  <metadataObject ID="S2_Level-1C_Tile_Information" classification="DESCRIPTION" category="DMD">
+		 <dataObjectPointer dataObjectID="S2_Level-1C_Tile_Metadata"/>
+	  </metadataObject>
+	  <metadataObject ID="Inventory_Metadata_Information" classification="DESCRIPTION" category="DMD">
+		 <dataObjectPointer dataObjectID="Inventory_Metadata"/>
+	  </metadataObject>
+
+      <!-- XML SCHEMAS FOR METADATA COMPONENTS ============================ -->
+      <metadataObject ID="S2_Level-1C_Tile_Schema" classification="SYNTAX" category="REP">
+         <metadataReference locatorType="URL" href="rep-info/DIMAP_S2_Level-1C_Tile.xsd" vocabularyName="SDF" mimeType="text/xml" />
+      </metadataObject>
+	  <metadataObject ID="Inventory_Metadata_Schema" classification="SYNTAX" category="REP">
+		 <metadataReference locatorType="URL" href="rep-info/Inventory_Metadata.xsd" vocabularyName="SDF" mimeType="text/xml"/>
+	  </metadataObject>
+	  <metadataObject ID="OLQC_Report_Schema" classification="SYNTAX" category="REP">
+		 <metadataReference locatorType="URL" href="rep-info/OLQC_Report.xsd" vocabularyName="SDF" mimeType="text/xml"/>
+	  </metadataObject>
+   </metadataSection>
+
+   <!-- ===================================================================
+      DATA OBJECT SECTION
+      =================================================================== -->
+   <dataObjectSection>
+
+      <!-- DATA COMPONENTS ================================================ -->
+      <dataObject ID="IMG_DATA_Band_10m_1_Data">
+         <byteStream mimeType="image/jpeg" size="44982384">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B01.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_10m_2_Data">
+         <byteStream mimeType="image/jpeg" size="44973482">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B02.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_10m_3_Data">
+         <byteStream mimeType="image/jpeg" size="44983549">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B03.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_10m_4_Data">
+         <byteStream mimeType="image/jpeg" size="44928563">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B04.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_20m_1_Data">
+         <byteStream mimeType="image/jpeg" size="9473452">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B05.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_20m_2_Data">
+         <byteStream mimeType="image/jpeg" size="9429862">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B06.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_20m_3_Data">
+         <byteStream mimeType="image/jpeg" size="94835267">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B07.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_20m_4_Data">
+         <byteStream mimeType="image/jpeg" size="9109375">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B08.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_20m_5_Data">
+         <byteStream mimeType="image/jpeg" size="997385">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B8A.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_20m_6_Data">
+         <byteStream mimeType="image/jpeg" size="992759">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B09.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_60m_1_Data">
+         <byteStream mimeType="image/jpeg" size="938573">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B10.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_60m_2_Data">
+         <byteStream mimeType="image/jpeg" size="918473">
+            <fileLocation locatorType="URL" href="./IMG_DATA/IS2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B11.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="IMG_DATA_Band_60m_3_Data">
+         <byteStream mimeType="image/jpeg" size="912846">
+            <fileLocation locatorType="URL" href="./IMG_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_B12.jp2" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+	  <dataObject ID="OLQC_Report_InformationData">
+			<byteStream mimeType="text/xml" size="712924">
+				<fileLocation locatorType="URL" href="./QI_DATA/S2A_OPER_MSI_L1C_TL_EPA__20141104T134012_A123456_T15SWC_GEOMETRIC_QUALITY_report.xml"/>
+				<checksum checksumName="MD5">00aa3c4c13b1cd37fb9f3eb646e0d4f3</checksum>
+			</byteStream>
+	  </dataObject>
+      <dataObject ID="FineCloudMask_Data">
+         <byteStream mimeType="text/xml" size="82291">
+            <fileLocation locatorType="URL" href="./QI_DATA/S2A_OPER_MSK_CLOUDS_EPA__20141104T134012_A123456_T15SWC_B01_MSIL1C.gml" />
+            <checksum checksumName="MD5">2d55cade142891a8b845c9eea65faa06</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="DefectivePixelsMask_Band_10m_1_Data">
+         <byteStream mimeType="text/xml" size="62436">
+            <fileLocation locatorType="URL" href="./QI_DATA/S2A_OPER_MSK_DEFECT_EPA__20141104T134012_A123456_T15SWC_B01_MSIL1C.gml" />
+            <checksum checksumName="MD5">fce0b6f7a1f934c226151b373a5a2821</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="SaturatedPixelsMask_Band_10m_1_Data">
+         <byteStream mimeType="text/xml" size="62436">
+            <fileLocation locatorType="URL" href="./QI_DATA/S2A_OPER_MSK_SATURA_EPA__20141104T134012_A123456_T15SWC_B01_MSIL1C.gml" />
+            <checksum checksumName="MD5">cb2357f48e25a5fd08a78234837edb2c</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="NodataPixelsMask_Band_10m_1_Data">
+         <byteStream mimeType="text/xml" size="62436">
+            <fileLocation locatorType="URL" href="./QI_DATA/S2A_OPER_MSK_NODATA_EPA__20141104T134012_A123456_T15SWC_B01_MSIL1C.gm" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="TechQualityMask_Band_10m_1_Data">
+         <byteStream mimeType="text/xml" size="62436">
+            <fileLocation locatorType="URL" href="./QI_DATA/S2A_OPER_MSK_TECQUA_EPA__20141104T134012_A123456_T15SWC_B01_MSIL1C.gml" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+	<dataObject ID="ECMWF_Data">
+		<byteStream mimeType="text/xml" size="712926">
+			<fileLocation locatorType="URL" href="./AUX_DATA/S2A_OPER_AUX_ECMWFD_MPC__20141101T000000_V20141101T000000_20141130T235959"/>
+			<checksum checksumName="MD5">00aa3c4c13b1cd37fb9f3eb646e0d4f3</checksum>
+		</byteStream>
+	</dataObject>
+
+      <!-- METADATA COMPONENTS ============================================ -->
+      <dataObject ID="S2_Level-1C_Tile_Metadata" repID="S2_Level-1C_Tile_Schema">
+         <byteStream mimeType="text/xml" size="8924">
+            <fileLocation locatorType="URL" href="./Level-1C_Granule_Metadata.xml" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+      <dataObject ID="Inventory_Metadata" repID="Inventory_Metadata_Schema">
+         <byteStream mimeType="text/xml" size="8924">
+            <fileLocation locatorType="URL" href="./Inventory_Metadata.xml" />
+            <checksum checksumName="MD5">e94f8303ad92d056c3b2d0d5d250111b</checksum>
+         </byteStream>
+      </dataObject>
+
+   </dataObjectSection>
+
+</xfdu:XFDU>

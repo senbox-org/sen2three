@@ -372,6 +372,44 @@ class L3_Product(object):
         xp = L3_XmlParser(self.config, 'DS03')
         ti = xp.getTree('Image_Data_Info', 'Tiles_Information')
         del ti.Tile_List.Tile[:]
+
+        ri = xp.getTree('Image_Data_Info', 'Radiometric_Info')
+        qvl = objectify.Element('QUANTIFICATION_VALUES_LIST')
+        qvl.BOA_QUANTIFICATION_VALUE = str(int(self.config.dnScale))
+        qvl.BOA_QUANTIFICATION_VALUE.attrib['unit'] = 'none'
+        qvl.AOT_QUANTIFICATION_VALUE = str(self.config.L2A_AOT_QUANTIFICATION_VALUE)
+        qvl.AOT_QUANTIFICATION_VALUE.attrib['unit'] = 'none'
+        qvl.WVP_QUANTIFICATION_VALUE = str(self.config.L2A_WVP_QUANTIFICATION_VALUE)
+        qvl.WVP_QUANTIFICATION_VALUE.attrib['unit'] = 'cm'
+        ri.QUANTIFICATION_VALUES_LIST = qvl
+
+        auxinfo = xp.getRoot('Auxiliary_Data_Info')
+        if (xp.getTree('Auxiliary_Data_Info', 'GRI_List')) == False:
+            gfn = xp.getTree('Auxiliary_Data_Info', 'GRI_FILENAME')
+            del gfn[:]
+            gl = etree.Element('GRI_List')
+            gl.append(gfn)
+            auxinfo.append(gl)
+        if (xp.getTree('Auxiliary_Data_Info', 'LUT_List')) == False:
+            ll = etree.Element('LUT_List')
+            auxinfo.append(ll)
+        if (xp.getTree('Auxiliary_Data_Info', 'SNOW_CLIMATOLOGY_MAP')) == False:
+            ll = etree.Element('SNOW_CLIMATOLOGY_MAP')
+            ll.text = 'None'
+            auxinfo.append(ll)
+        if (xp.getTree('Auxiliary_Data_Info', 'ESACCI_WaterBodies_Map')) == False:
+            ll = etree.Element('ESACCI_WaterBodies_Map')
+            ll.text = 'None'
+            auxinfo.append(ll)
+        if (xp.getTree('Auxiliary_Data_Info', 'ESACCI_LandCover_Map')) == False:
+            ll = etree.Element('ESACCI_LandCover_Map')
+            ll.text = 'None'
+            auxinfo.append(ll)
+        if (xp.getTree('Auxiliary_Data_Info', 'ESACCI_SnowCondition_Map_Dir')) == False:
+            ll = etree.Element('ESACCI_SnowCondition_Map_Dir')
+            ll.text = 'None'
+            auxinfo.append(ll)
+
         xp.export()
         self.createTable()
         return True
@@ -442,6 +480,7 @@ class L3_Product(object):
             L3_TILE_ID = 'L03_' + strList[-2] + '_' + strList[-3] + '_' + strList[-4]
         else:
             L3_TILE_ID = L2A_TILE_ID.replace('L2A_', 'L03_')
+            L3_TILE_ID = L3_TILE_ID.replace('USER', 'OPER')
 
         self.config.L3_TILE_ID = L3_TILE_ID
         sourceDir = self.config.sourceDir
