@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Yasar Kurt (Telespazio VEGA Deutschland GmbH) -->
-<xs:schema xmlns:gs2="https://psd-14.sentinel2.eo.esa.int/doc/14/"
+<xs:schema xmlns:gs2="https://psd-14.sentinel2.eo.esa.int/doc/PDI-V14/"
 		   xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		   xmlns:center="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/PDGS/center/"
 		   xmlns:image="https://psd-14.sentinel2.eo.esa.int/DICO/PDI-V14/SY/image/"

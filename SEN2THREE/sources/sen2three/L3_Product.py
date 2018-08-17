@@ -519,7 +519,12 @@ class L3_Product(object):
         copy_file(L2A_TILE_MTD_XML, L3_TILE_MTD_XML)
         self.config.L2A_TILE_MTD_XML = L2A_TILE_MTD_XML
         xp = L3_XmlParser(self.config, 'T2A')
-        self.config.TILE_ID_2A = xp.getTree('General_Info', 'TILE_ID_2A')
+        TILE_ID_2A = xp.getTree('General_Info', 'TILE_ID')
+        if TILE_ID_2A == False:
+            # it's a version 14.2 metadata:
+            TILE_ID_2A = xp.getTree('General_Info', 'TILE_ID_2A')
+
+        self.config.TILE_ID_2A = TILE_ID_2A.text
         if xp.convert() != 0:
             xp = L3_XmlParser(self.config, 'T2A')
         xp.validate()
@@ -636,7 +641,12 @@ class L3_Product(object):
         GRANULE = 'GRANULE'
         self.config.L3_TILE_ID = tileId
         xp = L3_XmlParser(self.config, 'T2A')
-        self.config.TILE_ID_2A = xp.getTree('General_Info', 'TILE_ID_2A')
+        TILE_ID_2A = xp.getTree('General_Info', 'TILE_ID')
+        if TILE_ID_2A == False:
+            # its' a PSD 14.2 tile:
+            TILE_ID_2A = xp.getTree('General_Info', 'TILE_ID_2A')
+
+        self.config.TILE_ID_2A = TILE_ID_2A.text
         L3_TILE_ID = os.path.join(L3_TARGET_DIR, GRANULE, tileId)
         dirlist = sorted(os.listdir(L3_TILE_ID))
         for L3_TILE_MTD_XML in dirlist:

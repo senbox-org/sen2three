@@ -49,6 +49,7 @@ elementFormDefault="unqualified" attributeFormDefault="unqualified" version="14"
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:pattern value="S2(A|B)_OPER_[\w{Lu}_]{10}_[\w{Lu}_]{4}_\d{8}T\d{6}_A\d{6}_T[\w{Lu}_]{5}_N\d{2}\.\d{2}"/>
+			<xs:pattern value="S2(A|B)_USER_[\w{Lu}_]{10}_[\w{Lu}_]{4}_\d{8}T\d{6}_A\d{6}_T[\w{Lu}_]{5}_N\d{2}\.\d{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--PVI ID-->

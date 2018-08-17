@@ -228,6 +228,7 @@
 						<xs:enumeration value="S2MSI1A"/>
 						<xs:enumeration value="S2MSI1B"/>
 						<xs:enumeration value="S2MSI1C"/>
+						<xs:enumeration value="S2MSI2A"/>
 						<xs:enumeration value="S2MSIAp"/>
 					</xs:restriction>
 				</xs:simpleType>
@@ -492,10 +493,9 @@ Examples: EPSG:4326, RAW</xs:documentation>
 								<xs:sequence>
 									<xs:element name="Tile" maxOccurs="unbounded">
 										<xs:complexType>
-											<xs:attribute name="tileId" type="item:TILE_ID_2A"
-												use="required">
+											<xs:attribute name="tileId" type="item:TILE_ID_2A" use="required">
 												<xs:annotation>
-												<xs:documentation>Tile Identifier</xs:documentation>
+												    <xs:documentation>Tile Identifier</xs:documentation>
 												</xs:annotation>
 											</xs:attribute>
 										</xs:complexType>

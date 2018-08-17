@@ -215,6 +215,7 @@
 						<xs:enumeration value="S2MSI1A"/>
 						<xs:enumeration value="S2MSI1B"/>
 						<xs:enumeration value="S2MSI1C"/>
+						<xs:enumeration value="S2MSI2A"/>
 						<xs:enumeration value="S2MSIAp"/>
 					</xs:restriction>
 				</xs:simpleType>
