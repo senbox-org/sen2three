@@ -98,7 +98,7 @@ The Sen2Three's home directory is referenced by the environment variable $SEN2TH
 necessary facilities for reading the GIPP. The tables below give an overview on the configuration parameters.
 The complete xsd scheme is detailled in L3_GIPP_.
 
-.. _L3_GIPP: http://step.esa.int/thirdparties/sen2three/1.1.0/sen2three-1.1.0_doc/_l3_gipp/L3_GIPP.html
+.. _L3_GIPP: http://step.esa.int/thirdparties/sen2three/1.2.0/sen2three-1.2.0_doc/_l3_gipp/L3_GIPP.html
 
 Table 4-3: Log level configuration
 

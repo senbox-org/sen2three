@@ -21,8 +21,8 @@ name = 'sen2three'
 #
 # This needs to be changed with each new version:
 #------------------------------------------------
-version = '1.1.1'
-longVersion = '01.01.01'
+version = '1.2.0'
+longVersion = '01.02.00'
 #
 # Do not change anything below:
 #----------------------------------------------------------------------------

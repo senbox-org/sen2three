@@ -9,7 +9,7 @@
 
 Welcome to the Documentation of Sen2Three
 *****************************************
-Sen2Three: Sentinel 2 Level 3 Spatio-Temporal Synthesis Processor, Version 1.1.0.
+Sen2Three: Sentinel 2 Level 3 Spatio-Temporal Synthesis Processor, Version 1.2.0.
 
 .. _Sen2Cor: http://step.esa.int/main/third-party-plugins-2/sen2cor
 

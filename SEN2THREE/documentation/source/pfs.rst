@@ -27,9 +27,9 @@ Table 3-1: Applicable Documents
 +==================+======+===========================================+==========+
 | L3_DPMD          | ATBD | Level 3 ATBD                              | 1.0      |
 +------------------+------+-------------------------------------------+----------+
-| L2A_PDD          | PFS  | Sentinel-2 MSI Product Definition Doc.    | 14.2     |
+| L2A_PDD          | PFS  | Sentinel-2 MSI Product Definition Doc.    | 14.5     |
 +------------------+------+-------------------------------------------+----------+
-| L1C_PSD          | PSD  | Sentinel-2 MSI Product Format Specif.     | 14.2     |
+| L1C_PSD          | PSD  | Sentinel-2 MSI Product Format Specif.     | 14.5     |
 +------------------+------+-------------------------------------------+----------+
 
 Reference Documents
@@ -40,11 +40,11 @@ Table 3-2: Reference Documents
 +------------------+------+-------------------------------------------+----------+
 | Reference        | Code | Title                                     | Issue    |
 +==================+======+===========================================+==========+
-| L3_SUM           | SUM  | Software Installation and User Manual     | 1.0      |
+| L3_SUM           | SUM  | Software Installation and User Manual     | 1.2      |
 +------------------+------+-------------------------------------------+----------+
-| L3_DPMD          | DPMD | Detailed Processing Model Documentation   | 1.0      |
+| L3_DPMD          | DPMD | Detailed Processing Model Documentation   | 1.2      |
 +------------------+------+-------------------------------------------+----------+
-| L3_IODD          | IODD | Input Output Data Definition              | 1.0      |
+| L3_IODD          | IODD | Input Output Data Definition              | 1.2      |
 +------------------+------+-------------------------------------------+----------+
 
 Acronyms and Abbreviations
@@ -98,9 +98,9 @@ Table 3-3: Added / replaced entries on Product Info metadata level
 +------------------------+---------+----------+-----------+--------------------------------------+
 | PRODUCT_END_TIME       | n/a     | time_str | n/a       | Upper border acquisition time        |
 +------------------------+---------+----------+-----------+--------------------------------------+
-| PROCESSING_LEVEL       | Level-3p| string   | n/a       | according to existing PFS V13        |
+| PROCESSING_LEVEL       | Level-3p| string   | n/a       | according to existing PFS V14        |
 +------------------------+---------+----------+-----------+--------------------------------------+
-| PRODUCT_TYPE           | S2MSI3p | string   | n/a       | according to existing PFS V13        |
+| PRODUCT_TYPE           | S2MSI3p | string   | n/a       | according to existing PFS V14        |
 +------------------------+---------+----------+-----------+--------------------------------------+
 | PROCESSING_ALGORITHM   | n/a     | enum     | 1 - 4     | according to L3_GIPP                 |
 +------------------------+---------+----------+-----------+--------------------------------------+
@@ -146,7 +146,7 @@ In the level 3 Auxiliary Data Info metadata level the name of the L3_GIPP has be
             <L3_GIPP_LIST>
                 <GIPP_FILENAME
                     type="GIP_Level-3p"
-                    version="1.1.0">S2A_USER_GIP_L03_TL_MTI__20150812T154929_A000534_T32UMA
+                    version="1.2.0">S2A_USER_GIP_L03_TL_MTI__20150812T154929_A000534_T32UMA
                 </GIPP_FILENAME>
 
 .. figure::  images/L3_AuxData.png
@@ -332,4 +332,4 @@ APPENDIX
 
 A full specification of all DIMAP parameter can be obtained from L3_DIMAP_.
 
-.. _L3_DIMAP: http://step.esa.int/thirdparties/sen2three/1.1.0/sen2three-1.1.0_doc/_dimap/dimap3.html
+.. _L3_DIMAP: http://step.esa.int/thirdparties/sen2three/1.2.0/sen2three-1.2.0_doc/_dimap/dimap3.html

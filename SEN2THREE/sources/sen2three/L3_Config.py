@@ -2081,7 +2081,7 @@ class L3_Config(Borg):
 
             self._gippScheme3 = 'L3_GIPP.xsd'
             self._manifestScheme = os.path.join(prefix[:-6] + 'SAFE', 'resources', \
-                'xsd', 'int', 'esa', 'safe', 'sentinel', '1.1', \
+                'xsd', 'int', 'esa', 'safe', 'sentinel', '1.2', \
                 'sentinel-2', 'msi', 'archive_l2a_user_product', 'xfdu.xsd')
         except:
             self.logger.fatal('wrong identifier for xml structure: ' + product)

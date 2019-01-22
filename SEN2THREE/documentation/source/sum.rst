@@ -13,19 +13,17 @@ Introduction
 This document is the Software Installation and User Manual (SUM) for the Sentinel-2 level 3 Processor
 for spatio temporal synthesis, labelled as Sen2Three.
 
-Changes of release 1.1: **Compatibility with PSD version 14.2 and Sentinel 2B products**
+Changes of release 1.2: **Compatibility with PSD version 14.5**
 
-*   Sen2Three supports now the "safe compact" format which was introduced with PSD version 14.2 in parallel
-    to the safe standard format as it was used up to PSD version 13.1. Sen2Three will detect the format
+*   Sen2Three supports the "safe compact" format which was introduced with PSD version 14.2. Sen2Three will detect the version
     automatically when reading a product. No configuration changes are necessary. The Level 3 output will
-    always be generated in the PSD version 14.2 compatible safe compact format.
+    always be generated in the PSD version 14.5 compatible safe compact format.
 
-*   If Sen2Three is detecting a version 13.1 formatted Level 2a input product, it will
-    convert it first into a version 14.2 compatible safe compact Level 3 product and processes it afterwards.
-    This allows a mixed input of Version 13.1 and 14.2 Level 2a products in the same directory at the same time.
+*   If Sen2Three is detecting a version 14.2 formatted Level 2a input product, it will
+    convert it first into a version 14.5 compatible safe compact Level 3 product and processes it afterwards.
+    This allows a mixed input of Version 14.5 and 14.2 Level 2a products in the same directory at the same time.
 
-*   Sen2Three now also supports the processing of Sentinel 2B Level 2a input products and is compatible to Sen2Cor
-    Version 2.4.0.
+*   Sen2Three is compatible to Sen2Cor 2.8.0, PSD Formats below 14.2 are no longer supported.
 
 Purpose and Scope
 -----------------
@@ -53,9 +51,9 @@ Table 1-2: Reference Documents
 +==================+======+===========================================+==========+
 | L3_DPMD          | DPMD | Detailed Processing Model Documentation   | 1.0      |
 +------------------+------+-------------------------------------------+----------+
-| L3_PFS           | PFS  | Product Format Specification              | 1.1      |
+| L3_PFS           | PFS  | Product Format Specification              | 1.2      |
 +------------------+------+-------------------------------------------+----------+
-| L3_IODD          | IODD | Input Output Data Definition              | 1.1      |
+| L3_IODD          | IODD | Input Output Data Definition              | 1.2      |
 +------------------+------+-------------------------------------------+----------+
 
 Acronyms and Abbreviations
@@ -411,7 +409,7 @@ For Windows:
 
 Download the zip archive from http://step.esa.int/main/third-party-plugins-2/sen2three and extract it with an unzip utility.
 Open a command line window and change the directory
-to the location where you have extracted the archive. Step into the folder sen2three-1.1.0, type::
+to the location where you have extracted the archive. Step into the folder sen2three-1.2.0, type::
 
     python setup.py install
 
@@ -432,7 +430,7 @@ From this new command line window perform the test below. This will give you a l
     C:\>L3_Process --help
     usage: L3_Process.py [-h] [--resolution {10,20,60}] [--clean] directory
 
-    Sentinel-2 Level 3 Prototype Processor (SEN2THREE), 1.1.0, created:
+    Sentinel-2 Level 3 Prototype Processor (SEN2THREE), 1.2.0, created:
     2017.07.01, supporting Level-1C product version: 14.
 
     positional arguments:
@@ -455,9 +453,9 @@ For Linux and Mac:
 
 Download the archive from http://step.esa.int/main/third-party-plugins-2/sen2three, and extract it with::
 
-    tar –xvzf sen2three-1.1.0.tar.gz
+    tar –xvzf sen2three-1.2.0.tar.gz
 
-Open a shell, change the directory to the new created folder sen2three-1.1.0, type::
+Open a shell, change the directory to the new created folder sen2three-1.2.0, type::
 
     python setup.py install
 
@@ -480,7 +478,7 @@ Finally, to check the installation after sourcing the L3_Bashrc, call the proces
     C:\>L3_Process --help
     usage: L3_Process.py [-h] [--resolution {10,20,60}] [--clean] directory
 
-    Sentinel-2 Level 3 Prototype Processor (SEN2THREE), 1.1.0, created:
+    Sentinel-2 Level 3 Prototype Processor (SEN2THREE), 1.2.0, created:
     2017.07.01, supporting Level-1C product version: 14.
 
     positional arguments:
@@ -508,7 +506,7 @@ by the environment variable $SEN2THREE_HOME (see above). The configuration param
 The configuration file is read in before the processing takes place and its parameters are validated for consistency
 according to the xsd scheme, which is fully listed in L3_GIPP_.
 
-.. _L3_GIPP: http://step.esa.int/thirdparties/sen2three/1.1.0/sen2three-1.1.0_doc/_l3_gipp/L3_GIPP.html
+.. _L3_GIPP: http://step.esa.int/thirdparties/sen2three/1.2.0/sen2three-1.2.0_doc/_l3_gipp/L3_GIPP.html
 
 L3_GIPP.xml
 -----------
@@ -655,7 +653,7 @@ Table 1-9: Other options
 
 A full specification of all configuration parameter can be obtained from L3_GIPP_.
 
-.. _L3_GIPP: http://step.esa.int/thirdparties/sen2three/1.1.0/sen2three-1.1.0_doc/_l3_gipp/L3_GIPP.html
+.. _L3_GIPP: http://step.esa.int/thirdparties/sen2three/1.2.0/sen2three-1.2.0_doc/_l3_gipp/L3_GIPP.html
 
 Operation
 =========
@@ -668,8 +666,8 @@ by typing "L3_Process --help" via command line::
 
    usage: L3_Process [-h] [--resolution {10,20,60}] [--clean] directory
 
-   Sentinel-2 Level 3 Prototype Processor (SEN2THREE), 1.1.0, created:
-   2015.09.15, supporting Level-1C product version: 13.
+   Sentinel-2 Level 3 Prototype Processor (SEN2THREE), 1.2.0, created:
+   2018.01.22, supporting Level-1C product version: 14.2 - 14.5.
 
    positional arguments:
      directory             Directory where the Level-2A input files are located
