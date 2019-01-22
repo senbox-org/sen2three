@@ -688,14 +688,22 @@ class L3_Tables(object):
                     self._L2A_Tile_AOT_File = os.path.join(bandDir, filename.replace('B02', 'AOT'))
                     self._L2A_Tile_WVP_File = os.path.join(bandDir, filename.replace('B02', 'AOT'))
                     self._L2A_Tile_SCL_File = os.path.join(bandDir, filename.replace('B02', 'SCL'))
-                    self._L2A_Tile_CLD_File = os.path.join(self._L2A_QualityDataDir, filename.replace('B02', 'CLD'))
-                    self._L2A_Tile_SNW_File = os.path.join(self._L2A_QualityDataDir, filename.replace('B02', 'SNW'))
+                # if (self.config.productVersion == 14.2) and (bandName == 'B02'):
+                #     self._L2A_Tile_CLD_File = os.path.join(self._L2A_QualityDataDir, filename.replace('B02', 'CLD'))
+                #     self._L2A_Tile_SNW_File = os.path.join(self._L2A_QualityDataDir, filename.replace('B02', 'SNW'))
+                # elif (self.config.productVersion > 14.2) and (bandName == 'B02'):
+                #     filename = 'MSK_CLDPRB_' + str(self._resolution) + 'm.jp2'
+                #     self._L2A_Tile_CLD_File = os.path.join(self._L2A_QualityDataDir, filename)
+                #     filename = 'MSK_SNWPRB_' + str(self._resolution) + 'm.jp2'
+                #     self._L2A_Tile_SNW_File = os.path.join(self._L2A_QualityDataDir, filename)
 
         if self.config.resolution > 10:
             if os.path.isfile(self._L2A_Tile_AOT_File):
                 self.importBand(self.AOT, self._L2A_Tile_AOT_File)
             if os.path.isfile(self._L2A_Tile_SCL_File):
                 self.importBand(self.SCL, self._L2A_Tile_SCL_File)
+            # if os.path.isfile(self._L2A_Tile_CLD_File):
+            #     self.importBand(self.CLD, self._L2A_Tile_CLD_File)
             return
         else: # 10m bands only: perform an up sampling of SCL and AOT from 20 m channels to 10:
             self.config.logger.info('perform up sampling of SCL from 20m channels to 10m')
@@ -787,10 +795,10 @@ class L3_Tables(object):
 
         if self.config.resolution == 10:
         # upsampling is required, order 3 is for cubic spline:
-            if bandIndex == self.SCL:
+            if (bandIndex == self.SCL) | (bandIndex == self.CLD):
                 size = self.getBandSize('L3', self.B02)
                 ncols = size[0]
-                indataArr = (skit_resize(indataArr.astype(uint8), size, order=3) * 255.).round().astype(uint8)
+                indataArr = (skit_resize(indataArr.astype(uint8), size, order=1) * 255.).round().astype(uint8)
 
         indataset = None
         # Create new arrays:
