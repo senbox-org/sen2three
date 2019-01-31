@@ -3,7 +3,7 @@
 
 processorName = 'Sentinel-2 Level 3 Processor (Sen2Three)'
 processorVersion = '1.2.0'
-processorDate = '2018.09.01'
+processorDate = '2019.01.31'
 productVersion = '14.5'
 
 from tables import *
