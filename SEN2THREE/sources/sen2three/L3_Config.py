@@ -1433,10 +1433,11 @@ class L3_Config(Borg):
         '''
         upList = sorted(os.listdir(self.sourceDir))
         tileFilter = self.tileFilter
-        L2A_mask = '*_MSIL2A_*'
         nrTiles = 0
 
         for L2A_UP_ID in upList:
+            L2A_mask = '*_MSIL2A_*'
+
             if not fnmatch.fnmatch(L2A_UP_ID, L2A_mask):
                 continue
             if not self.checkTimeRange(L2A_UP_ID):

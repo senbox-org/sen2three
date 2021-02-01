@@ -799,6 +799,10 @@ class L3_Tables(object):
                 size = self.getBandSize('L3', self.B02)
                 ncols = size[0]
                 indataArr = (skit_resize(indataArr.astype(uint8), size, order=1) * 255.).round().astype(uint8)
+            elif bandIndex == self.AOT:
+                size = self.getBandSize('L3', self.B02)
+                ncols = size[0]
+                indataArr = (skit_resize(indataArr.astype(uint16), size, order=1) * 255.).round().astype(uint16)
 
         indataset = None
         # Create new arrays:
